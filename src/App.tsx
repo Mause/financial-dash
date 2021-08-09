@@ -44,15 +44,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      Financial Dash
-      <button
-        onClick={e => {
-          e.preventDefault();
-          signIn({ provider: 'github' });
-        }}
-      >
-        Log in
-      </button>
+        Financial Dash
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            signIn({ provider: "github" });
+          }}
+        >
+          Log in
+        </button>
       </header>
       <p>{JSON.stringify(error || data)}</p>
       <p>{pipe(user, toNullable)}</p>
@@ -69,7 +69,8 @@ function App() {
                   {result.map((row) => (
                     <div key={row.id}>
                       <h2>
-                        #{row.id} — {money(row)} — {row.Vendor.name} (#{row.Vendor.id})
+                        #{row.id} — {money(row)} — {row.Vendor.name} (#
+                        {row.Vendor.id})
                       </h2>
                       <ul>
                         {row.Payment.map((payment) => (
