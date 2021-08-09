@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import { definitions } from "./supabase";
 import { useTable, useUser, useSignIn } from "react-supabase-fp";
@@ -38,7 +37,7 @@ function App() {
   console.log(result);
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
-  const [signInResult, signIn] = useSignIn();
+  const [, signIn] = useSignIn();
   const user = useUser();
 
   return (
@@ -54,8 +53,10 @@ function App() {
           Log in
         </button>
       </header>
-      <p>{JSON.stringify(error || data)}</p>
-      <p>{pipe(user, toNullable)}</p>
+      <p>
+        {data?.length} transactions || {error.toString()}
+      </p>
+      <p>{pipe(user, toNullable)?.email}</p>
       <p>
         {pipe(
           result,
