@@ -1,0 +1,27 @@
+on:
+ schedule:
+   - cron: 0 0 * * *
+ pull_request:
+   types: [opened, synchronize, reopened, closed]
+ workflow_trigger: {}
+
+name: Update packages
+jobs:
+ release:
+   name: Update composer packages
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14
+     - name: Update composer packages
+       uses: technote-space/create-pr-action@v2
+       with:
+         EXECUTE_COMMANDS: |
+           npx openapi-typescript https://your-project.supabase.co/rest/v1/?apikey=your-anon-key --output types/supabase.ts 
+         COMMIT_MESSAGE: 'chore: update supabase types'
+         COMMIT_NAME: 'GitHub Actions'
+         COMMIT_EMAIL: 'example@example.com'
+         PR_BRANCH_NAME: 'chore-supabase-update-${PR_ID}'
+         PR_TITLE: 'chore: update supabase types'
+
