@@ -27,7 +27,7 @@ function App() {
                   {result.map((row) => (
                     <div key={row.id}>
                       <h2>
-                        ${row.amount} — {row.vendor.name}
+                        ${row.amount} — Vendor #{row.vendor}
                       </h2>
                     </div>
                   ))}
