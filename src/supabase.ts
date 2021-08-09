@@ -17,10 +17,9 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Bill.id"];
-          text?: parameters["rowFilter.Bill.text"];
           billDate?: parameters["rowFilter.Bill.billDate"];
           vendor?: parameters["rowFilter.Bill.vendor"];
-          Amount?: parameters["rowFilter.Bill.Amount"];
+          amount?: parameters["rowFilter.Bill.amount"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -72,10 +71,9 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Bill.id"];
-          text?: parameters["rowFilter.Bill.text"];
           billDate?: parameters["rowFilter.Bill.billDate"];
           vendor?: parameters["rowFilter.Bill.vendor"];
-          Amount?: parameters["rowFilter.Bill.Amount"];
+          amount?: parameters["rowFilter.Bill.amount"];
         };
         header: {
           /** Preference */
@@ -91,10 +89,9 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Bill.id"];
-          text?: parameters["rowFilter.Bill.text"];
           billDate?: parameters["rowFilter.Bill.billDate"];
           vendor?: parameters["rowFilter.Bill.vendor"];
-          Amount?: parameters["rowFilter.Bill.Amount"];
+          amount?: parameters["rowFilter.Bill.amount"];
         };
         body: {
           /** Bill */
@@ -299,7 +296,8 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Vendor.id"];
-          Name?: parameters["rowFilter.Vendor.Name"];
+          name?: parameters["rowFilter.Vendor.name"];
+          bills?: parameters["rowFilter.Vendor.bills"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -351,7 +349,8 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Vendor.id"];
-          Name?: parameters["rowFilter.Vendor.Name"];
+          name?: parameters["rowFilter.Vendor.name"];
+          bills?: parameters["rowFilter.Vendor.bills"];
         };
         header: {
           /** Preference */
@@ -367,7 +366,8 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Vendor.id"];
-          Name?: parameters["rowFilter.Vendor.Name"];
+          name?: parameters["rowFilter.Vendor.name"];
+          bills?: parameters["rowFilter.Vendor.bills"];
         };
         body: {
           /** Vendor */
@@ -393,10 +393,9 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: number;
-    text: string;
     billDate: string;
     vendor: number;
-    Amount: number;
+    amount: number;
   };
   Payer: {
     /**
@@ -429,7 +428,8 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: number;
-    Name: string;
+    name: string;
+    bills: string;
   };
 }
 
@@ -457,10 +457,9 @@ export interface parameters {
   /** Bill */
   "body.Bill": definitions["Bill"];
   "rowFilter.Bill.id": string;
-  "rowFilter.Bill.text": string;
   "rowFilter.Bill.billDate": string;
   "rowFilter.Bill.vendor": string;
-  "rowFilter.Bill.Amount": string;
+  "rowFilter.Bill.amount": string;
   /** Payer */
   "body.Payer": definitions["Payer"];
   "rowFilter.Payer.id": string;
@@ -473,7 +472,8 @@ export interface parameters {
   /** Vendor */
   "body.Vendor": definitions["Vendor"];
   "rowFilter.Vendor.id": string;
-  "rowFilter.Vendor.Name": string;
+  "rowFilter.Vendor.name": string;
+  "rowFilter.Vendor.bills": string;
 }
 
 export interface operations {}

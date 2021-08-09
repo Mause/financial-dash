@@ -1,16 +1,22 @@
 import React from "react";
 import "./App.css";
 import { definitions } from "./supabase";
-import { useFilter, useTable, useUser } from "react-supabase-fp";
+import { useTable, useUser } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
 function App() {
-  const filter = useFilter<definitions["Bill"]>((query) =>
-    query.contains("text", JSON.stringify("production"))
+  const result = useTable<definitions["Bill"]>(
+    "Bill",
+    `
+    id,
+    amount,
+    Vendor (
+      name
+    )`
   );
-  const result = useTable<definitions["Bill"]>("Bill", "*", filter);
+  console.log(result);
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
   const user = useUser();
@@ -37,11 +43,13 @@ function App() {
             (e) => <div>Query failed: {e}</div>,
             (result) => (
               <>
-                <h1>Production text</h1>
+                <h1>Bills</h1>
                 <div>
                   {result.map((row) => (
                     <div key={row.id}>
-                      <h2>{row.text}</h2>
+                      <h2>
+                        ${row.amount} — Vendor #{row.vendor}
+                      </h2>
                     </div>
                   ))}
                 </div>
