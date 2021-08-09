@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { definitions } from "./supabase";
-import { useFilter, useTable } from "react-supabase-fp";
+import { useTable } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
