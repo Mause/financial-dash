@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { definitions } from "./supabase";
 import { useFilter, useTable } from "react-supabase-fp";
+import { pipe, constant } from 'fp-ts';
+import * as RD from '@devexperts/remote-data-ts';
 
 function App() {
   const filter = useFilter<definitions["Bill"]>((query) =>
