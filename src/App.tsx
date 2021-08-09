@@ -12,14 +12,23 @@ function App() {
   );
   const result = useTable<definitions["Bill"]>("Bill", "*", filter);
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
-  
+
   const user = useUser();
 
   return (
     <div className="App">
       <header className="App-header">Financial Dash</header>
       <p>{JSON.stringify(error || data)}</p>
-      <p>{pipe(user, RD.fold3(constant(<div>Loading...</div>), e => <div>User loading failed: {e}</div>, u => u))}</p>
+      <p>
+        {pipe(
+          user,
+          RD.fold3(
+            constant(<div>Loading...</div>),
+            (e) => <div>User loading failed: {e}</div>,
+            (u) => u
+          )
+        )}
+      </p>
       <p>
         {pipe(
           result,
