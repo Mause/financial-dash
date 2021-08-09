@@ -3,7 +3,7 @@ import "./App.css";
 import { definitions } from "./supabase";
 import { useTable, useUser } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
-import { getOrElse } from "fp-ts/Option";
+import { toNullable } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
@@ -29,7 +29,7 @@ function App() {
       <p>
         {pipe(
           user,
-          getOrElse(() => null)
+          toNullable
         )}
       </p>
       <p>
