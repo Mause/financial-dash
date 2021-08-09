@@ -9,7 +9,7 @@ import useSWR from "swr";
 
 function App() {
   const result = useTable<
-    definitions["Bill"] & { Vendor: definitions['Vendor'] }
+    definitions["Bill"] & { Vendor: definitions["Vendor"] }
   >(
     "Bill",
     `
