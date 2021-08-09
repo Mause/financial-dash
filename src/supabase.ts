@@ -205,6 +205,7 @@ export interface paths {
           id?: parameters["rowFilter.Payment.id"];
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
+          amount?: parameters["rowFilter.Payment.amount"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -258,6 +259,7 @@ export interface paths {
           id?: parameters["rowFilter.Payment.id"];
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
+          amount?: parameters["rowFilter.Payment.amount"];
         };
         header: {
           /** Preference */
@@ -275,6 +277,7 @@ export interface paths {
           id?: parameters["rowFilter.Payment.id"];
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
+          amount?: parameters["rowFilter.Payment.amount"];
         };
         body: {
           /** Payment */
@@ -394,6 +397,10 @@ export interface definitions {
      */
     id: number;
     billDate: string;
+    /**
+     * Note:
+     * This is a Foreign Key to `Vendor.id`.<fk table='Vendor' column='id'/>
+     */
     vendor: number;
     amount: number;
   };
@@ -421,6 +428,7 @@ export interface definitions {
      * This is a Foreign Key to `Payer.id`.<fk table='Payer' column='id'/>
      */
     paidBy?: number;
+    amount: number;
   };
   Vendor: {
     /**
@@ -469,6 +477,7 @@ export interface parameters {
   "rowFilter.Payment.id": string;
   "rowFilter.Payment.paidFor": string;
   "rowFilter.Payment.paidBy": string;
+  "rowFilter.Payment.amount": string;
   /** Vendor */
   "body.Vendor": definitions["Vendor"];
   "rowFilter.Vendor.id": string;
