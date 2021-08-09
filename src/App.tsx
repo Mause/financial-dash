@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { definitions } from "./supabase";
-import { useFilter, useTable } from "react-supabase-fp";
+import { useFilter, useTable, useUser } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
@@ -12,11 +12,14 @@ function App() {
   );
   const result = useTable<definitions["Bill"]>("Bill", "*", filter);
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
+  
+  const user = useUser();
 
   return (
     <div className="App">
       <header className="App-header">Financial Dash</header>
       <p>{JSON.stringify(error || data)}</p>
+      <p>{pipe(user, RD.fold3(constant(<div>Loading...</div>), e => <div>User loading failed: {e}</div>, u => u))}</p>
       <p>
         {pipe(
           result,
