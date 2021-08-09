@@ -5,10 +5,10 @@ on:
    types: [opened, synchronize, reopened, closed]
  workflow_dispatch: {}
 
-name: Update packages
+name: Update supabase types
 jobs:
  release:
-   name: Update composer packages
+   name: Update supabase types
    runs-on: ubuntu-latest
    steps:
      - uses: actions/setup-node@v2.1.5
@@ -18,7 +18,7 @@ jobs:
        uses: technote-space/create-pr-action@v2
        with:
          EXECUTE_COMMANDS: |
-           npx openapi-typescript https://your-project.supabase.co/rest/v1/?apikey=your-anon-key --output types/supabase.ts 
+           npx openapi-typescript ${{ secrets.SUPABASE_URL }}/rest/v1/?apikey=${{ secrets.SUPABASE_KEY }} --output src/supabase.ts 
          COMMIT_MESSAGE: 'chore: update supabase types'
          COMMIT_NAME: 'GitHub Actions'
          COMMIT_EMAIL: 'example@example.com'
