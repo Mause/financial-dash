@@ -111,7 +111,7 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: number;
-    text?: string;
+    text: string;
   };
 }
 
