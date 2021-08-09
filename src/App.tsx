@@ -11,12 +11,14 @@ function App() {
     query.contains("text", JSON.stringify("production"))
   );
   const result = useTable<definitions["Bill"]>("Bill", "*", filter);
-  const { data } = useSWR("https://launtel.vercel.app/api/transactions");
+  const { data, error } = useSWR('https://launtel.vercel.app/api/transactions');
 
   return (
     <div className="App">
       <header className="App-header">Financial Dash</header>
-      <p>{JSON.stringify(data)}</p>
+      <p>
+        {JSON.stringify(error || data)}
+      </p>
       <p>
         {pipe(
           result,
