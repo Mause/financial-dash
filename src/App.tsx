@@ -3,7 +3,7 @@ import "./App.css";
 import { definitions } from "./supabase";
 import { useFilter, useTable } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
-import { None } from "fp-ts/Option";
+import { none, some } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
@@ -14,9 +14,9 @@ function App() {
   const vendors = pipe(
     useTable<definitions["Vendor"]>("Vendor", "*"),
     RD.fold3(
-      constant(None),
-      (e) => None,
-      (s) => s
+      constant(none),
+      (e) => none,
+      (s) => some(s),
     )
   );
 
