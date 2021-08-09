@@ -7,6 +7,10 @@ import { toNullable } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
+function money(obj: { amount: number }) {
+  return "$" + obj.amount / 100;
+}
+
 function App() {
   const result = useTable<
     definitions["Bill"] & {
@@ -53,12 +57,15 @@ function App() {
                   {result.map((row) => (
                     <div key={row.id}>
                       <h2>
-                        ${row.amount} — {row.Vendor.name} (#{row.Vendor.id})
+                        {money(row)} — {row.Vendor.name} (#
+                        {row.Vendor.id})
                       </h2>
                       <ul>
                         {row.Payment.map((payment) => (
                           <li key={payment.id}>
                             {payment.Payer.name}
+                            {" — "}
+                            {money(payment)}
                             {" — "}
                             {payment.bankId ? "Paid" : "Unpaid"}
                           </li>
@@ -72,7 +79,6 @@ function App() {
           )
         )}
       </p>
-      <p>{process.env.REACT_APP_SUPABASE_URL}</p>
     </div>
   );
 }
