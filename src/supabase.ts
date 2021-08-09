@@ -18,6 +18,9 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Bill.id"];
           text?: parameters["rowFilter.Bill.text"];
+          billDate?: parameters["rowFilter.Bill.billDate"];
+          vendor?: parameters["rowFilter.Bill.vendor"];
+          Amount?: parameters["rowFilter.Bill.Amount"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -70,6 +73,9 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Bill.id"];
           text?: parameters["rowFilter.Bill.text"];
+          billDate?: parameters["rowFilter.Bill.billDate"];
+          vendor?: parameters["rowFilter.Bill.vendor"];
+          Amount?: parameters["rowFilter.Bill.Amount"];
         };
         header: {
           /** Preference */
@@ -86,10 +92,286 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Bill.id"];
           text?: parameters["rowFilter.Bill.text"];
+          billDate?: parameters["rowFilter.Bill.billDate"];
+          vendor?: parameters["rowFilter.Bill.vendor"];
+          Amount?: parameters["rowFilter.Bill.Amount"];
         };
         body: {
           /** Bill */
           Bill?: definitions["Bill"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/Payer": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Payer.id"];
+          Name?: parameters["rowFilter.Payer.Name"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["Payer"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Payer */
+          Payer?: definitions["Payer"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Payer.id"];
+          Name?: parameters["rowFilter.Payer.Name"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Payer.id"];
+          Name?: parameters["rowFilter.Payer.Name"];
+        };
+        body: {
+          /** Payer */
+          Payer?: definitions["Payer"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/Payment": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Payment.id"];
+          paidFor?: parameters["rowFilter.Payment.paidFor"];
+          paidBy?: parameters["rowFilter.Payment.paidBy"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["Payment"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Payment */
+          Payment?: definitions["Payment"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Payment.id"];
+          paidFor?: parameters["rowFilter.Payment.paidFor"];
+          paidBy?: parameters["rowFilter.Payment.paidBy"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Payment.id"];
+          paidFor?: parameters["rowFilter.Payment.paidFor"];
+          paidBy?: parameters["rowFilter.Payment.paidBy"];
+        };
+        body: {
+          /** Payment */
+          Payment?: definitions["Payment"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/Vendor": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Vendor.id"];
+          Name?: parameters["rowFilter.Vendor.Name"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["Vendor"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Vendor */
+          Vendor?: definitions["Vendor"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Vendor.id"];
+          Name?: parameters["rowFilter.Vendor.Name"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Vendor.id"];
+          Name?: parameters["rowFilter.Vendor.Name"];
+        };
+        body: {
+          /** Vendor */
+          Vendor?: definitions["Vendor"];
         };
         header: {
           /** Preference */
@@ -112,6 +394,42 @@ export interface definitions {
      */
     id: number;
     text: string;
+    billDate: string;
+    vendor: number;
+    Amount: number;
+  };
+  Payer: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    Name: string;
+  };
+  Payment: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `Bill.id`.<fk table='Bill' column='id'/>
+     */
+    paidFor?: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `Payer.id`.<fk table='Payer' column='id'/>
+     */
+    paidBy?: number;
+  };
+  Vendor: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    Name: string;
   };
 }
 
@@ -140,6 +458,22 @@ export interface parameters {
   "body.Bill": definitions["Bill"];
   "rowFilter.Bill.id": string;
   "rowFilter.Bill.text": string;
+  "rowFilter.Bill.billDate": string;
+  "rowFilter.Bill.vendor": string;
+  "rowFilter.Bill.Amount": string;
+  /** Payer */
+  "body.Payer": definitions["Payer"];
+  "rowFilter.Payer.id": string;
+  "rowFilter.Payer.Name": string;
+  /** Payment */
+  "body.Payment": definitions["Payment"];
+  "rowFilter.Payment.id": string;
+  "rowFilter.Payment.paidFor": string;
+  "rowFilter.Payment.paidBy": string;
+  /** Vendor */
+  "body.Vendor": definitions["Vendor"];
+  "rowFilter.Vendor.id": string;
+  "rowFilter.Vendor.Name": string;
 }
 
 export interface operations {}
