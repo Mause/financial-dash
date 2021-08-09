@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { definitions } from "./supabase";
 import { useFilter, useTable } from "react-supabase-fp";
@@ -8,17 +7,13 @@ import * as RD from "@devexperts/remote-data-ts";
 
 function App() {
   const filter = useFilter<definitions["Bill"]>((query) =>
-    query.contains("text", "production")
+    query.contains("text", JSON.stringify("production"))
   );
   const result = useTable<definitions["Bill"]>("Bill", "*", filter);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
         <p>
           {pipe(
             result,
@@ -41,14 +36,6 @@ function App() {
           )}
         </p>
         <p>{process.env.REACT_APP_SUPABASE_URL}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
