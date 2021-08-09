@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
 import { definitions } from "./supabase";
-import { useTable } from "react-supabase-fp";
+import { useTable, useUser } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
+import { toNullable } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
@@ -19,10 +20,13 @@ function App() {
   console.log(result);
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
+  const user = useUser();
+
   return (
     <div className="App">
       <header className="App-header">Financial Dash</header>
       <p>{JSON.stringify(error || data)}</p>
+      <p>{pipe(user, toNullable)}</p>
       <p>
         {pipe(
           result,
