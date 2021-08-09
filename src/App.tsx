@@ -16,7 +16,7 @@ function App() {
     RD.fold3(
       constant(none),
       (e) => none,
-      (s) => some(s),
+      (s) => some(s)
     )
   );
 
