@@ -8,12 +8,15 @@ import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
 function App() {
-  const result = useTable<definitions["Bill"]>(
+  const result = useTable<
+    definitions["Bill"] & { Vendor: { id: number; name: string } }
+  >(
     "Bill",
     `
     id,
     amount,
     Vendor (
+      id,
       name
     )`
   );
@@ -40,7 +43,7 @@ function App() {
                   {result.map((row) => (
                     <div key={row.id}>
                       <h2>
-                        ${row.amount} — Vendor #{row.vendor}
+                        ${row.amount} — {row.Vendor.name} (#{row.Vendor.id})
                       </h2>
                     </div>
                   ))}
