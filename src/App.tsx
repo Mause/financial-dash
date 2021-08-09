@@ -32,7 +32,6 @@ function App() {
                     {result.map((row) => (
                       <div key={row.id}>
                         <h2>{row.text}</h2>
-                        {row.optional && <p>{row.optional}</p>}
                       </div>
                     ))}
                   </div>
