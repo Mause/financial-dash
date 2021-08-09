@@ -3,7 +3,7 @@ import "./App.css";
 import { definitions } from "./supabase";
 import { useTable, useUser } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
-import { getOrElse } from 'fp-ts/Option';
+import { getOrElse } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
@@ -26,12 +26,7 @@ function App() {
     <div className="App">
       <header className="App-header">Financial Dash</header>
       <p>{JSON.stringify(error || data)}</p>
-      <p>
-        {pipe(
-          user,
-          getOrElse(null)
-        )}
-      </p>
+      <p>{pipe(user, getOrElse(null))}</p>
       <p>
         {pipe(
           result,
