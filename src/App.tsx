@@ -15,6 +15,12 @@ function App() {
     `
     id,
     amount,
+    Payment (
+      bankId,
+      Payer (
+        name
+      )
+    ),
     Vendor (
       id,
       name
