@@ -26,7 +26,7 @@ function App() {
     <div className="App">
       <header className="App-header">Financial Dash</header>
       <p>{JSON.stringify(error || data)}</p>
-      <p>{pipe(user, getOrElse(null))}</p>
+      <p>{pipe(user, getOrElse(() => null))}</p>
       <p>
         {pipe(
           result,
