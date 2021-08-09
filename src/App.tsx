@@ -7,7 +7,13 @@ import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
 function App() {
-  const result = useTable<definitions["Bill"]>("Bill", "*");
+  const result = useTable<definitions["Bill"]>("Bill", `
+    id,
+    amount,
+    vendor (
+      name
+    )`);
+  console.log(result);
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
   return (
