@@ -4,7 +4,7 @@ import "./App.css";
 import { definitions } from "./supabase";
 import { useFilter, useTable } from "react-supabase-fp";
 import { pipe } from "fp-ts";
-import { constant } from "fp-ts/functions";
+import { constant } from "fp-ts/function";
 import * as RD from "@devexperts/remote-data-ts";
 
 function App() {
