@@ -43,8 +43,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">Financial Dash</header>
-      <p>{JSON.stringify(error || data)}</p>
-      <p>{pipe(user, toNullable)}</p>
+      <p>{pipe(user, toNullable)?.email}</p>
       <p>
         {pipe(
           result,
