@@ -8,7 +8,9 @@ import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
 function App() {
-  const result = useTable<definitions["Bill"] & {Vendor: {id:number, name: string}}>(
+  const result = useTable<
+    definitions["Bill"] & { Vendor: { id: number; name: string } }
+  >(
     "Bill",
     `
     id,
