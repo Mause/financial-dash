@@ -113,7 +113,7 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Payer.id"];
-          Name?: parameters["rowFilter.Payer.Name"];
+          name?: parameters["rowFilter.Payer.name"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -165,7 +165,7 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Payer.id"];
-          Name?: parameters["rowFilter.Payer.Name"];
+          name?: parameters["rowFilter.Payer.name"];
         };
         header: {
           /** Preference */
@@ -181,7 +181,7 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.Payer.id"];
-          Name?: parameters["rowFilter.Payer.Name"];
+          name?: parameters["rowFilter.Payer.name"];
         };
         body: {
           /** Payer */
@@ -206,6 +206,7 @@ export interface paths {
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
           amount?: parameters["rowFilter.Payment.amount"];
+          bankId?: parameters["rowFilter.Payment.bankId"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -260,6 +261,7 @@ export interface paths {
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
           amount?: parameters["rowFilter.Payment.amount"];
+          bankId?: parameters["rowFilter.Payment.bankId"];
         };
         header: {
           /** Preference */
@@ -278,6 +280,7 @@ export interface paths {
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
           amount?: parameters["rowFilter.Payment.amount"];
+          bankId?: parameters["rowFilter.Payment.bankId"];
         };
         body: {
           /** Payment */
@@ -410,7 +413,7 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: number;
-    Name: string;
+    name: string;
   };
   Payment: {
     /**
@@ -429,6 +432,7 @@ export interface definitions {
      */
     paidBy?: number;
     amount: number;
+    bankId?: string;
   };
   Vendor: {
     /**
@@ -471,13 +475,14 @@ export interface parameters {
   /** Payer */
   "body.Payer": definitions["Payer"];
   "rowFilter.Payer.id": string;
-  "rowFilter.Payer.Name": string;
+  "rowFilter.Payer.name": string;
   /** Payment */
   "body.Payment": definitions["Payment"];
   "rowFilter.Payment.id": string;
   "rowFilter.Payment.paidFor": string;
   "rowFilter.Payment.paidBy": string;
   "rowFilter.Payment.amount": string;
+  "rowFilter.Payment.bankId": string;
   /** Vendor */
   "body.Vendor": definitions["Vendor"];
   "rowFilter.Vendor.id": string;
