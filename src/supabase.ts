@@ -384,6 +384,23 @@ export interface paths {
       };
     };
   };
+  "/rpc/pgrst_watch": {
+    post: {
+      parameters: {
+        body: {
+          args: { [key: string]: unknown };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
 }
 
 export interface definitions {
@@ -394,6 +411,10 @@ export interface definitions {
      */
     id: number;
     billDate: string;
+    /**
+     * Note:
+     * This is a Foreign Key to `Vendor.id`.<fk table='Vendor' column='id'/>
+     */
     vendor: number;
     amount: number;
   };
