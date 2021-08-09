@@ -13,9 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        Financial Dash
-      </header>
+      <header className="App-header">Financial Dash</header>
       <p>
         {pipe(
           result,
