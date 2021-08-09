@@ -1,6 +1,6 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
@@ -10,9 +10,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <p>
-        {process.env.REACT_APP_SUPABASE_URL}
-        </p>
+        <p>{process.env.REACT_APP_SUPABASE_URL}</p>
         <a
           className="App-link"
           href="https://reactjs.org"
