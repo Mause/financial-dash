@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Provider} from 'react-supabase-fp';
+inport { createClient } from '@supabase/supabasejs';
+
+const supabase = createClient(process.env.REACT_APP_SUPABASE_URL, REACT_APP_SUPABASE_KEY);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider value={supabase}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
