@@ -24,6 +24,7 @@ function App() {
     amount,
     Payment (
       id,
+      amount,
       bankId,
       Payer (
         name
