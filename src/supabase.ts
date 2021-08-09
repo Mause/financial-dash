@@ -19,7 +19,7 @@ export interface paths {
           id?: parameters["rowFilter.Bill.id"];
           billDate?: parameters["rowFilter.Bill.billDate"];
           vendor?: parameters["rowFilter.Bill.vendor"];
-          Amount?: parameters["rowFilter.Bill.Amount"];
+          amount?: parameters["rowFilter.Bill.amount"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -73,7 +73,7 @@ export interface paths {
           id?: parameters["rowFilter.Bill.id"];
           billDate?: parameters["rowFilter.Bill.billDate"];
           vendor?: parameters["rowFilter.Bill.vendor"];
-          Amount?: parameters["rowFilter.Bill.Amount"];
+          amount?: parameters["rowFilter.Bill.amount"];
         };
         header: {
           /** Preference */
@@ -91,7 +91,7 @@ export interface paths {
           id?: parameters["rowFilter.Bill.id"];
           billDate?: parameters["rowFilter.Bill.billDate"];
           vendor?: parameters["rowFilter.Bill.vendor"];
-          Amount?: parameters["rowFilter.Bill.Amount"];
+          amount?: parameters["rowFilter.Bill.amount"];
         };
         body: {
           /** Bill */
@@ -392,7 +392,7 @@ export interface definitions {
     id: number;
     billDate: string;
     vendor: number;
-    Amount: number;
+    amount: number;
   };
   Payer: {
     /**
@@ -455,7 +455,7 @@ export interface parameters {
   "rowFilter.Bill.id": string;
   "rowFilter.Bill.billDate": string;
   "rowFilter.Bill.vendor": string;
-  "rowFilter.Bill.Amount": string;
+  "rowFilter.Bill.amount": string;
   /** Payer */
   "body.Payer": definitions["Payer"];
   "rowFilter.Payer.id": string;
