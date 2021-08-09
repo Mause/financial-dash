@@ -54,7 +54,7 @@ function App() {
         </button>
       </header>
       <p>
-        {data?.length} transactions || {error.toString()}
+        {data?.length} transactions || {error?.toString()}
       </p>
       <p>{pipe(user, toNullable)?.email}</p>
       <p>
