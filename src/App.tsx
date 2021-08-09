@@ -57,7 +57,7 @@ function App() {
                   {result.map((row) => (
                     <div key={row.id}>
                       <h2>
-                        {money(row.amount)} — {row.Vendor.name} (#
+                        {money(row)} — {row.Vendor.name} (#
                         {row.Vendor.id})
                       </h2>
                       <ul>
@@ -65,7 +65,7 @@ function App() {
                           <li key={payment.id}>
                             {payment.Payer.name}
                             {" — "}
-                            {money(payment.amount)}
+                            {money(payment)}
                             {" — "}
                             {payment.bankId ? "Paid" : "Unpaid"}
                           </li>
