@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from 'react-supabase-fp';
-inport { createClient } from '@supabase/supabasejs';
+import { Provider } from 'react-supabase-fp';
+import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(process.env.REACT_APP_SUPABASE_URL, REACT_APP_SUPABASE_KEY);
+const supabase = createClient(process.env.REACT_APP_SUPABASE_URL!, process.env.REACT_APP_SUPABASE_KEY!);
 
 ReactDOM.render(
   <React.StrictMode>
