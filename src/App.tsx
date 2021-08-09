@@ -9,12 +9,22 @@ import useSWR from "swr";
 
 function App() {
   const result = useTable<
-    definitions["Bill"] & { Vendor: definitions["Vendor"] }
+    definitions["Bill"] & {
+      Vendor: definitions["Vendor"];
+      Payment: Array<definitions["Payment"] & { Payer: definitions["Payer"] }>;
+    }
   >(
     "Bill",
     `
     id,
     amount,
+    Payment (
+      id,
+      bankId,
+      Payer (
+        name
+      )
+    ),
     Vendor (
       id,
       name
@@ -45,6 +55,15 @@ function App() {
                       <h2>
                         ${row.amount} — {row.Vendor.name} (#{row.Vendor.id})
                       </h2>
+                      <ul>
+                        {row.Payment.map((payment) => (
+                          <li key={payment.id}>
+                            {payment.Payer.name}
+                            {" — "}
+                            {payment.bankId ? "Paid" : "Unpaid"}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   ))}
                 </div>
