@@ -53,7 +53,12 @@ function App() {
                         ${row.amount} — {row.Vendor.name} (#{row.Vendor.id})
                       </h2>
                       <ul>
-                        {row.Payment.map(payment => <li id={payment.id}>{payment.Payer.name} {payment.bankId ? 'Paid' : 'Unpaid'}</li>)}
+                        {row.Payment.map((payment) => (
+                          <li id={payment.id}>
+                            {payment.Payer.name}{" "}
+                            {payment.bankId ? "Paid" : "Unpaid"}
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   ))}
