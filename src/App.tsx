@@ -13,30 +13,29 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          {pipe(
-            result,
-            RD.fold3(
-              constant(<div>Loading...</div>),
-              (e) => <div>Query failed: {e}</div>,
-              (result) => (
-                <>
-                  <h1>Production text</h1>
-                  <div>
-                    {result.map((row) => (
-                      <div key={row.id}>
-                        <h2>{row.text}</h2>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )
+      <header className="App-header">Financial Dash</header>
+      <p>
+        {pipe(
+          result,
+          RD.fold3(
+            constant(<div>Loading...</div>),
+            (e) => <div>Query failed: {e}</div>,
+            (result) => (
+              <>
+                <h1>Production text</h1>
+                <div>
+                  {result.map((row) => (
+                    <div key={row.id}>
+                      <h2>{row.text}</h2>
+                    </div>
+                  ))}
+                </div>
+              </>
             )
-          )}
-        </p>
-        <p>{process.env.REACT_APP_SUPABASE_URL}</p>
-      </header>
+          )
+        )}
+      </p>
+      <p>{process.env.REACT_APP_SUPABASE_URL}</p>
     </div>
   );
 }
