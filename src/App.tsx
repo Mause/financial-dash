@@ -7,10 +7,7 @@ import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
 function App() {
-  const filter = useFilter<definitions["Bill"]>((query) =>
-    query.contains("text", JSON.stringify("production"))
-  );
-  const result = useTable<definitions["Bill"]>("Bill", "*", filter);
+  const result = useTable<definitions["Bill"]>("Bill", "*");
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
   return (
@@ -25,11 +22,11 @@ function App() {
             (e) => <div>Query failed: {e}</div>,
             (result) => (
               <>
-                <h1>Production text</h1>
+                <h1>Bills</h1>
                 <div>
                   {result.map((row) => (
                     <div key={row.id}>
-                      <h2>{row.text}</h2>
+                      <h2>${row.amount} — {row.vendor.name}</h2>
                     </div>
                   ))}
                 </div>
