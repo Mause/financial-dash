@@ -4,16 +4,19 @@ import { definitions } from "./supabase";
 import { useFilter, useTable } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
 import * as RD from "@devexperts/remote-data-ts";
+import useSWR from "swr";
 
 function App() {
   const filter = useFilter<definitions["Bill"]>((query) =>
     query.contains("text", JSON.stringify("production"))
   );
   const result = useTable<definitions["Bill"]>("Bill", "*", filter);
+  const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
   return (
     <div className="App">
       <header className="App-header">Financial Dash</header>
+      <p>{JSON.stringify(error || data)}</p>
       <p>
         {pipe(
           result,
