@@ -57,7 +57,7 @@ function App() {
                       </h2>
                       <ul>
                         {row.Payment.map((payment) => (
-                          <li id={payment.id}>
+                          <li key={payment.id}>
                             {payment.Payer.name}
                             {" — "}
                             {payment.bankId ? "Paid" : "Unpaid"}
