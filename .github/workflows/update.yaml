@@ -1,9 +1,7 @@
 on:
-  schedule:
-    - cron: 0 0 * * *
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-  workflow_dispatch: {}
+ schedule:
+   - cron: 0 0 * * *
+ workflow_dispatch: {}
 
 name: Update supabase types
 jobs:
