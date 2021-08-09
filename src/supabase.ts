@@ -205,6 +205,7 @@ export interface paths {
           id?: parameters["rowFilter.Payment.id"];
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
+          amount?: parameters["rowFilter.Payment.amount"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -258,6 +259,7 @@ export interface paths {
           id?: parameters["rowFilter.Payment.id"];
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
+          amount?: parameters["rowFilter.Payment.amount"];
         };
         header: {
           /** Preference */
@@ -275,6 +277,7 @@ export interface paths {
           id?: parameters["rowFilter.Payment.id"];
           paidFor?: parameters["rowFilter.Payment.paidFor"];
           paidBy?: parameters["rowFilter.Payment.paidBy"];
+          amount?: parameters["rowFilter.Payment.amount"];
         };
         body: {
           /** Payment */
@@ -384,23 +387,6 @@ export interface paths {
       };
     };
   };
-  "/rpc/pgrst_watch": {
-    post: {
-      parameters: {
-        body: {
-          args: { [key: string]: unknown };
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferParams"];
-        };
-      };
-      responses: {
-        /** OK */
-        200: unknown;
-      };
-    };
-  };
 }
 
 export interface definitions {
@@ -442,6 +428,7 @@ export interface definitions {
      * This is a Foreign Key to `Payer.id`.<fk table='Payer' column='id'/>
      */
     paidBy?: number;
+    amount: number;
   };
   Vendor: {
     /**
@@ -490,6 +477,7 @@ export interface parameters {
   "rowFilter.Payment.id": string;
   "rowFilter.Payment.paidFor": string;
   "rowFilter.Payment.paidBy": string;
+  "rowFilter.Payment.amount": string;
   /** Vendor */
   "body.Vendor": definitions["Vendor"];
   "rowFilter.Vendor.id": string;
