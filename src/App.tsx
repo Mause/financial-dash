@@ -3,6 +3,7 @@ import "./App.css";
 import { definitions } from "./supabase";
 import { useTable, useUser } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
+import { getOrElse } from 'fp-ts/Option';
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
@@ -28,11 +29,7 @@ function App() {
       <p>
         {pipe(
           user,
-          RD.fold3(
-            constant(<div>Loading...</div>),
-            (e) => <div>User loading failed: {e}</div>,
-            (u) => u
-          )
+          getOrElse(null)
         )}
       </p>
       <p>
