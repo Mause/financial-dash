@@ -9,7 +9,7 @@ import {
   useSupabase,
 } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
-import { toNullable } from "fp-ts/Option";
+import { toNullable, Option, map } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
@@ -169,10 +169,15 @@ function App() {
   );
 }
 
-function markPaid(
+async function markPaid(
   event: MouseEvent<any>,
   payment: definitions["Payment"],
-  supabase: SupabaseClient
-) {}
+  supabase: Option<SupabaseClient>
+) {
+  await pipe(
+    supabase,
+    map((s) => s.from<definitions["Payment"]>("Payment").insert([{}]))
+  );
+}
 
 export default App;
