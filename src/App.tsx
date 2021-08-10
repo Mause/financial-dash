@@ -1,6 +1,12 @@
 import "./App.css";
 import { definitions } from "./supabase";
-import { useTable, useUser, useSignIn, useSignOut, useSupabase } from "react-supabase-fp";
+import {
+  useTable,
+  useUser,
+  useSignIn,
+  useSignOut,
+  useSupabase,
+} from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
 import { toNullable } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
@@ -117,7 +123,13 @@ function App() {
                             {" — "}
                             {money(payment)}
                             {" — "}
-                            {payment.bankId ? "Paid" : <a href="#" onClick={e => markPaid(e, payment)}>Unpaid</a>}
+                            {payment.bankId ? (
+                              "Paid"
+                            ) : (
+                              <a href="#" onClick={(e) => markPaid(e, payment)}>
+                                Unpaid
+                              </a>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -133,6 +145,6 @@ function App() {
   );
 }
 
-function markPaid(event: HtmlEvent, payment: definitions['Payment']) {}
+function markPaid(event: HtmlEvent, payment: definitions["Payment"]) {}
 
 export default App;
