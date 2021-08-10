@@ -5,6 +5,7 @@ import { pipe, constant } from "fp-ts/function";
 import { toNullable, isSome } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
+import { useState } from "react";
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -40,6 +41,7 @@ function App() {
   const [, signIn] = useSignIn();
   const [, signOut] = useSignOut();
   const user = useUser();
+  const [email, setEmail] = useState<string>();
 
   return (
     <div className="App">
@@ -55,14 +57,21 @@ function App() {
             Sign out
           </button>
         ) : (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              signIn({ provider: "github" });
-            }}
-          >
-            Log in
-          </button>
+          <>
+            <input
+              placeholder="Email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                signIn({ email });
+              }}
+            >
+              Log in
+            </button>
+          </>
         )}
       </header>
       <p>
