@@ -303,7 +303,6 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Vendor.id"];
           name?: parameters["rowFilter.Vendor.name"];
-          bills?: parameters["rowFilter.Vendor.bills"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -356,7 +355,6 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Vendor.id"];
           name?: parameters["rowFilter.Vendor.name"];
-          bills?: parameters["rowFilter.Vendor.bills"];
         };
         header: {
           /** Preference */
@@ -373,7 +371,6 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Vendor.id"];
           name?: parameters["rowFilter.Vendor.name"];
-          bills?: parameters["rowFilter.Vendor.bills"];
         };
         body: {
           /** Vendor */
@@ -441,7 +438,6 @@ export interface definitions {
      */
     id: number;
     name: string;
-    bills: string;
   };
 }
 
@@ -487,7 +483,6 @@ export interface parameters {
   "body.Vendor": definitions["Vendor"];
   "rowFilter.Vendor.id": string;
   "rowFilter.Vendor.name": string;
-  "rowFilter.Vendor.bills": string;
 }
 
 export interface operations {}
