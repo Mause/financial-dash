@@ -1,8 +1,8 @@
 import "./App.css";
 import { definitions } from "./supabase";
-import { useTable, useUser, useSignIn, useSignedOut } from "react-supabase-fp";
-import { pipe, constant, isSome } from "fp-ts/function";
-import { toNullable } from "fp-ts/Option";
+import { useTable, useUser, useSignIn, useSignOut } from "react-supabase-fp";
+import { pipe, constant } from "fp-ts/function";
+import { toNullable, isSome } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
@@ -38,7 +38,7 @@ function App() {
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
   const [, signIn] = useSignIn();
-  const [, signOut] = useSignedOut();
+  const [, signOut] = useSignOut();
   const user = useUser();
 
   return (
