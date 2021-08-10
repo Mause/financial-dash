@@ -1,5 +1,6 @@
 import "./App.css";
 import { definitions } from "./supabase";
+import { SupabaseClient } from "@supabase/supabase-js";
 import {
   useTable,
   useUser,
@@ -146,7 +147,10 @@ function App() {
                             {payment.bankId ? (
                               "Paid"
                             ) : (
-                              <a href="#" onClick={(e) => markPaid(e, payment)}>
+                              <a
+                                href="#"
+                                onClick={(e) => markPaid(e, payment, supabase)}
+                              >
                                 Unpaid
                               </a>
                             )}
@@ -165,6 +169,10 @@ function App() {
   );
 }
 
-function markPaid(event: MouseEvent<any>, payment: definitions["Payment"]) {}
+function markPaid(
+  event: MouseEvent<any>,
+  payment: definitions["Payment"],
+  supabase: SupabaseClient
+) {}
 
 export default App;
