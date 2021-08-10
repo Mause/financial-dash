@@ -47,35 +47,40 @@ function App() {
     <div className="App">
       <header className="App-header">
         Financial Dash
-        {pipe(signInResult,
-              RD.fold(
-                () => <>
-                  <input
-                    placeholder="Email"
-                    required
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      signIn({ email });
-                    }}
-                  >
-                    Log in
-                  </button>
-                </>,
-                constant(<div>Signing in...</div>),
-                error => <div>{error.toString()}</div>,
-                () => <button
+        {pipe(
+          signInResult,
+          RD.fold(
+            () => (
+              <>
+                <input
+                  placeholder="Email"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <button
                   onClick={(e) => {
                     e.preventDefault();
-                    signOut();
-                  }}>
-                    Sign out
+                    signIn({ email });
+                  }}
+                >
+                  Log in
                 </button>
-              )
+              </>
+            ),
+            constant(<div>Signing in...</div>),
+            (error) => <div>{error.toString()}</div>,
+            () => (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  signOut();
+                }}
+              >
+                Sign out
+              </button>
             )
-        }
+          )
+        )}
       </header>
       <p>
         {data?.length} transactions || {error?.toString()}
