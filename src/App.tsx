@@ -9,12 +9,13 @@ import {
   Filter,
 } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
-import { toNullable } from "fp-ts/Option";
+import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
-import { Button, Form } from "react-bulma-components";
+import { Button, Form, Heading } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
+import { User } from "@supabase/supabase-js";
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -67,24 +68,28 @@ function App() {
         {pipe(
           signInResult,
           RD.fold(
-            () => (
-              <>
-                <input
-                  placeholder="Email"
-                  required
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    signIn({ email });
-                  }}
-                >
-                  Log in
-                </button>
-              </>
-            ),
+            () =>
+              O.fold(
+                () => (
+                  <>
+                    <input
+                      placeholder="Email"
+                      required
+                      type="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        signIn({ email });
+                      }}
+                    >
+                      Log in
+                    </button>
+                  </>
+                ),
+                (user: User) => <div>{user.email}</div>
+              )(user),
             constant(<div>Signing in...</div>),
             (error) => (
               <div>
@@ -106,10 +111,6 @@ function App() {
           )
         )}
       </header>
-      <p>
-        {data?.length} transactions || {error?.toString()}
-      </p>
-      <p>{pipe(user, toNullable)?.email}</p>
       <div>
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
@@ -141,7 +142,7 @@ function App() {
             (e) => <div>Query failed: {e}</div>,
             (result) => (
               <>
-                <h1>Bills</h1>
+                <Heading size={1}>Bills</Heading>
                 <div>
                   {result.map((row) => (
                     <div key={row.id}>
