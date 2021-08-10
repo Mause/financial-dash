@@ -38,7 +38,7 @@ function App() {
   console.log(result);
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
-  const [, signIn] = useSignIn();
+  const [signInResult, signIn] = useSignIn();
   const [, signOut] = useSignOut();
   const user = useUser();
   const [email, setEmail] = useState<string>();
@@ -47,32 +47,35 @@ function App() {
     <div className="App">
       <header className="App-header">
         Financial Dash
-        {isSome(user) ? (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              signOut();
-            }}
-          >
-            Sign out
-          </button>
-        ) : (
-          <>
-            <input
-              placeholder="Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                signIn({ email });
-              }}
-            >
-              Log in
-            </button>
-          </>
-        )}
+        {pipe(signInResult,
+              RD.fold(
+                () => <>
+                  <input
+                    placeholder="Email"
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      signIn({ email });
+                    }}
+                  >
+                    Log in
+                  </button>
+                </>,
+                constant(<div>Signing in...</div>),
+                error => <div>{error.toString()}</div>,
+                () => <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signOut();
+                  }}>
+                    Sign out
+                </button>
+              )
+            )
+        }
       </header>
       <p>
         {data?.length} transactions || {error?.toString()}
