@@ -9,6 +9,6 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.5
       - run: yarn --frozen
-      - name: Typescript compiler
-        uses: iCrawl/action-tsc@v1
+      - name: TypeScript Error Reporter
+        uses: andoshin11/typescript-error-reporter-action@v1.0.2
       - run: yarn test
