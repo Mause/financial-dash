@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-supabase-fp";
 import { createClient } from "@supabase/supabase-js";
+import "bulma/css/bulma.css";
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL!,
