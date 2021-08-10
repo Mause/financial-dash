@@ -1,12 +1,19 @@
 import "./App.css";
 import { definitions } from "./supabase";
-import { useTable, useUser, useSignIn, useSignOut } from "react-supabase-fp";
+import {
+  useTable,
+  useUser,
+  useSignIn,
+  useSignOut,
+  useUpdate,
+  Filter,
+} from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
 import { toNullable } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
-import { useState } from "react";
-import { Form } from "react-bulma-components";
+import { useState, MouseEvent } from "react";
+import { Button, Form } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 
 function money(obj: { amount: number }) {
@@ -49,6 +56,9 @@ function App() {
   const [, signOut] = useSignOut();
   const user = useUser();
   const [email, setEmail] = useState<string>();
+
+  const [bankId, setBankId] = useState<string>();
+  const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
 
   return (
     <div className="App">
@@ -104,7 +114,10 @@ function App() {
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
-            <Form.Select loading={isValidating}>
+            <Form.Select
+              onChange={(e) => setBankId(e.target.value)}
+              loading={isValidating}
+            >
               {data?.map((transaction) => (
                 <option key={transaction.id} value={transaction.id}>
                   {formatISO(parseISO(transaction.attributes.createdAt), {
@@ -143,7 +156,19 @@ function App() {
                             {" — "}
                             {money(payment)}
                             {" — "}
-                            {payment.bankId ? "Paid" : "Unpaid"}
+                            {payment.bankId ? (
+                              "Paid"
+                            ) : (
+                              <Button
+                                onClick={(e: MouseEvent<any>) => {
+                                  e.preventDefault();
+                                  debugger;
+                                  markPaid(bankId, payment, updatePayment);
+                                }}
+                              >
+                                Unpaid
+                              </Button>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -157,6 +182,17 @@ function App() {
       </p>
     </div>
   );
+}
+
+async function markPaid(
+  bankId: string | undefined,
+  payment: definitions["Payment"],
+  updatePayment: (
+    values: Partial<definitions["Payment"]>,
+    filter: Filter<definitions["Payment"]>
+  ) => Promise<void>
+): Promise<void> {
+  await updatePayment({ bankId }, (query) => query.eq("id", payment.id));
 }
 
 export default App;
