@@ -55,6 +55,7 @@ function App() {
                 <input
                   placeholder="Email"
                   required
+                  type="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <button
