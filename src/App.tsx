@@ -1,19 +1,19 @@
 import "./App.css";
 import { definitions } from "./supabase";
-import { SupabaseClient } from "@supabase/supabase-js";
 import {
   useTable,
   useUser,
   useSignIn,
   useSignOut,
-  useSupabase,
+  useUpdate,
+  Filter,
 } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
-import { toNullable, Option, map } from "fp-ts/Option";
+import { toNullable } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
-import { Form } from "react-bulma-components";
+import { Button, Form } from "react-bulma-components";
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -45,14 +45,16 @@ function App() {
   );
   console.log(result);
   const { data, error } = useSWR<
-    { attributes: { id: string; description: string } }[]
+    { id: string; attributes: { description: string } }[]
   >("https://launtel.vercel.app/api/up");
 
   const [signInResult, signIn] = useSignIn();
   const [, signOut] = useSignOut();
   const user = useUser();
   const [email, setEmail] = useState<string>();
-  const supabase = useSupabase();
+
+  const [bankId, setBankId] = useState<string>();
+  const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
 
   return (
     <div className="App">
@@ -108,12 +110,9 @@ function App() {
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
-            <Form.Select>
+            <Form.Select onChange={(e) => setBankId(e.target.value)}>
               {data?.map((transaction) => (
-                <option
-                  key={transaction.attributes.id}
-                  value={transaction.attributes.id}
-                >
+                <option key={transaction.id} value={transaction.id}>
                   {transaction.attributes.description}
                 </option>
               ))}
@@ -147,12 +146,15 @@ function App() {
                             {payment.bankId ? (
                               "Paid"
                             ) : (
-                              <a
-                                href="#"
-                                onClick={(e) => markPaid(e, payment, supabase)}
+                              <Button
+                                onClick={(e: MouseEvent<any>) => {
+                                  e.preventDefault();
+                                  debugger;
+                                  markPaid(bankId, payment, updatePayment);
+                                }}
                               >
                                 Unpaid
-                              </a>
+                              </Button>
                             )}
                           </li>
                         ))}
@@ -170,14 +172,14 @@ function App() {
 }
 
 async function markPaid(
-  event: MouseEvent<any>,
+  bankId: string | undefined,
   payment: definitions["Payment"],
-  supabase: Option<SupabaseClient>
-) {
-  await pipe(
-    supabase,
-    map((s) => s.from<definitions["Payment"]>("Payment").insert([{}]))
-  );
+  updatePayment: (
+    values: Partial<definitions["Payment"]>,
+    filter: Filter<definitions["Payment"]>
+  ) => Promise<void>
+): Promise<void> {
+  await updatePayment({ bankId }, (query) => query.eq("id", payment.id));
 }
 
 export default App;
