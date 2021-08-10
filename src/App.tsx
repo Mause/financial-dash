@@ -70,7 +70,7 @@ function App() {
             constant(<div>Signing in...</div>),
             (error) => (
               <div>
-                {error.message == "Did not return a session."
+                {error.message === "Did not return a session."
                   ? "Please check your email inbox for a signin link"
                   : error.toString()}
               </div>
