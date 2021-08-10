@@ -1,9 +1,8 @@
-import React from "react";
 import "./App.css";
 import { definitions } from "./supabase";
-import { useTable, useUser } from "react-supabase-fp";
+import { useTable, useUser, useSignIn, useSignOut } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
-import { toNullable } from "fp-ts/Option";
+import { toNullable, isSome } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 
@@ -38,11 +37,37 @@ function App() {
   console.log(result);
   const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
 
+  const [, signIn] = useSignIn();
+  const [, signOut] = useSignOut();
   const user = useUser();
 
   return (
     <div className="App">
-      <header className="App-header">Financial Dash</header>
+      <header className="App-header">
+        Financial Dash
+        {isSome(user) ? (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              signOut();
+            }}
+          >
+            Sign out
+          </button>
+        ) : (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              signIn({ provider: "github" });
+            }}
+          >
+            Log in
+          </button>
+        )}
+      </header>
+      <p>
+        {data?.length} transactions || {error?.toString()}
+      </p>
       <p>{pipe(user, toNullable)?.email}</p>
       <p>
         {pipe(
