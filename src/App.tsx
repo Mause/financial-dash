@@ -14,6 +14,7 @@ import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
 import { Button, Form } from "react-bulma-components";
+import { formatISO, parseISO } from "date-fns";
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -44,8 +45,11 @@ function App() {
     )`
   );
   console.log(result);
-  const { data, error } = useSWR<
-    { id: string; attributes: { description: string } }[]
+  const { data, error, isValidating } = useSWR<
+    {
+      id: string;
+      attributes: { description: string; message: string; createdAt: string };
+    }[]
   >("https://launtel.vercel.app/api/up");
 
   const [signInResult, signIn] = useSignIn();
@@ -110,10 +114,16 @@ function App() {
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
-            <Form.Select onChange={(e) => setBankId(e.target.value)}>
+            <Form.Select onChange={(e) => setBankId(e.target.value)} loading={isValidating}>
               {data?.map((transaction) => (
                 <option key={transaction.id} value={transaction.id}>
+                  {formatISO(parseISO(transaction.attributes.createdAt), {
+                    representation: "date",
+                  })}
+                  {" — "}
                   {transaction.attributes.description}
+                  {" — "}
+                  {transaction.attributes.message}
                 </option>
               ))}
             </Form.Select>
