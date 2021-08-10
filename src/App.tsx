@@ -68,7 +68,7 @@ function App() {
               </>
             ),
             constant(<div>Signing in...</div>),
-            (error) => <div>{error.toString()}</div>,
+            (error) => <div>{error.message == 'Did not return a session.' ? 'Please check your email inbox for a signin link' : error.toString()}</div>,
             () => (
               <button
                 onClick={(e) => {
