@@ -12,6 +12,7 @@ import { toNullable } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState } from "react";
+import { Form } from "react-bulma-components";
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -42,7 +43,9 @@ function App() {
     )`
   );
   console.log(result);
-  const { data, error } = useSWR("https://launtel.vercel.app/api/transactions");
+  const { data, error } = useSWR<
+    { attributes: { id: string; description: string } }[]
+  >("https://launtel.vercel.app/api/up");
 
   const [signInResult, signIn] = useSignIn();
   const [, signOut] = useSignOut();
@@ -100,6 +103,23 @@ function App() {
         {data?.length} transactions || {error?.toString()}
       </p>
       <p>{pipe(user, toNullable)?.email}</p>
+      <div>
+        <Form.Field>
+          <Form.Label>Select a transaction</Form.Label>
+          <Form.Control>
+            <Form.Select>
+              {data?.map((transaction) => (
+                <option
+                  key={transaction.attributes.id}
+                  value={transaction.attributes.id}
+                >
+                  {transaction.attributes.description}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Control>
+        </Form.Field>
+      </div>
       <p>
         {pipe(
           result,
