@@ -57,7 +57,8 @@ function App() {
                   {result.map((row) => (
                     <div key={row.id}>
                       <h2>
-                        #{row.id} — {money(row)} — {row.Vendor.name} (#{row.Vendor.id})
+                        #{row.id} — {money(row)} — {row.Vendor.name} (#
+                        {row.Vendor.id})
                       </h2>
                       <ul>
                         {row.Payment.map((payment) => (
