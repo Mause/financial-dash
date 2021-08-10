@@ -11,7 +11,7 @@ import { pipe, constant } from "fp-ts/function";
 import { toNullable } from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import { Form } from "react-bulma-components";
 
 function money(obj: { amount: number }) {
@@ -165,6 +165,6 @@ function App() {
   );
 }
 
-function markPaid(event: HtmlEvent, payment: definitions["Payment"]) {}
+function markPaid(event: MouseEvent<any>, payment: definitions["Payment"]) {}
 
 export default App;
