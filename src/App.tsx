@@ -41,7 +41,7 @@ function App() {
   const [, signIn] = useSignIn();
   const [, signOut] = useSignOut();
   const user = useUser();
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState<string>();
 
   return (
     <div className="App">
