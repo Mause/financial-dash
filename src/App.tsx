@@ -114,7 +114,10 @@ function App() {
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
-            <Form.Select onChange={(e) => setBankId(e.target.value)} loading={isValidating}>
+            <Form.Select
+              onChange={(e) => setBankId(e.target.value)}
+              loading={isValidating}
+            >
               {data?.map((transaction) => (
                 <option key={transaction.id} value={transaction.id}>
                   {formatISO(parseISO(transaction.attributes.createdAt), {
