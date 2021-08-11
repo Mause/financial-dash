@@ -13,9 +13,11 @@ import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
-import { Button, Form, Heading } from "react-bulma-components";
+import { Modal, Button, Form, Heading } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
+
+type Payment = definitions['Payment'];
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -61,8 +63,14 @@ function App() {
   const [bankId, setBankId] = useState<string>();
   const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
 
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedPayment, setSelectedPayment] = useState<Payment>();
+
   return (
     <div className="App">
+      <Modal show={showModal}>
+        <EnterPayment setShowModal={setShowModal} selectedPayment={selectedPayment!} />
+      </Modal>
       <header className="App-header">
         Financial Dash
         {pipe(
@@ -164,7 +172,8 @@ function App() {
                                 size="small"
                                 onClick={(e: MouseEvent<any>) => {
                                   e.preventDefault();
-                                  markPaid(bankId, payment, updatePayment);
+                                  setSelectedPayment(payment);
+                                  setShowModal(true);
                                 }}
                               >
                                 Unpaid
@@ -184,6 +193,19 @@ function App() {
     </div>
   );
 }
+          
+function EnterPayment(props: {setShowModal: (b: boolean) => void, selectedPayment: Payment}) {
+           return <Modal.Card>
+             <Modal.Card.Header>
+               <Heading>Hi!</Heading>
+               </Modal.Card.Header>
+             <Modal.Card.Body>
+               Hello
+               </Modal.Card.Body>
+             <Modal.Card.Footer>
+               </Modal.Card.Footer>
+             </Modal.Card>;
+            }
 
 async function markPaid(
   bankId: string | undefined,
