@@ -171,7 +171,7 @@ function EnterPayment(props: {
 }) {
   const [bankId, setBankId] = useState<string>();
   const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
-  const { data, isValidating } = useSWR<
+  const { data, error, isValidating } = useSWR<
     {
       id: string;
       attributes: { description: string; message: string; createdAt: string };
@@ -184,6 +184,7 @@ function EnterPayment(props: {
         <Modal.Card.Title>Enter payment</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
+        {JSON.stringify(error)}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
