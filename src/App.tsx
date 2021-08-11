@@ -48,20 +48,11 @@ function App() {
     )`
   );
   console.log(result);
-  const { data, isValidating } = useSWR<
-    {
-      id: string;
-      attributes: { description: string; message: string; createdAt: string };
-    }[]
-  >("https://launtel.vercel.app/api/up");
 
   const [signInResult, signIn] = useSignIn();
   const [, signOut] = useSignOut();
   const user = useUser();
   const [email, setEmail] = useState<string>();
-
-  const [bankId, setBankId] = useState<string>();
-  const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedPayment, setSelectedPayment] = useState<Payment>();
@@ -122,29 +113,6 @@ function App() {
           )
         )}
       </header>
-      <div>
-        <Form.Field>
-          <Form.Label>Select a transaction</Form.Label>
-          <Form.Control>
-            <Form.Select
-              onChange={(e) => setBankId(e.target.value)}
-              loading={isValidating}
-            >
-              {data?.map((transaction) => (
-                <option key={transaction.id} value={transaction.id}>
-                  {formatISO(parseISO(transaction.attributes.createdAt), {
-                    representation: "date",
-                  })}
-                  {" — "}
-                  {transaction.attributes.description}
-                  {" — "}
-                  {transaction.attributes.message}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Control>
-        </Form.Field>
-      </div>
       <p>
         {pipe(
           result,
@@ -201,13 +169,49 @@ function EnterPayment(props: {
   setShowModal: (b: boolean) => void;
   selectedPayment: Payment;
 }) {
+  const [bankId, setBankId] = useState<string>();
+  const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
+  const { data, isValidating } = useSWR<
+    {
+      id: string;
+      attributes: { description: string; message: string; createdAt: string };
+    }[]
+  >("https://launtel.vercel.app/api/up");
+
   return (
     <Modal.Card>
       <Modal.Card.Header>
         <Heading>Hi!</Heading>
       </Modal.Card.Header>
-      <Modal.Card.Body>Hello</Modal.Card.Body>
-      <Modal.Card.Footer></Modal.Card.Footer>
+      <Modal.Card.Body>
+        <Form.Field>
+          <Form.Label>Select a transaction</Form.Label>
+          <Form.Control>
+            <Form.Select
+              onChange={(e) => setBankId(e.target.value)}
+              loading={isValidating}
+            >
+              {data?.map((transaction) => (
+                <option key={transaction.id} value={transaction.id}>
+                  {formatISO(parseISO(transaction.attributes.createdAt), {
+                    representation: "date",
+                  })}
+                  {" — "}
+                  {transaction.attributes.description}
+                  {" — "}
+                  {transaction.attributes.message}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Control>
+        </Form.Field>
+      </Modal.Card.Body>
+      <Modal.Card.Footer>
+        <Button onChange={(e: MouseEvent<any>) => {
+          e.preventDefault();
+          markPaid(bankId, props.selectedPayment, updatePayment);
+        }>Pay</Button>
+      </Modal.Card.Footer>
     </Modal.Card>
   );
 }
