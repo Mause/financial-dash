@@ -161,9 +161,9 @@ function App() {
                               "Paid"
                             ) : (
                               <Button
+                                size="small"
                                 onClick={(e: MouseEvent<any>) => {
                                   e.preventDefault();
-                                  debugger;
                                   markPaid(bankId, payment, updatePayment);
                                 }}
                               >
