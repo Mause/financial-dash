@@ -211,7 +211,7 @@ function EnterPayment(props: {
           onChange={async (e: MouseEvent<any>) => {
             e.preventDefault();
             await markPaid(bankId, props.selectedPayment, updatePayment);
-            setShowModal(false);
+            props.setShowModal(false);
           }}
         >
           Pay
