@@ -187,6 +187,10 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
     perMonth: Record<string, { discounted: number }>;
   }>("https://launtel.vercel.app/api/transactions");
 
+  if (RD.isSuccess(createdBillResult)) {
+    props.setOpenImportBill(false);
+  }
+
   return (
     <Modal.Card>
       <Modal.Card.Header>
@@ -224,7 +228,6 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
               vendor: 1, // Launtel,
               amount: data?.perMonth[month!]?.discounted! * 100,
             });
-            props.setOpenImportBill(false);
           }}
         >
           Import
