@@ -96,7 +96,11 @@ function App() {
                     </button>
                   </>
                 ),
-                (user: User) => <div>{user.email}</div>
+                (user: User) => (
+                  <div>
+                    {user.email} - {user.role}
+                  </div>
+                )
               )(user),
             constant(<div>Signing in...</div>),
             (error) => (
