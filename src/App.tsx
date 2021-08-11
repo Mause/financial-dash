@@ -208,7 +208,7 @@ function EnterPayment(props: {
       </Modal.Card.Body>
       <Modal.Card.Footer renderAs={Button.Group}>
         <Button
-          onChange={(e: MouseEvent<any>) => {
+          onChange={async (e: MouseEvent<any>) => {
             e.preventDefault();
             await markPaid(bankId, props.selectedPayment, updatePayment);
             setShowModal(false);
