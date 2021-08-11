@@ -210,7 +210,7 @@ function EnterPayment(props: {
         <Button onChange={(e: MouseEvent<any>) => {
           e.preventDefault();
           markPaid(bankId, props.selectedPayment, updatePayment);
-        }>Pay</Button>
+          }}>Pay</Button>
       </Modal.Card.Footer>
     </Modal.Card>
   );
