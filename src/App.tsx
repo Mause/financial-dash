@@ -68,7 +68,7 @@ function App() {
           selectedPayment={selectedPayment!}
         />
       </Modal>
-      <Modal show={openImportBill}>
+      <Modal show={openImportBill} onClose={() => setOpenImportBill(false)}>
         <ImportBill setOpenImportBill={setOpenImportBill} />
       </Modal>
       <header className="App-header">
