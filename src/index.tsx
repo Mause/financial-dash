@@ -7,6 +7,21 @@ import { Provider } from "react-supabase-fp";
 import { createClient } from "@supabase/supabase-js";
 import "bulma/css/bulma.css";
 
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
+
+const dsn = process.env.REACT_APP_SENTRY_DSN;
+if (dsn)
+  Sentry.init({
+    dsn,
+    integrations: [new Integrations.BrowserTracing()],
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
+
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL!,
   process.env.REACT_APP_SUPABASE_KEY!
