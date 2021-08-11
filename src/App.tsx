@@ -145,34 +145,35 @@ function App() {
                     <Card key={row.id}>
                       <Card.Header>
                         <Card.Header.Title>
-                          #{row.id} — {money(row)} — {row.Vendor.name} (#{row.Vendor.id})
+                          #{row.id} — {money(row)} — {row.Vendor.name} (#
+                          {row.Vendor.id})
                         </Card.Header.Title>
                       </Card.Header>
                       <Card.Content>
-                      <ul>
-                        {row.Payment.map((payment) => (
-                          <li key={payment.id}>
-                            {payment.Payer.name}
-                            {" — "}
-                            {money(payment)}
-                            {" — "}
-                            {payment.bankId ? (
-                              "Paid"
-                            ) : (
-                              <Button
-                                size="small"
-                                onClick={(e: MouseEvent<any>) => {
-                                  e.preventDefault();
-                                  setSelectedPayment(payment);
-                                  setShowModal(true);
-                                }}
-                              >
-                                Unpaid
-                              </Button>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
+                        <ul>
+                          {row.Payment.map((payment) => (
+                            <li key={payment.id}>
+                              {payment.Payer.name}
+                              {" — "}
+                              {money(payment)}
+                              {" — "}
+                              {payment.bankId ? (
+                                "Paid"
+                              ) : (
+                                <Button
+                                  size="small"
+                                  onClick={(e: MouseEvent<any>) => {
+                                    e.preventDefault();
+                                    setSelectedPayment(payment);
+                                    setShowModal(true);
+                                  }}
+                                >
+                                  Unpaid
+                                </Button>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
                       </Card.Content>
                     </Card>
                   ))}
