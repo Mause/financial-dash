@@ -187,7 +187,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
     perMonth: Record<string, { discounted: number }>;
   }>("https://launtel.vercel.app/api/transactions");
 
-  if (RD.isSuccess(createdBillResult)) {
+  if (RD.isSuccess(createBillResult)) {
     props.setOpenImportBill(false);
   }
 
