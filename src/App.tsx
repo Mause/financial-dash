@@ -181,7 +181,7 @@ function App() {
 type SetB = (b: boolean) => void;
 
 function ImportBill(props: { setOpenImportBill: SetB }) {
-  const [, createBill] = useInsert<Bill>("Bill");
+  const [createBillResult, createBill] = useInsert<Bill>("Bill");
   const [month, setMonth] = useState<string>();
   const { data, error, isValidating } = useSWR<{
     perMonth: Record<string, { discounted: number }>;
@@ -194,6 +194,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
       </Modal.Card.Header>
       <Modal.Card.Body>
         {JSON.stringify(error)}
+        {JSON.stringify(createBillResult)}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
