@@ -46,7 +46,7 @@ function App() {
     )`
   );
   console.log(result);
-  const { data, error, isValidating } = useSWR<
+  const { data, isValidating } = useSWR<
     {
       id: string;
       attributes: { description: string; message: string; createdAt: string };
