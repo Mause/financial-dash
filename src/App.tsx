@@ -216,7 +216,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
       </Modal.Card.Body>
       <Modal.Card.Footer renderAs={Button.Group}>
         <Button
-          onChange={async (e: MouseEvent<any>) => {
+          onClick={async (e: MouseEvent<any>) => {
             e.preventDefault();
 
             await createBill({
