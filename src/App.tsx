@@ -14,7 +14,7 @@ import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
-import { Modal, Button, Form, Heading } from "react-bulma-components";
+import { Modal, Button, Form, Heading, Card } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 
@@ -142,11 +142,13 @@ function App() {
                 <Heading size={1}>Bills</Heading>
                 <div>
                   {result.map((row) => (
-                    <div key={row.id}>
-                      <h2>
-                        #{row.id} — {money(row)} — {row.Vendor.name} (#
-                        {row.Vendor.id})
-                      </h2>
+                    <Card key={row.id}>
+                      <Card.Header>
+                        <Card.Header.Title>
+                          #{row.id} — {money(row)} — {row.Vendor.name} (#{row.Vendor.id})
+                        </Card.Header.Title>
+                      </Card.Header>
+                      <Card.Content>
                       <ul>
                         {row.Payment.map((payment) => (
                           <li key={payment.id}>
@@ -171,7 +173,8 @@ function App() {
                           </li>
                         ))}
                       </ul>
-                    </div>
+                      </Card.Content>
+                    </Card>
                   ))}
                 </div>
               </>
