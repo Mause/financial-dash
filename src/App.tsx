@@ -206,7 +206,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
                   <option key={month} value={month}>
                     {month}
                     {" — $"}
-                    {discounted / 100}
+                    {discounted}
                   </option>
                 )
               )}
@@ -221,7 +221,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
 
             await createBill({
               vendor: 1, // Launtel,
-              amount: data?.perMonth[month!]?.discounted,
+              amount: data?.perMonth[month!]?.discounted * 100,
             });
             props.setOpenImportBill(false);
           }}
