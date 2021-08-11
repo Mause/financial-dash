@@ -14,7 +14,14 @@ import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
-import { Modal, Button, Form, Heading, Card, Container } from "react-bulma-components";
+import {
+  Modal,
+  Button,
+  Form,
+  Heading,
+  Card,
+  Container,
+} from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 
