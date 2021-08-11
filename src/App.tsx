@@ -13,9 +13,11 @@ import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
-import { Button, Form, Heading } from "react-bulma-components";
+import { Modal, Button, Form, Heading } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
+
+type Payment = definitions["Payment"];
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -46,23 +48,23 @@ function App() {
     )`
   );
   console.log(result);
-  const { data, isValidating } = useSWR<
-    {
-      id: string;
-      attributes: { description: string; message: string; createdAt: string };
-    }[]
-  >("https://launtel.vercel.app/api/up");
 
   const [signInResult, signIn] = useSignIn();
   const [, signOut] = useSignOut();
   const user = useUser();
   const [email, setEmail] = useState<string>();
 
-  const [bankId, setBankId] = useState<string>();
-  const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedPayment, setSelectedPayment] = useState<Payment>();
 
   return (
     <div className="App">
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        <EnterPayment
+          setShowModal={setShowModal}
+          selectedPayment={selectedPayment!}
+        />
+      </Modal>
       <header className="App-header">
         Financial Dash
         {pipe(
@@ -111,29 +113,6 @@ function App() {
           )
         )}
       </header>
-      <div>
-        <Form.Field>
-          <Form.Label>Select a transaction</Form.Label>
-          <Form.Control>
-            <Form.Select
-              onChange={(e) => setBankId(e.target.value)}
-              loading={isValidating}
-            >
-              {data?.map((transaction) => (
-                <option key={transaction.id} value={transaction.id}>
-                  {formatISO(parseISO(transaction.attributes.createdAt), {
-                    representation: "date",
-                  })}
-                  {" — "}
-                  {transaction.attributes.description}
-                  {" — "}
-                  {transaction.attributes.message}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Control>
-        </Form.Field>
-      </div>
       <p>
         {pipe(
           result,
@@ -164,7 +143,8 @@ function App() {
                                 size="small"
                                 onClick={(e: MouseEvent<any>) => {
                                   e.preventDefault();
-                                  markPaid(bankId, payment, updatePayment);
+                                  setSelectedPayment(payment);
+                                  setShowModal(true);
                                 }}
                               >
                                 Unpaid
@@ -182,6 +162,62 @@ function App() {
         )}
       </p>
     </div>
+  );
+}
+
+function EnterPayment(props: {
+  setShowModal: (b: boolean) => void;
+  selectedPayment: Payment;
+}) {
+  const [bankId, setBankId] = useState<string>();
+  const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
+  const { data, isValidating } = useSWR<
+    {
+      id: string;
+      attributes: { description: string; message: string; createdAt: string };
+    }[]
+  >("https://launtel.vercel.app/api/up");
+
+  return (
+    <Modal.Card>
+      <Modal.Card.Header>
+        <Modal.Card.Title>Enter payment</Modal.Card.Title>
+      </Modal.Card.Header>
+      <Modal.Card.Body>
+        <Form.Field>
+          <Form.Label>Select a transaction</Form.Label>
+          <Form.Control>
+            <Form.Select
+              onChange={(e) => setBankId(e.target.value)}
+              loading={isValidating}
+            >
+              {data?.map((transaction) => (
+                <option key={transaction.id} value={transaction.id}>
+                  {formatISO(parseISO(transaction.attributes.createdAt), {
+                    representation: "date",
+                  })}
+                  {" — "}
+                  {transaction.attributes.description}
+                  {" — "}
+                  {transaction.attributes.message}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Control>
+        </Form.Field>
+      </Modal.Card.Body>
+      <Modal.Card.Footer renderAs={Button.Group}>
+        <Button
+          onChange={async (e: MouseEvent<any>) => {
+            e.preventDefault();
+            await markPaid(bankId, props.selectedPayment, updatePayment);
+            props.setShowModal(false);
+          }}
+        >
+          Pay
+        </Button>
+      </Modal.Card.Footer>
+    </Modal.Card>
   );
 }
 
