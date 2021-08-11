@@ -221,7 +221,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
 
             await createBill({
               vendor: 1, // Launtel,
-              amount: data?.perMonth[month!]?.discounted * 100,
+              amount: data?.perMonth[month!]?.discounted! * 100,
             });
             props.setOpenImportBill(false);
           }}
