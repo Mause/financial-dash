@@ -17,7 +17,7 @@ import { Modal, Button, Form, Heading } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 
-type Payment = definitions['Payment'];
+type Payment = definitions["Payment"];
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -69,7 +69,10 @@ function App() {
   return (
     <div className="App">
       <Modal show={showModal}>
-        <EnterPayment setShowModal={setShowModal} selectedPayment={selectedPayment!} />
+        <EnterPayment
+          setShowModal={setShowModal}
+          selectedPayment={selectedPayment!}
+        />
       </Modal>
       <header className="App-header">
         Financial Dash
@@ -193,19 +196,21 @@ function App() {
     </div>
   );
 }
-          
-function EnterPayment(props: {setShowModal: (b: boolean) => void, selectedPayment: Payment}) {
-           return <Modal.Card>
-             <Modal.Card.Header>
-               <Heading>Hi!</Heading>
-               </Modal.Card.Header>
-             <Modal.Card.Body>
-               Hello
-               </Modal.Card.Body>
-             <Modal.Card.Footer>
-               </Modal.Card.Footer>
-             </Modal.Card>;
-            }
+
+function EnterPayment(props: {
+  setShowModal: (b: boolean) => void;
+  selectedPayment: Payment;
+}) {
+  return (
+    <Modal.Card>
+      <Modal.Card.Header>
+        <Heading>Hi!</Heading>
+      </Modal.Card.Header>
+      <Modal.Card.Body>Hello</Modal.Card.Body>
+      <Modal.Card.Footer></Modal.Card.Footer>
+    </Modal.Card>
+  );
+}
 
 async function markPaid(
   bankId: string | undefined,
