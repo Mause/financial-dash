@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="App">
-      <Modal show={showModal}>
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
         <EnterPayment
           setShowModal={setShowModal}
           selectedPayment={selectedPayment!}
@@ -181,7 +181,7 @@ function EnterPayment(props: {
   return (
     <Modal.Card>
       <Modal.Card.Header>
-        <Heading>Hi!</Heading>
+        <Modal.Card.Title>Enter payment</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
         <Form.Field>
@@ -206,11 +206,12 @@ function EnterPayment(props: {
           </Form.Control>
         </Form.Field>
       </Modal.Card.Body>
-      <Modal.Card.Footer>
+      <Modal.Card.Footer renderAs={Button.Group}>
         <Button
           onChange={(e: MouseEvent<any>) => {
             e.preventDefault();
-            markPaid(bankId, props.selectedPayment, updatePayment);
+            await markPaid(bankId, props.selectedPayment, updatePayment);
+            setShowModal(false);
           }}
         >
           Pay
