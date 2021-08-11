@@ -3,6 +3,7 @@ import { definitions } from "./supabase";
 import {
   useTable,
   useUser,
+  useInsert,
   useSignIn,
   useSignOut,
   useUpdate,
@@ -18,6 +19,7 @@ import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 
 type Payment = definitions["Payment"];
+type Bill = definitions["Bill"];
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -56,6 +58,7 @@ function App() {
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedPayment, setSelectedPayment] = useState<Payment>();
+  const [openImportBill, setOpenImportBill] = useState(false);
 
   return (
     <div className="App">
@@ -64,6 +67,9 @@ function App() {
           setShowModal={setShowModal}
           selectedPayment={selectedPayment!}
         />
+      </Modal>
+      <Modal show={openImportBill}>
+        <ImportBill setOpenImportBill={setOpenImportBill} />
       </Modal>
       <header className="App-header">
         Financial Dash
@@ -113,6 +119,14 @@ function App() {
           )
         )}
       </header>
+      <Button
+        onClick={(e: MouseEvent<any>) => {
+          e.preventDefault();
+          setOpenImportBill(true);
+        }}
+      >
+        Import Bill
+      </Button>
       <p>
         {pipe(
           result,
@@ -164,11 +178,62 @@ function App() {
     </div>
   );
 }
+type SetB = (b: boolean) => void;
 
-function EnterPayment(props: {
-  setShowModal: (b: boolean) => void;
-  selectedPayment: Payment;
-}) {
+function ImportBill(props: { setOpenImportBill: SetB }) {
+  const [, createBill] = useInsert<Bill>("Bill");
+  const [month, setMonth] = useState<string>();
+  const { data, error, isValidating } = useSWR<{
+    perMonth: Record<string, { discounted: number }>;
+  }>("https://launtel.vercel.app/api/transactions");
+
+  return (
+    <Modal.Card>
+      <Modal.Card.Header>
+        <Modal.Card.Title>Import Bill</Modal.Card.Title>
+      </Modal.Card.Header>
+      <Modal.Card.Body>
+        {JSON.stringify(error)}
+        <Form.Field>
+          <Form.Label>Select a transaction</Form.Label>
+          <Form.Control>
+            <Form.Select
+              onChange={(e) => setMonth(e.target.value)}
+              loading={isValidating}
+            >
+              {Object.entries(data?.perMonth ?? {}).map(
+                ([month, { discounted }]) => (
+                  <option key={month} value={month}>
+                    {month}
+                    {" — $"}
+                    {discounted}
+                  </option>
+                )
+              )}
+            </Form.Select>
+          </Form.Control>
+        </Form.Field>
+      </Modal.Card.Body>
+      <Modal.Card.Footer renderAs={Button.Group}>
+        <Button
+          onChange={async (e: MouseEvent<any>) => {
+            e.preventDefault();
+
+            await createBill({
+              vendor: 1, // Launtel,
+              amount: data?.perMonth[month!]?.discounted! * 100,
+            });
+            props.setOpenImportBill(false);
+          }}
+        >
+          Import
+        </Button>
+      </Modal.Card.Footer>
+    </Modal.Card>
+  );
+}
+
+function EnterPayment(props: { setShowModal: SetB; selectedPayment: Payment }) {
   const [bankId, setBankId] = useState<string>();
   const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
   const { data, error, isValidating } = useSWR<
