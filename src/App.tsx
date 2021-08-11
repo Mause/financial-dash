@@ -186,6 +186,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
   const { data, error, isValidating } = useSWR<{
     perMonth: Record<string, { discounted: number }>;
   }>("https://launtel.vercel.app/api/transactions");
+  const [createError, setCreateError] = useState<Error>();
 
   return (
     <Modal.Card>
@@ -194,6 +195,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
       </Modal.Card.Header>
       <Modal.Card.Body>
         {JSON.stringify(error)}
+        {createError?.message}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
@@ -219,11 +221,15 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
           onChange={async (e: MouseEvent<any>) => {
             e.preventDefault();
 
-            await createBill({
-              vendor: 1, // Launtel,
-              amount: data?.perMonth[month!]?.discounted! * 100,
-            });
-            props.setOpenImportBill(false);
+            try {
+              await createBill({
+                vendor: 1, // Launtel,
+                amount: data?.perMonth[month!]?.discounted! * 100,
+              });
+              props.setOpenImportBill(false);
+            } catch (e) {
+              setCreateError(e);
+            }
           }}
         >
           Import
