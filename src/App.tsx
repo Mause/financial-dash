@@ -14,7 +14,15 @@ import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
-import { Modal, Button, Form, Heading } from "react-bulma-components";
+import {
+  Modal,
+  Button,
+  Form,
+  Heading,
+  Columns,
+  Card,
+  Container,
+} from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 
@@ -140,40 +148,48 @@ function App() {
             (result) => (
               <>
                 <Heading size={1}>Bills</Heading>
-                <div>
-                  {result.map((row) => (
-                    <div key={row.id}>
-                      <h2>
-                        #{row.id} — {money(row)} — {row.Vendor.name} (#
-                        {row.Vendor.id})
-                      </h2>
-                      <ul>
-                        {row.Payment.map((payment) => (
-                          <li key={payment.id}>
-                            {payment.Payer.name}
-                            {" — "}
-                            {money(payment)}
-                            {" — "}
-                            {payment.bankId ? (
-                              "Paid"
-                            ) : (
-                              <Button
-                                size="small"
-                                onClick={(e: MouseEvent<any>) => {
-                                  e.preventDefault();
-                                  setSelectedPayment(payment);
-                                  setShowModal(true);
-                                }}
-                              >
-                                Unpaid
-                              </Button>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
+                <Container>
+                  <Columns centered={true}>
+                    <Columns.Column size="half">
+                      {result.map((row) => (
+                        <Card key={row.id}>
+                          <Card.Header>
+                            <Card.Header.Title>
+                              #{row.id} — {money(row)} — {row.Vendor.name} (#
+                              {row.Vendor.id})
+                            </Card.Header.Title>
+                          </Card.Header>
+                          <Card.Content>
+                            <ul>
+                              {row.Payment.map((payment) => (
+                                <li key={payment.id}>
+                                  {payment.Payer.name}
+                                  {" — "}
+                                  {money(payment)}
+                                  {" — "}
+                                  {payment.bankId ? (
+                                    "Paid"
+                                  ) : (
+                                    <Button
+                                      size="small"
+                                      onClick={(e: MouseEvent<any>) => {
+                                        e.preventDefault();
+                                        setSelectedPayment(payment);
+                                        setShowModal(true);
+                                      }}
+                                    >
+                                      Unpaid
+                                    </Button>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </Card.Content>
+                        </Card>
+                      ))}
+                    </Columns.Column>
+                  </Columns>
+                </Container>
               </>
             )
           )
