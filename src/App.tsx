@@ -60,11 +60,6 @@ function App() {
   );
   console.log(result);
 
-  const [signInResult, signIn] = useSignIn();
-  const [, signOut] = useSignOut();
-  const user = useUser();
-  const [email, setEmail] = useState<string>();
-
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedPayment, setSelectedPayment] = useState<Payment>();
   const [openImportBill, setOpenImportBill] = useState(false);
@@ -80,58 +75,7 @@ function App() {
       <Modal show={openImportBill} onClose={() => setOpenImportBill(false)}>
         <ImportBill setOpenImportBill={setOpenImportBill} />
       </Modal>
-      <header className="App-header">
-        Financial Dash
-        {pipe(
-          signInResult,
-          RD.fold(
-            () =>
-              O.fold(
-                () => (
-                  <>
-                    <input
-                      placeholder="Email"
-                      required
-                      type="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <Button
-                      onClick={(e: MouseEvent<any>) => {
-                        e.preventDefault();
-                        signIn({ email });
-                      }}
-                    >
-                      Log in
-                    </Button>
-                  </>
-                ),
-                (user: User) => (
-                  <div>
-                    {user.email} - {user.role}
-                  </div>
-                )
-              )(user),
-            constant(<div>Signing in...</div>),
-            (error) => (
-              <div>
-                {error.message === "Did not return a session"
-                  ? "Please check your email inbox for a signin link"
-                  : error.message}
-              </div>
-            ),
-            () => (
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  signOut();
-                }}
-              >
-                Sign out
-              </button>
-            )
-          )
-        )}
-      </header>
+      <AppHeader></AppHeader>
       <Heading size={1}>
         Bills
         <Button
@@ -317,6 +261,68 @@ function EnterPayment(props: { setShowModal: SetB; selectedPayment: Payment }) {
         </Button>
       </Modal.Card.Footer>
     </Modal.Card>
+  );
+}
+
+function AppHeader() {
+  const [signInResult, signIn] = useSignIn();
+  const [, signOut] = useSignOut();
+  const user = useUser();
+  const [email, setEmail] = useState<string>();
+
+  return (
+    <header className="App-header">
+      Financial Dash
+      {pipe(
+        signInResult,
+        RD.fold(
+          () =>
+            O.fold(
+              () => (
+                <>
+                  <input
+                    placeholder="Email"
+                    required
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <Button
+                    onClick={(e: MouseEvent<any>) => {
+                      e.preventDefault();
+                      signIn({ email });
+                    }}
+                  >
+                    Log in
+                  </Button>
+                </>
+              ),
+              (user: User) => (
+                <div>
+                  {user.email} - {user.role}
+                </div>
+              )
+            )(user),
+          constant(<div>Signing in...</div>),
+          (error) => (
+            <div>
+              {error.message === "Did not return a session"
+                ? "Please check your email inbox for a signin link"
+                : error.message}
+            </div>
+          ),
+          () => (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                signOut();
+              }}
+            >
+              Sign out
+            </button>
+          )
+        )
+      )}
+    </header>
   );
 }
 
