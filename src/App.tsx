@@ -95,14 +95,14 @@ function App() {
                       type="email"
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                    <button
-                      onClick={(e) => {
+                    <Button
+                      onClick={(e: MouseEvent<any>) => {
                         e.preventDefault();
                         signIn({ email });
                       }}
                     >
                       Log in
-                    </button>
+                    </Button>
                   </>
                 ),
                 (user: User) => (
@@ -132,14 +132,17 @@ function App() {
           )
         )}
       </header>
-      <Button
-        onClick={(e: MouseEvent<any>) => {
-          e.preventDefault();
-          setOpenImportBill(true);
-        }}
-      >
-        Import Bill
-      </Button>
+      <Heading size={1}>
+        Bills
+        <Button
+          onClick={(e: MouseEvent<any>) => {
+            e.preventDefault();
+            setOpenImportBill(true);
+          }}
+        >
+          Import Bill
+        </Button>
+      </Heading>
       <p>
         {pipe(
           result,
@@ -148,46 +151,49 @@ function App() {
             (e) => <div>Query failed: {e}</div>,
             (result) => (
               <>
-                <Heading size={1}>Bills</Heading>
                 <Container>
                   <Columns centered={true}>
                     <Columns.Column size="half">
                       {result.map((row) => (
-                        <Card key={row.id}>
-                          <Card.Header>
-                            <Card.Header.Title>
-                              #{row.id} — {row.billDate} — {money(row)} —{" "}
-                              {row.Vendor.name} (#
-                              {row.Vendor.id})
-                            </Card.Header.Title>
-                          </Card.Header>
-                          <Card.Content>
-                            <ul>
-                              {row.Payment.map((payment) => (
-                                <li key={payment.id}>
-                                  {payment.Payer.name}
-                                  {" — "}
-                                  {money(payment)}
-                                  {" — "}
-                                  {payment.bankId ? (
-                                    "Paid"
-                                  ) : (
-                                    <Button
-                                      size="small"
-                                      onClick={(e: MouseEvent<any>) => {
-                                        e.preventDefault();
-                                        setSelectedPayment(payment);
-                                        setShowModal(true);
-                                      }}
-                                    >
-                                      Unpaid
-                                    </Button>
-                                  )}
-                                </li>
-                              ))}
-                            </ul>
-                          </Card.Content>
-                        </Card>
+                        <>
+                          <Card key={row.id}>
+                            <Card.Header>
+                              <Card.Header.Title>
+                                #{row.id} — {row.billDate} — {money(row)} —{" "}
+                                {row.Vendor.name} (#
+                                {row.Vendor.id})
+                              </Card.Header.Title>
+                            </Card.Header>
+                            <Card.Content>
+                              <ul>
+                                {row.Payment.map((payment) => (
+                                  <li key={payment.id}>
+                                    {payment.Payer.name}
+                                    {" — "}
+                                    {money(payment)}
+                                    {" — "}
+                                    {payment.bankId ? (
+                                      "Paid"
+                                    ) : (
+                                      <Button
+                                        size="small"
+                                        onClick={(e: MouseEvent<any>) => {
+                                          e.preventDefault();
+                                          setSelectedPayment(payment);
+                                          setShowModal(true);
+                                        }}
+                                      >
+                                        Unpaid
+                                      </Button>
+                                    )}
+                                  </li>
+                                ))}
+                              </ul>
+                            </Card.Content>
+                            <Card.Footer />
+                          </Card>
+                          <br />
+                        </>
                       ))}
                     </Columns.Column>
                   </Columns>
