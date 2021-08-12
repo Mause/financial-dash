@@ -19,6 +19,7 @@ import {
   Button,
   Form,
   Heading,
+  Columns,
   Card,
   Container,
 } from "react-bulma-components";
@@ -148,42 +149,46 @@ function App() {
               <>
                 <Heading size={1}>Bills</Heading>
                 <Container>
-                  {result.map((row) => (
-                    <Card key={row.id}>
-                      <Card.Header>
-                        <Card.Header.Title>
-                          #{row.id} — {money(row)} — {row.Vendor.name} (#
-                          {row.Vendor.id})
-                        </Card.Header.Title>
-                      </Card.Header>
-                      <Card.Content>
-                        <ul>
-                          {row.Payment.map((payment) => (
-                            <li key={payment.id}>
-                              {payment.Payer.name}
-                              {" — "}
-                              {money(payment)}
-                              {" — "}
-                              {payment.bankId ? (
-                                "Paid"
-                              ) : (
-                                <Button
-                                  size="small"
-                                  onClick={(e: MouseEvent<any>) => {
-                                    e.preventDefault();
-                                    setSelectedPayment(payment);
-                                    setShowModal(true);
-                                  }}
-                                >
-                                  Unpaid
-                                </Button>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      </Card.Content>
-                    </Card>
-                  ))}
+                  <Columns>
+                    <Columns.Column size="half">
+                      {result.map((row) => (
+                        <Card key={row.id}>
+                          <Card.Header>
+                            <Card.Header.Title>
+                              #{row.id} — {money(row)} — {row.Vendor.name} (#
+                              {row.Vendor.id})
+                            </Card.Header.Title>
+                          </Card.Header>
+                          <Card.Content>
+                            <ul>
+                              {row.Payment.map((payment) => (
+                                <li key={payment.id}>
+                                  {payment.Payer.name}
+                                  {" — "}
+                                  {money(payment)}
+                                  {" — "}
+                                  {payment.bankId ? (
+                                    "Paid"
+                                  ) : (
+                                    <Button
+                                      size="small"
+                                      onClick={(e: MouseEvent<any>) => {
+                                        e.preventDefault();
+                                        setSelectedPayment(payment);
+                                        setShowModal(true);
+                                      }}
+                                    >
+                                      Unpaid
+                                    </Button>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </Card.Content>
+                        </Card>
+                      ))}
+                    </Columns.Column>
+                  </Columns>
                 </Container>
               </>
             )
