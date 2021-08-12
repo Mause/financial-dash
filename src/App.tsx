@@ -28,6 +28,8 @@ import { User } from "@supabase/supabase-js";
 
 type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
+type Payer = definitions["Payer"];
+type Vendor = definitions["Vendor"];
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -35,9 +37,9 @@ function money(obj: { amount: number }) {
 
 function App() {
   const result = useTable<
-    definitions["Bill"] & {
-      Vendor: definitions["Vendor"];
-      Payment: Array<definitions["Payment"] & { Payer: definitions["Payer"] }>;
+    Bill & {
+      Vendor: Vendor;
+      Payment: Array<Payment & { Payer: Payer }>;
     }
   >(
     "Bill",
@@ -212,7 +214,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
 
 function EnterPayment(props: { setShowModal: SetB; selectedPayment: Payment }) {
   const [bankId, setBankId] = useState<string>();
-  const [, updatePayment] = useUpdate<definitions["Payment"]>("Payment");
+  const [, updatePayment] = useUpdate<Payment>("Payment");
   const { data, error, isValidating } = useSWR<
     {
       id: string;
@@ -328,10 +330,10 @@ function AppHeader() {
 
 async function markPaid(
   bankId: string | undefined,
-  payment: definitions["Payment"],
+  payment: Payment,
   updatePayment: (
-    values: Partial<definitions["Payment"]>,
-    filter: Filter<definitions["Payment"]>
+    values: Partial<Payment>,
+    filter: Filter<Payment>
   ) => Promise<void>
 ): Promise<void> {
   await updatePayment({ bankId }, (query) => query.eq("id", payment.id));
