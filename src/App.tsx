@@ -44,6 +44,7 @@ function App() {
     `
     id,
     amount,
+    billDate,
     Payment (
       id,
       amount,
