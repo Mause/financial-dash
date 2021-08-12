@@ -149,7 +149,7 @@ function App() {
               <>
                 <Heading size={1}>Bills</Heading>
                 <Container>
-                  <Columns>
+                  <Columns centered={true}>
                     <Columns.Column size="half">
                       {result.map((row) => (
                         <Card key={row.id}>
