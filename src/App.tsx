@@ -155,7 +155,8 @@ function App() {
                         <Card key={row.id}>
                           <Card.Header>
                             <Card.Header.Title>
-                              #{row.id} — {money(row)} — {row.Vendor.name} (#
+                              #{row.id} — {row.billDate} — {money(row)} —{" "}
+                              {row.Vendor.name} (#
                               {row.Vendor.id})
                             </Card.Header.Title>
                           </Card.Header>
@@ -246,6 +247,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
 
             await createBill({
               vendor: 1, // Launtel,
+              billDate: month + "-01",
               amount: data?.perMonth[month!]?.discounted! * 100,
             });
           }}
