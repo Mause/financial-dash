@@ -135,6 +135,8 @@ function BillCard({
 }) {
   const filter = useFilter<Bill>((query) => query.eq("id", row.id));
   const [result, deleteBill] = useDelete<Bill>("Bill");
+  
+  console.log('Delete bill', result);
 
   return (
     <Card key={row.id}>
