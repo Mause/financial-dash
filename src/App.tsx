@@ -133,7 +133,7 @@ function BillCard({
   setSelectedPayment: (payment: Payment) => void;
   setShowModal: SetB;
 }) {
-  const filter = useFilter<Bill>(query => query.eq("id", row.id);
+  const filter = useFilter<Bill>(query => query.eq("id", row.id));
   const [result, deleteBill] = useDelete<Bill>("Bill");
 
   return (
