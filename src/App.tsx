@@ -7,6 +7,8 @@ import {
   useSignIn,
   useSignOut,
   useUpdate,
+  useFilter,
+  useDelete,
   Filter,
 } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
@@ -131,12 +133,26 @@ function BillCard({
   setSelectedPayment: (payment: Payment) => void;
   setShowModal: SetB;
 }) {
+  const filter = useFilter<Bill>((query) => query.eq("id", row.id));
+  const [result, deleteBill] = useDelete<Bill>("Bill");
+
+  console.log("Delete bill", result);
+
   return (
     <Card key={row.id}>
       <Card.Header>
         <Card.Header.Title>
           #{row.id} — {row.billDate} — {money(row)} — {row.Vendor.name} (#
           {row.Vendor.id})
+          <Button
+            onClick={(e: MouseEvent<any>) => {
+              e.preventDefault();
+              deleteBill(filter);
+            }}
+            size="small"
+          >
+            Delete
+          </Button>
         </Card.Header.Title>
       </Card.Header>
       <Card.Content>
