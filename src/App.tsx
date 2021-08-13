@@ -30,11 +30,10 @@ type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
 type Payer = definitions["Payer"];
 type Vendor = definitions["Vendor"];
-type BillRow = 
-    Bill & {
-      Vendor: Vendor;
-      Payment: Array<Payment & { Payer: Payer }>;
-    };
+type BillRow = Bill & {
+  Vendor: Vendor;
+  Payment: Array<Payment & { Payer: Payer }>;
+};
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
