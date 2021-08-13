@@ -313,21 +313,23 @@ function AppHeader() {
           () =>
             O.fold(
               () => (
-                <form                     onSubmit={(e: MouseEvent<any>) => {
-                      e.preventDefault();
-                      signIn({ email });
-                    }}
->
-                       <Form.Field>
-                          <Form.Label>Email</Form.Label>
-                          <Form.Control>
-                            <Form.Input type="email" 
-                                                  onChange={(e) => setEmail(e.target.value)}
-                    required
-
-                              placeholder="Email" />
-                          </Form.Control>
-                        </Form.Field>
+                <form
+                  onSubmit={(e: MouseEvent<any>) => {
+                    e.preventDefault();
+                    signIn({ email });
+                  }}
+                >
+                  <Form.Field>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control>
+                      <Form.Input
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        placeholder="Email"
+                      />
+                    </Form.Control>
+                  </Form.Field>
                   <Button type="submit">Log in</Button>
                 </form>
               ),
