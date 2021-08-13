@@ -30,19 +30,18 @@ type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
 type Payer = definitions["Payer"];
 type Vendor = definitions["Vendor"];
-type BillPayment = Payment & { Payer: Payer };
+type BillRow = 
+    Bill & {
+      Vendor: Vendor;
+      Payment: Array<Payment & { Payer: Payer }>;
+    };
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
 }
 
 function App() {
-  const result = useTable<
-    Bill & {
-      Vendor: Vendor;
-      Payment: BillPayment[];
-    }
-  >(
+  const result = useTable<BillRow>(
     "Bill",
     `
     id,
@@ -129,7 +128,7 @@ function BillCard({
   setSelectedPayment,
   setShowModal,
 }: {
-  row: BillPayment;
+  row: BillRow;
   setSelectedPayment: (payment: Payment) => void;
   setShowModal: SetB;
 }) {
