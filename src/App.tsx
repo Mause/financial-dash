@@ -103,7 +103,11 @@ function App() {
                     <Columns.Column size="half">
                       {result.map((row) => (
                         <>
-                          <BillCard setSelectedPayment={setSelectedPayment} setShowModal={setShowModal} row={row} />
+                          <BillCard
+                            setSelectedPayment={setSelectedPayment}
+                            setShowModal={setShowModal}
+                            row={row}
+                          />
                           <br />
                         </>
                       ))}
@@ -120,43 +124,52 @@ function App() {
 }
 type SetB = (b: boolean) => void;
 
-function BillCard({row, setSelectedPayment, setShowModal}: {row: BillPayment, setSelectedPayment: (payment: Payment) => void, setShowModal: SetB}) {
-  return                           <Card key={row.id}>
-                            <Card.Header>
-                              <Card.Header.Title>
-                                #{row.id} — {row.billDate} — {money(row)} —{" "}
-                                {row.Vendor.name} (#
-                                {row.Vendor.id})
-                              </Card.Header.Title>
-                            </Card.Header>
-                            <Card.Content>
-                              <ul>
-                                {row.Payment.map((payment) => (
-                                  <li key={payment.id}>
-                                    {payment.Payer.name}
-                                    {" — "}
-                                    {money(payment)}
-                                    {" — "}
-                                    {payment.bankId ? (
-                                      "Paid"
-                                    ) : (
-                                      <Button
-                                        size="small"
-                                        onClick={(e: MouseEvent<any>) => {
-                                          e.preventDefault();
-                                          setSelectedPayment(payment);
-                                          setShowModal(true);
-                                        }}
-                                      >
-                                        Unpaid
-                                      </Button>
-                                    )}
-                                  </li>
-                                ))}
-                              </ul>
-                            </Card.Content>
-                            <Card.Footer />
-                          </Card>
+function BillCard({
+  row,
+  setSelectedPayment,
+  setShowModal,
+}: {
+  row: BillPayment;
+  setSelectedPayment: (payment: Payment) => void;
+  setShowModal: SetB;
+}) {
+  return (
+    <Card key={row.id}>
+      <Card.Header>
+        <Card.Header.Title>
+          #{row.id} — {row.billDate} — {money(row)} — {row.Vendor.name} (#
+          {row.Vendor.id})
+        </Card.Header.Title>
+      </Card.Header>
+      <Card.Content>
+        <ul>
+          {row.Payment.map((payment) => (
+            <li key={payment.id}>
+              {payment.Payer.name}
+              {" — "}
+              {money(payment)}
+              {" — "}
+              {payment.bankId ? (
+                "Paid"
+              ) : (
+                <Button
+                  size="small"
+                  onClick={(e: MouseEvent<any>) => {
+                    e.preventDefault();
+                    setSelectedPayment(payment);
+                    setShowModal(true);
+                  }}
+                >
+                  Unpaid
+                </Button>
+              )}
+            </li>
+          ))}
+        </ul>
+      </Card.Content>
+      <Card.Footer />
+    </Card>
+  );
 }
 
 function ImportBill(props: { setOpenImportBill: SetB }) {
