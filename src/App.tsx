@@ -30,18 +30,17 @@ type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
 type Payer = definitions["Payer"];
 type Vendor = definitions["Vendor"];
+type BillRow = Bill & {
+  Vendor: Vendor;
+  Payment: Array<Payment & { Payer: Payer }>;
+};
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
 }
 
 function App() {
-  const result = useTable<
-    Bill & {
-      Vendor: Vendor;
-      Payment: Array<Payment & { Payer: Payer }>;
-    }
-  >(
+  const result = useTable<BillRow>(
     "Bill",
     `
     id,
@@ -102,42 +101,11 @@ function App() {
                     <Columns.Column size="half">
                       {result.map((row) => (
                         <>
-                          <Card key={row.id}>
-                            <Card.Header>
-                              <Card.Header.Title>
-                                #{row.id} — {row.billDate} — {money(row)} —{" "}
-                                {row.Vendor.name} (#
-                                {row.Vendor.id})
-                              </Card.Header.Title>
-                            </Card.Header>
-                            <Card.Content>
-                              <ul>
-                                {row.Payment.map((payment) => (
-                                  <li key={payment.id}>
-                                    {payment.Payer.name}
-                                    {" — "}
-                                    {money(payment)}
-                                    {" — "}
-                                    {payment.bankId ? (
-                                      "Paid"
-                                    ) : (
-                                      <Button
-                                        size="small"
-                                        onClick={(e: MouseEvent<any>) => {
-                                          e.preventDefault();
-                                          setSelectedPayment(payment);
-                                          setShowModal(true);
-                                        }}
-                                      >
-                                        Unpaid
-                                      </Button>
-                                    )}
-                                  </li>
-                                ))}
-                              </ul>
-                            </Card.Content>
-                            <Card.Footer />
-                          </Card>
+                          <BillCard
+                            setSelectedPayment={setSelectedPayment}
+                            setShowModal={setShowModal}
+                            row={row}
+                          />
                           <br />
                         </>
                       ))}
@@ -153,6 +121,54 @@ function App() {
   );
 }
 type SetB = (b: boolean) => void;
+
+function BillCard({
+  row,
+  setSelectedPayment,
+  setShowModal,
+}: {
+  row: BillRow;
+  setSelectedPayment: (payment: Payment) => void;
+  setShowModal: SetB;
+}) {
+  return (
+    <Card key={row.id}>
+      <Card.Header>
+        <Card.Header.Title>
+          #{row.id} — {row.billDate} — {money(row)} — {row.Vendor.name} (#
+          {row.Vendor.id})
+        </Card.Header.Title>
+      </Card.Header>
+      <Card.Content>
+        <ul>
+          {row.Payment.map((payment) => (
+            <li key={payment.id}>
+              {payment.Payer.name}
+              {" — "}
+              {money(payment)}
+              {" — "}
+              {payment.bankId ? (
+                "Paid"
+              ) : (
+                <Button
+                  size="small"
+                  onClick={(e: MouseEvent<any>) => {
+                    e.preventDefault();
+                    setSelectedPayment(payment);
+                    setShowModal(true);
+                  }}
+                >
+                  Unpaid
+                </Button>
+              )}
+            </li>
+          ))}
+        </ul>
+      </Card.Content>
+      <Card.Footer />
+    </Card>
+  );
+}
 
 function ImportBill(props: { setOpenImportBill: SetB }) {
   const [createBillResult, createBill] = useInsert<Bill>("Bill");
