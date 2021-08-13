@@ -30,6 +30,7 @@ type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
 type Payer = definitions["Payer"];
 type Vendor = definitions["Vendor"];
+type BillPayment = Payment & { Payer: Payer };
 
 function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
@@ -39,7 +40,7 @@ function App() {
   const result = useTable<
     Bill & {
       Vendor: Vendor;
-      Payment: Array<Payment & { Payer: Payer }>;
+      Payment: BillPayment[];
     }
   >(
     "Bill",
@@ -102,7 +103,25 @@ function App() {
                     <Columns.Column size="half">
                       {result.map((row) => (
                         <>
-                          <Card key={row.id}>
+                          <BillCard setSelectedPayment={setSelectedPayment} setShowModal={setShowModal} row={row} />
+                          <br />
+                        </>
+                      ))}
+                    </Columns.Column>
+                  </Columns>
+                </Container>
+              </>
+            )
+          )
+        )}
+      </p>
+    </div>
+  );
+}
+type SetB = (b: boolean) => void;
+
+function BillCard({row, setSelectedPayment, setShowModal}: {row: BillPayment, setSelectedPayment: (payment: Payment) => void, setShowModal: SetB}) {
+  return                           <Card key={row.id}>
                             <Card.Header>
                               <Card.Header.Title>
                                 #{row.id} — {row.billDate} — {money(row)} —{" "}
@@ -138,21 +157,7 @@ function App() {
                             </Card.Content>
                             <Card.Footer />
                           </Card>
-                          <br />
-                        </>
-                      ))}
-                    </Columns.Column>
-                  </Columns>
-                </Container>
-              </>
-            )
-          )
-        )}
-      </p>
-    </div>
-  );
 }
-type SetB = (b: boolean) => void;
 
 function ImportBill(props: { setOpenImportBill: SetB }) {
   const [createBillResult, createBill] = useInsert<Bill>("Bill");
