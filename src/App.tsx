@@ -134,7 +134,7 @@ function BillCard({
   setShowModal: SetB;
 }) {
   const filter = useFilter<Bill>(query => query.eq("id", row.id);
-  const [result, delete] = useDelete<Bill>("Bill");
+  const [result, deleteBill] = useDelete<Bill>("Bill");
 
   return (
     <Card key={row.id}>
@@ -145,7 +145,7 @@ function BillCard({
                 <Button onClick={(e: MouseEvent<any>) => 
                   {
                     e.preventDefault();
-                    delete(filter);
+                    deleteBill(filter);
                   }} size="small">Delete</Button>
         </Card.Header.Title>
       </Card.Header>
