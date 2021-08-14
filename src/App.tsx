@@ -156,7 +156,7 @@ function BillCard({
         </Card.Header.Title>
       </Card.Header>
       <Card.Content>
-        {RD.isFailure(result) && JSON.stringify(result)}
+        {JSON.stringify(result)}
         <ul>
           {row.Payment.map((payment) => (
             <li key={payment.id}>
