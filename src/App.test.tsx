@@ -17,7 +17,7 @@ test("Bill", async () => {
     from() {
       return {
         delete() {
-          return { eq: () => ({}), contains: () => ({}) };
+          return { eq: () => ({}), in: () => ({}) };
         },
       };
     },

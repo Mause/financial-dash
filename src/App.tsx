@@ -136,7 +136,7 @@ export function BillCard({
   const filter = useFilter<Bill>((query) => query.eq("id", row.id));
   const [result, deleteBill] = useDelete<Bill>("Bill");
   const paymentsFilter = useFilter<Payment>((query) =>
-    query.contains(
+    query.in(
       "id",
       row.Payment.map((payment) => payment.id)
     )
