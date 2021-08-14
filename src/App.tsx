@@ -143,6 +143,7 @@ export function BillCard({
   );
   const [deletePaymentsResult, deletePayments] = useDelete<Payment>("Payment");
 
+  const comb = RD.combine(result, deletePaymentsResult);
   console.log("Delete bill", result);
 
   return (
@@ -166,6 +167,7 @@ export function BillCard({
       <Card.Content>
         {JSON.stringify(result)}
         {JSON.stringify(deletePaymentsResult)}
+        {JSON.stringify(comb)}
         {JSON.stringify(filter)}
         <ul>
           {row.Payment.map((payment) => (
