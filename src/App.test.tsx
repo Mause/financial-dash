@@ -46,4 +46,6 @@ test("Bill", async () => {
   act(() => {
     screen.getByText("Delete").click();
   });
+
+  expect(el!.container).toMatchSnapshot();
 });

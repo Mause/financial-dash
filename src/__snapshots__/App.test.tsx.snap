@@ -35,6 +35,65 @@ exports[`Bill 1`] = `
     >
       {"_tag":"RemoteInitial"}
       {"_tag":"RemoteInitial"}
+      {"_tag":"RemoteInitial"}
+      <ul>
+        <li>
+          Fred
+           — 
+          $5
+           — 
+          <button
+            class="is-small button"
+            tabindex="0"
+          >
+            Unpaid
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="card-footer"
+    />
+  </div>
+</div>
+`;
+
+exports[`Bill 2`] = `
+<div>
+  <div
+    class="card"
+  >
+    <div
+      class="card-header"
+    >
+      <div
+        class="card-header-title"
+      >
+        #
+        0
+         — 
+        2021-01-01
+         — 
+        $11.11
+         — 
+        Synergy
+         (#
+        0
+        )
+        <button
+          class="is-small button"
+          tabindex="0"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+    <div
+      class="card-content"
+    >
+      {"_tag":"RemoteInitial"}
+      {"_tag":"RemotePending","progress":{"_tag":"None"}}
+      {"_tag":"RemoteInitial"}
       <ul>
         <li>
           Fred
