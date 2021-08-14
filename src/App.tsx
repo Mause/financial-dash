@@ -32,7 +32,7 @@ type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
 type Payer = definitions["Payer"];
 type Vendor = definitions["Vendor"];
-type BillRow = Bill & {
+type BillRow = Pick<Bill, "id" | "amount" | "billDate"> & {
   Vendor: Vendor;
   Payment: Array<Payment & { Payer: Payer }>;
 };
@@ -124,7 +124,7 @@ function App() {
 }
 type SetB = (b: boolean) => void;
 
-function BillCard({
+export function BillCard({
   row,
   setSelectedPayment,
   setShowModal,
