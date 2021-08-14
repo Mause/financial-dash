@@ -157,6 +157,7 @@ function BillCard({
       </Card.Header>
       <Card.Content>
         {JSON.stringify(result)}
+        {JSON.stringify(filter)}
         <ul>
           {row.Payment.map((payment) => (
             <li key={payment.id}>
