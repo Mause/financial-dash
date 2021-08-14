@@ -135,6 +135,13 @@ function BillCard({
 }) {
   const filter = useFilter<Bill>((query) => query.eq("id", row.id));
   const [result, deleteBill] = useDelete<Bill>("Bill");
+  const paymentsFilter = useFilter<Payment>((query) =>
+    query.contains(
+      "id",
+      row.Payment.map((payment) => payment.id)
+    )
+  );
+  const [deletePaymentsResult, deletePayments] = useDelete<Payment>("Payment");
 
   console.log("Delete bill", result);
 
@@ -145,9 +152,10 @@ function BillCard({
           #{row.id} — {row.billDate} — {money(row)} — {row.Vendor.name} (#
           {row.Vendor.id})
           <Button
-            onClick={(e: MouseEvent<any>) => {
+            onClick={async (e: MouseEvent<any>) => {
               e.preventDefault();
-              deleteBill(filter);
+              await deletePayments(paymentsFilter);
+              await deleteBill(filter);
             }}
             size="small"
           >
@@ -157,6 +165,7 @@ function BillCard({
       </Card.Header>
       <Card.Content>
         {JSON.stringify(result)}
+        {JSON.stringify(deletePaymentsResult)}
         {JSON.stringify(filter)}
         <ul>
           {row.Payment.map((payment) => (
@@ -318,7 +327,7 @@ function AppHeader() {
                 <form
                   onSubmit={(e: MouseEvent<any>) => {
                     e.preventDefault();
-                    signIn({ email });
+                    signIn({ email }, { redirectTo: window.location.href });
                   }}
                 >
                   <Form.Field>
