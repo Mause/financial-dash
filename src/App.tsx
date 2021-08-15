@@ -21,6 +21,7 @@ import {
   Form,
   Heading,
   Columns,
+  Notification,
   Card,
   Container,
 } from "react-bulma-components";
@@ -62,7 +63,7 @@ function App() {
       name
     )`
   );
-  console.log(result);
+  console.log("result", result);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedPayment, setSelectedPayment] = useState<Payment>();
@@ -92,35 +93,33 @@ function App() {
           Import Bill
         </Button>
       </Heading>
-      <p>
-        {pipe(
-          result,
-          RD.fold3(
-            constant(<div>Loading...</div>),
-            (e) => <div>Query failed: {e}</div>,
-            (result) => (
-              <>
-                <Container>
-                  <Columns centered={true}>
-                    <Columns.Column size="half">
-                      {result.map((row) => (
-                        <>
-                          <BillCard
-                            setSelectedPayment={setSelectedPayment}
-                            setShowModal={setShowModal}
-                            row={row}
-                          />
-                          <br />
-                        </>
-                      ))}
-                    </Columns.Column>
-                  </Columns>
-                </Container>
-              </>
-            )
+      {pipe(
+        result,
+        RD.fold3(
+          constant(<div>Loading...</div>),
+          (e) => <div>Query failed: {e}</div>,
+          (result) => (
+            <>
+              <Container>
+                <Columns centered={true}>
+                  <Columns.Column size="half">
+                    {result.map((row) => (
+                      <>
+                        <BillCard
+                          setSelectedPayment={setSelectedPayment}
+                          setShowModal={setShowModal}
+                          row={row}
+                        />
+                        <br />
+                      </>
+                    ))}
+                  </Columns.Column>
+                </Columns>
+              </Container>
+            </>
           )
-        )}
-      </p>
+        )
+      )}
     </div>
   );
 }
@@ -146,7 +145,6 @@ export function BillCard({
   const [deletePaymentsResult, deletePayments] = useDelete<Payment>("Payment");
 
   const comb = RD.combine(result, deletePaymentsResult);
-  console.log("Delete bill", result);
 
   return (
     <Card key={row.id}>
@@ -167,10 +165,7 @@ export function BillCard({
         </Card.Header.Title>
       </Card.Header>
       <Card.Content>
-        {JSON.stringify(result)}
-        {JSON.stringify(deletePaymentsResult)}
-        {JSON.stringify(comb)}
-        {JSON.stringify(filter)}
+        {RD.isFailure(comb) && <Notification>{comb.error}</Notification>}
         <ul>
           {row.Payment.map((payment) => (
             <li key={payment.id}>
@@ -248,7 +243,7 @@ function ImportBill(props: { setOpenImportBill: SetB; refresh: () => void }) {
             e.preventDefault();
 
             const amount = RD.isSuccess(transactions)
-              ? transactions.value.perMonth[month!]?.discounted! * 100
+              ? Math.floor(transactions.value.perMonth[month!]?.discounted! * 100)
               : undefined;
 
             await createBill({
@@ -342,9 +337,21 @@ function AppHeader() {
     )
   );
 
+  const logoutButton = (
+    <Button
+      size="small"
+      onClick={(e: MouseEvent<any>) => {
+        e.preventDefault();
+        signOut();
+      }}
+    >
+      Sign out
+    </Button>
+  );
+
   return (
     <header className="App-header">
-      Financial Dash
+      <Heading textColor="white">Financial Dash</Heading>
       {pipe(
         signInResult,
         RD.fold(
@@ -373,7 +380,7 @@ function AppHeader() {
               ),
               (user: User) => (
                 <div>
-                  {user.email} - {user.role}
+                  {user.email} — {user.role} — {logoutButton}
                 </div>
               )
             )(user),
@@ -385,16 +392,7 @@ function AppHeader() {
                 : error.message}
             </div>
           ),
-          () => (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                signOut();
-              }}
-            >
-              Sign out
-            </button>
-          )
+          () => logoutButton
         )
       )}
     </header>

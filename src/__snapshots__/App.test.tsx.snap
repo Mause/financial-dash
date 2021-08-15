@@ -33,9 +33,6 @@ exports[`Bill 1`] = `
     <div
       class="card-content"
     >
-      {"_tag":"RemoteInitial"}
-      {"_tag":"RemoteInitial"}
-      {"_tag":"RemoteInitial"}
       <ul>
         <li>
           Fred
@@ -91,9 +88,6 @@ exports[`Bill 2`] = `
     <div
       class="card-content"
     >
-      {"_tag":"RemoteInitial"}
-      {"_tag":"RemotePending","progress":{"_tag":"None"}}
-      {"_tag":"RemoteInitial"}
       <ul>
         <li>
           Fred
