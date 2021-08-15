@@ -42,7 +42,7 @@ function money(obj: { amount: number }) {
 }
 
 function App() {
-  const result = useTable<BillRow>(
+  const [result, refresh] = useTable<BillRow>(
     "Bill",
     `
     id,
@@ -73,10 +73,11 @@ function App() {
         <EnterPayment
           setShowModal={setShowModal}
           selectedPayment={selectedPayment!}
+          refresh={refresh}
         />
       </Modal>
       <Modal show={openImportBill} onClose={() => setOpenImportBill(false)}>
-        <ImportBill setOpenImportBill={setOpenImportBill} />
+        <ImportBill setOpenImportBill={setOpenImportBill} refresh={refresh} />
       </Modal>
       <AppHeader></AppHeader>
       <Heading size={1}>
@@ -199,7 +200,7 @@ export function BillCard({
   );
 }
 
-function ImportBill(props: { setOpenImportBill: SetB }) {
+function ImportBill(props: { setOpenImportBill: SetB; refresh: () => void }) {
   const [createBillResult, createBill] = useInsert<Bill>("Bill");
   const [month, setMonth] = useState<string>();
   const { data, error, isValidating } = useSWR<{
@@ -208,6 +209,7 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
 
   if (RD.isSuccess(createBillResult)) {
     props.setOpenImportBill(false);
+    props.refresh();
   }
 
   return (
@@ -257,15 +259,24 @@ function ImportBill(props: { setOpenImportBill: SetB }) {
   );
 }
 
-function EnterPayment(props: { setShowModal: SetB; selectedPayment: Payment }) {
+function EnterPayment(props: {
+  setShowModal: SetB;
+  selectedPayment: Payment;
+  refresh: () => void;
+}) {
   const [bankId, setBankId] = useState<string>();
-  const [, updatePayment] = useUpdate<Payment>("Payment");
+  const [result, updatePayment] = useUpdate<Payment>("Payment");
   const { data, error, isValidating } = useSWR<
     {
       id: string;
       attributes: { description: string; message: string; createdAt: string };
     }[]
   >("https://launtel.vercel.app/api/up");
+
+  if (RD.isSuccess(result)) {
+    props.setShowModal(false);
+    props.refresh();
+  }
 
   return (
     <Modal.Card>
@@ -301,7 +312,6 @@ function EnterPayment(props: { setShowModal: SetB; selectedPayment: Payment }) {
           onChange={async (e: MouseEvent<any>) => {
             e.preventDefault();
             await markPaid(bankId, props.selectedPayment, updatePayment);
-            props.setShowModal(false);
           }}
         >
           Pay
