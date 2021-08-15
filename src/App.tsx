@@ -27,6 +27,7 @@ import {
 } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
+import * as Sentry from "@sentry/react";
 
 type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
@@ -326,6 +327,14 @@ function AppHeader() {
   const [, signOut] = useSignOut();
   const user = useUser();
   const [email, setEmail] = useState<string>();
+
+  pipe(
+    user,
+    O.fold(
+      () => Sentry.setUser(null),
+      (u) => Sentry.setUser({ email: u.email, id: u.id })
+    )
+  );
 
   return (
     <header className="App-header">
