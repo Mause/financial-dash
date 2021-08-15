@@ -249,7 +249,7 @@ function ImportBill(props: { setOpenImportBill: SetB; refresh: () => void }) {
             await createBill({
               vendor: 1, // Launtel,
               billDate: month + "-01",
-              amount: data?.perMonth[month!]?.discounted! * 100,
+              amount: Math.floor(data?.perMonth[month!]?.discounted! * 100),
             });
           }}
         >
