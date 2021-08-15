@@ -334,9 +334,21 @@ function AppHeader() {
     )
   );
 
+  const logoutButton = (
+    <Button
+      size="small"
+      onClick={(e: MouseEvent<any>) => {
+        e.preventDefault();
+        signOut();
+      }}
+    >
+      Sign out
+    </Button>
+  );
+
   return (
     <header className="App-header">
-      Financial Dash
+      <Heading textColor="white">Financial Dash</Heading>
       {pipe(
         signInResult,
         RD.fold(
@@ -365,7 +377,7 @@ function AppHeader() {
               ),
               (user: User) => (
                 <div>
-                  {user.email} - {user.role}
+                  {user.email} — {user.role} — {logoutButton}
                 </div>
               )
             )(user),
@@ -377,16 +389,7 @@ function AppHeader() {
                 : error.message}
             </div>
           ),
-          () => (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                signOut();
-              }}
-            >
-              Sign out
-            </button>
-          )
+          () => logoutButton
         )
       )}
     </header>
