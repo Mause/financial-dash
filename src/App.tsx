@@ -14,7 +14,6 @@ import {
 import { pipe, constant } from "fp-ts/function";
 import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
-import useSWR from "swr";
 import { useState, MouseEvent } from "react";
 import {
   Modal,
@@ -273,7 +272,7 @@ function EnterPayment(props: {
 }) {
   const [bankId, setBankId] = useState<string>();
   const [result, updatePayment] = useUpdate<Payment>("Payment");
-  const { data, error, isValidating } = useSWR<
+  const transactions = useSwrRD<
     {
       id: string;
       attributes: { description: string; message: string; createdAt: string };
@@ -291,25 +290,26 @@ function EnterPayment(props: {
         <Modal.Card.Title>Enter payment</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
-        {JSON.stringify(error)}
+        {RD.isFailure(transactions) && JSON.stringify(transactions.error)}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
             <Form.Select
               onChange={(e) => setBankId(e.target.value)}
-              loading={isValidating}
+              loading={RD.isPending(transactions)}
             >
-              {data?.map((transaction) => (
-                <option key={transaction.id} value={transaction.id}>
-                  {formatISO(parseISO(transaction.attributes.createdAt), {
-                    representation: "date",
-                  })}
-                  {" — "}
-                  {transaction.attributes.description}
-                  {" — "}
-                  {transaction.attributes.message}
-                </option>
-              ))}
+              {RD.isSuccess(transactions) &&
+                transactions.value.map((transaction) => (
+                  <option key={transaction.id} value={transaction.id}>
+                    {formatISO(parseISO(transaction.attributes.createdAt), {
+                      representation: "date",
+                    })}
+                    {" — "}
+                    {transaction.attributes.description}
+                    {" — "}
+                    {transaction.attributes.message}
+                  </option>
+                ))}
             </Form.Select>
           </Form.Control>
         </Form.Field>
