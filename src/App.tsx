@@ -92,35 +92,33 @@ function App() {
           Import Bill
         </Button>
       </Heading>
-      <p>
-        {pipe(
-          result,
-          RD.fold3(
-            constant(<div>Loading...</div>),
-            (e) => <div>Query failed: {e}</div>,
-            (result) => (
-              <>
-                <Container>
-                  <Columns centered={true}>
-                    <Columns.Column size="half">
-                      {result.map((row) => (
-                        <>
-                          <BillCard
-                            setSelectedPayment={setSelectedPayment}
-                            setShowModal={setShowModal}
-                            row={row}
-                          />
-                          <br />
-                        </>
-                      ))}
-                    </Columns.Column>
-                  </Columns>
-                </Container>
-              </>
-            )
+      {pipe(
+        result,
+        RD.fold3(
+          constant(<div>Loading...</div>),
+          (e) => <div>Query failed: {e}</div>,
+          (result) => (
+            <>
+              <Container>
+                <Columns centered={true}>
+                  <Columns.Column size="half">
+                    {result.map((row) => (
+                      <>
+                        <BillCard
+                          setSelectedPayment={setSelectedPayment}
+                          setShowModal={setShowModal}
+                          row={row}
+                        />
+                        <br />
+                      </>
+                    ))}
+                  </Columns.Column>
+                </Columns>
+              </Container>
+            </>
           )
-        )}
-      </p>
+        )
+      )}
     </div>
   );
 }
