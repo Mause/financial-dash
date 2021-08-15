@@ -22,6 +22,7 @@ import {
   Form,
   Heading,
   Columns,
+  Notification,
   Card,
   Container,
 } from "react-bulma-components";
@@ -62,7 +63,7 @@ function App() {
       name
     )`
   );
-  console.log(result);
+  console.log("result", result);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedPayment, setSelectedPayment] = useState<Payment>();
@@ -144,7 +145,6 @@ export function BillCard({
   const [deletePaymentsResult, deletePayments] = useDelete<Payment>("Payment");
 
   const comb = RD.combine(result, deletePaymentsResult);
-  console.log("Delete bill", result);
 
   return (
     <Card key={row.id}>
@@ -165,10 +165,7 @@ export function BillCard({
         </Card.Header.Title>
       </Card.Header>
       <Card.Content>
-        {JSON.stringify(result)}
-        {JSON.stringify(deletePaymentsResult)}
-        {JSON.stringify(comb)}
-        {JSON.stringify(filter)}
+        {RD.isFailure(comb) && <Notification>{comb.error}</Notification>}
         <ul>
           {row.Payment.map((payment) => (
             <li key={payment.id}>
@@ -334,9 +331,21 @@ function AppHeader() {
     )
   );
 
+  const logoutButton = (
+    <Button
+      size="small"
+      onClick={(e: MouseEvent<any>) => {
+        e.preventDefault();
+        signOut();
+      }}
+    >
+      Sign out
+    </Button>
+  );
+
   return (
     <header className="App-header">
-      Financial Dash
+      <Heading textColor="white">Financial Dash</Heading>
       {pipe(
         signInResult,
         RD.fold(
@@ -365,7 +374,7 @@ function AppHeader() {
               ),
               (user: User) => (
                 <div>
-                  {user.email} - {user.role}
+                  {user.email} — {user.role} — {logoutButton}
                 </div>
               )
             )(user),
@@ -377,16 +386,7 @@ function AppHeader() {
                 : error.message}
             </div>
           ),
-          () => (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                signOut();
-              }}
-            >
-              Sign out
-            </button>
-          )
+          () => logoutButton
         )
       )}
     </header>
