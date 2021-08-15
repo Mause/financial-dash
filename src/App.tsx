@@ -243,7 +243,9 @@ function ImportBill(props: { setOpenImportBill: SetB; refresh: () => void }) {
             e.preventDefault();
 
             const amount = RD.isSuccess(transactions)
-              ? Math.floor(transactions.value.perMonth[month!]?.discounted! * 100)
+              ? Math.floor(
+                  transactions.value.perMonth[month!]?.discounted! * 100
+                )
               : undefined;
 
             await createBill({
