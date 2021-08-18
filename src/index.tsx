@@ -9,6 +9,7 @@ import "bulma/css/bulma.css";
 
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
+import { AuthProvider } from "./auth";
 
 const dsn = process.env.REACT_APP_SENTRY_DSN;
 if (dsn)
@@ -29,9 +30,11 @@ const supabase = createClient(
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider value={supabase}>
-      <App />
-    </Provider>
+    <AuthProvider>
+      <Provider value={supabase}>
+        <App />
+      </Provider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
