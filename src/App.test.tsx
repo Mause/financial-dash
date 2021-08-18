@@ -1,4 +1,5 @@
-import React from "react";
+import "@testing-library/jest-dom";
+
 import { render, RenderResult, screen } from "@testing-library/react";
 import App from "./App";
 import { Provider } from "react-supabase-fp";
@@ -6,18 +7,76 @@ import { BillCard } from "./App";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { act } from "@testing-library/react";
 
-test("renders learn react link", () => {
-  render(<App />);
+test("renders learn react link", async () => {
+  await act(async () => {
+    const expected = new ExpectPromises([[]]);
+    const supa = {
+      auth: {
+        onAuthStateChange(callback: () => {}) {
+          return {
+            data: {
+              unsubscribe: () => {},
+            },
+          };
+        },
+        session() {
+          return {};
+        },
+      },
+      from(name: string) {
+        return {
+          select(query: string) {
+            return expected;
+          },
+        };
+      },
+    };
+    render(
+      <Provider value={supa as unknown as SupabaseClient}>
+        <App />
+      </Provider>
+    );
+    await expected.all();
+  });
+
   const linkElement = screen.getByText(/loading/i);
   expect(linkElement).toBeInTheDocument();
 });
 
+class ExpectPromises<T> {
+  promises: Promise<T>[];
+  resolvers: (() => void)[];
+  constructor(responses: any[]) {
+    this.promises = [];
+    this.resolvers = [];
+    for (let response of responses) {
+      let resolve: ((v: T) => void) | undefined;
+      const promise = new Promise<T>((_resolve) => {
+        resolve = _resolve;
+      });
+      this.promises.push(promise);
+      this.resolvers.push(resolve!.bind(promise, response));
+    }
+  }
+
+  then() {
+    let resolve = this.resolvers.pop();
+    if (resolve) resolve();
+  }
+
+  async all(): Promise<void> {
+    await Promise.all(this.promises);
+  }
+}
+
 test("Bill", async () => {
+  let expected = new ExpectPromises([2]);
+
   const supa = {
     from() {
       return {
         delete() {
-          return { eq: () => ({}), in: () => ({}) };
+          return { eq: () => expected, in: () => expected };
         },
       };
     },
@@ -43,8 +102,9 @@ test("Bill", async () => {
   });
   expect(el!.container).toMatchSnapshot();
 
-  act(() => {
+  await act(async () => {
     screen.getByText("Delete").click();
+    await expected.all();
   });
 
   expect(el!.container).toMatchSnapshot();
