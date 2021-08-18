@@ -29,7 +29,6 @@ import {
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 import * as Sentry from "@sentry/react";
-import { some } from "fp-ts/Option";
 
 type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
