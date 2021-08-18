@@ -29,6 +29,7 @@ import {
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 import * as Sentry from "@sentry/react";
+import { some } from "fp-ts/Option";
 
 type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
@@ -109,6 +110,7 @@ function App() {
                           setSelectedPayment={setSelectedPayment}
                           setShowModal={setShowModal}
                           row={row}
+                          refresh={refresh}
                         />
                         <br />
                       </>
@@ -127,12 +129,14 @@ type SetB = (b: boolean) => void;
 
 export function BillCard({
   row,
+  refresh,
   setSelectedPayment,
   setShowModal,
 }: {
   row: BillRow;
   setSelectedPayment: (payment: Payment) => void;
   setShowModal: SetB;
+  refresh: () => void;
 }) {
   const filter = useFilter<Bill>((query) => query.eq("id", row.id));
   const [result, deleteBill] = useDelete<Bill>("Bill");
@@ -145,6 +149,10 @@ export function BillCard({
   const [deletePaymentsResult, deletePayments] = useDelete<Payment>("Payment");
 
   const comb = RD.combine(result, deletePaymentsResult);
+
+  if (RD.isSuccess(comb)) {
+    refresh();
+  }
 
   return (
     <Card key={row.id}>
