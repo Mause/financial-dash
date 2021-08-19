@@ -193,24 +193,27 @@ export function BillCard({
         <Card.Header.Title>
           #{row.id} — {row.billDate} — {money(row)} — {row.Vendor.name} (#
           {row.Vendor.id})
-          <Button
-            onClick={async (e: MouseEvent<any>) => {
-              e.preventDefault();
-              await deletePayments(paymentsFilter);
-              await deleteBill(filter);
-            }}
-            size="small"
-          >
-            Delete
-          </Button>
-          <Button
-            onClick={(e: MouseEvent<any>) => {
-              e.preventDefault();
-              setCreatePaymentModal(true);
-            }}
-          >
-            Add payment
-          </Button>
+          <Button.Group>
+            <Button
+              onClick={async (e: MouseEvent<any>) => {
+                e.preventDefault();
+                await deletePayments(paymentsFilter);
+                await deleteBill(filter);
+              }}
+              size="small"
+            >
+              Delete
+            </Button>
+            <Button
+              size="small"
+              onClick={(e: MouseEvent<any>) => {
+                e.preventDefault();
+                setCreatePaymentModal(true);
+              }}
+            >
+              Add payment
+            </Button>
+          </Button.Group>
         </Card.Header.Title>
       </Card.Header>
       <Card.Content>
