@@ -28,6 +28,12 @@ exports[`Bill 1`] = `
         >
           Delete
         </button>
+        <button
+          class="button"
+          tabindex="0"
+        >
+          Add payment
+        </button>
       </div>
     </div>
     <div
@@ -82,6 +88,12 @@ exports[`Bill 2`] = `
           tabindex="0"
         >
           Delete
+        </button>
+        <button
+          class="button"
+          tabindex="0"
+        >
+          Add payment
         </button>
       </div>
     </div>
