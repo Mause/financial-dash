@@ -22,18 +22,22 @@ exports[`Bill 1`] = `
          (#
         0
         )
-        <button
-          class="is-small button"
-          tabindex="0"
+        <div
+          class="buttons"
         >
-          Delete
-        </button>
-        <button
-          class="button"
-          tabindex="0"
-        >
-          Add payment
-        </button>
+          <button
+            class="is-small button"
+            tabindex="0"
+          >
+            Delete
+          </button>
+          <button
+            class="is-small button"
+            tabindex="0"
+          >
+            Add payment
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -83,18 +87,22 @@ exports[`Bill 2`] = `
          (#
         0
         )
-        <button
-          class="is-small button"
-          tabindex="0"
+        <div
+          class="buttons"
         >
-          Delete
-        </button>
-        <button
-          class="button"
-          tabindex="0"
-        >
-          Add payment
-        </button>
+          <button
+            class="is-small button"
+            tabindex="0"
+          >
+            Delete
+          </button>
+          <button
+            class="is-small button"
+            tabindex="0"
+          >
+            Add payment
+          </button>
+        </div>
       </div>
     </div>
     <div
