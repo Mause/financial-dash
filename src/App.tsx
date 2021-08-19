@@ -126,6 +126,33 @@ function App() {
 }
 type SetB = (b: boolean) => void;
 
+function CreatePaymentModal(props: { setShow: SetB }) {
+  const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
+
+  if (RD.isSuccess(createPaymentResult)) {
+    props.setShow(false);
+  }
+
+  return (
+    <Modal.Card>
+      <Card.Header>
+        <Card.Header.Title>Add Payment</Card.Header.Title>
+      </Card.Header>
+      <Card.Content></Card.Content>
+      <Card.Footer>
+        <Button
+          onClick={async (e: MouseEvent<any>) => {
+            e.preventDefault();
+            await createPayment({});
+          }}
+        >
+          Create
+        </Button>
+      </Card.Footer>
+    </Modal.Card>
+  );
+}
+
 export function BillCard({
   row,
   refresh,
@@ -146,6 +173,7 @@ export function BillCard({
     )
   );
   const [deletePaymentsResult, deletePayments] = useDelete<Payment>("Payment");
+  const [createPaymentModal, setCreatePaymentModal] = useState<boolean>(false);
 
   const comb = RD.combine(result, deletePaymentsResult);
 
@@ -155,6 +183,12 @@ export function BillCard({
 
   return (
     <Card key={row.id}>
+      <Modal
+        onClose={() => setCreatePaymentModal(false)}
+        show={createPaymentModal}
+      >
+        <CreatePaymentModal setShow={setCreatePaymentModal} />
+      </Modal>
       <Card.Header>
         <Card.Header.Title>
           #{row.id} — {row.billDate} — {money(row)} — {row.Vendor.name} (#
@@ -168,6 +202,14 @@ export function BillCard({
             size="small"
           >
             Delete
+          </Button>
+          <Button
+            onClick={(e: MouseEvent<any>) => {
+              e.preventDefault();
+              setCreatePaymentModal(true);
+            }}
+          >
+            Add payment
           </Button>
         </Card.Header.Title>
       </Card.Header>
