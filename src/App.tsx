@@ -109,6 +109,7 @@ function App() {
                           setSelectedPayment={setSelectedPayment}
                           setShowModal={setShowModal}
                           row={row}
+                          refresh={refresh}
                         />
                         <br />
                       </>
@@ -154,12 +155,14 @@ function CreatePaymentModal(props: { setShow: SetB }) {
 
 export function BillCard({
   row,
+  refresh,
   setSelectedPayment,
   setShowModal,
 }: {
   row: BillRow;
   setSelectedPayment: (payment: Payment) => void;
   setShowModal: SetB;
+  refresh: () => void;
 }) {
   const filter = useFilter<Bill>((query) => query.eq("id", row.id));
   const [result, deleteBill] = useDelete<Bill>("Bill");
@@ -173,6 +176,10 @@ export function BillCard({
   const [createPaymentModal, setCreatePaymentModal] = useState<boolean>(false);
 
   const comb = RD.combine(result, deletePaymentsResult);
+
+  if (RD.isSuccess(comb)) {
+    refresh();
+  }
 
   return (
     <Card key={row.id}>

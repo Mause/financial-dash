@@ -95,6 +95,7 @@ test("Bill", async () => {
             Vendor: { id: 0, name: "Synergy" },
           }}
           setSelectedPayment={(a) => {}}
+          refresh={() => {}}
           setShowModal={(a) => {}}
         />
       </Provider>
