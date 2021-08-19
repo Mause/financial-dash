@@ -134,11 +134,11 @@ function CreatePaymentModal(props: { setShow: SetB }) {
 
   return (
     <Modal.Card>
-      <Card.Header>
-        <Card.Header.Title>Add Payment</Card.Header.Title>
-      </Card.Header>
-      <Card.Content></Card.Content>
-      <Card.Footer>
+      <Modal.Card.Header>
+        <Modal.Card.Title>Add Payment</Modal.Card.Title>
+      </Modal.Card.Header>
+      <Modal.Card.Body></Modal.Card.Body>
+      <Modal.Card.Footer>
         <Button
           onClick={async (e: MouseEvent<any>) => {
             e.preventDefault();
@@ -147,7 +147,7 @@ function CreatePaymentModal(props: { setShow: SetB }) {
         >
           Create
         </Button>
-      </Card.Footer>
+      </Modal.Card.Footer>
     </Modal.Card>
   );
 }
