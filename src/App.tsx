@@ -109,6 +109,7 @@ function App() {
                           setSelectedPayment={setSelectedPayment}
                           setShowModal={setShowModal}
                           row={row}
+                          refresh={refresh}
                         />
                         <br />
                       </>
@@ -125,14 +126,43 @@ function App() {
 }
 type SetB = (b: boolean) => void;
 
+function CreatePaymentModal(props: { setShow: SetB }) {
+  const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
+
+  if (RD.isSuccess(createPaymentResult)) {
+    props.setShow(false);
+  }
+
+  return (
+    <Modal.Card>
+      <Modal.Card.Header>
+        <Modal.Card.Title>Add Payment</Modal.Card.Title>
+      </Modal.Card.Header>
+      <Modal.Card.Body></Modal.Card.Body>
+      <Modal.Card.Footer>
+        <Button
+          onClick={async (e: MouseEvent<any>) => {
+            e.preventDefault();
+            await createPayment({});
+          }}
+        >
+          Create
+        </Button>
+      </Modal.Card.Footer>
+    </Modal.Card>
+  );
+}
+
 export function BillCard({
   row,
+  refresh,
   setSelectedPayment,
   setShowModal,
 }: {
   row: BillRow;
   setSelectedPayment: (payment: Payment) => void;
   setShowModal: SetB;
+  refresh: () => void;
 }) {
   const filter = useFilter<Bill>((query) => query.eq("id", row.id));
   const [result, deleteBill] = useDelete<Bill>("Bill");
@@ -143,11 +173,22 @@ export function BillCard({
     )
   );
   const [deletePaymentsResult, deletePayments] = useDelete<Payment>("Payment");
+  const [createPaymentModal, setCreatePaymentModal] = useState<boolean>(false);
 
   const comb = RD.combine(result, deletePaymentsResult);
 
+  if (RD.isSuccess(comb)) {
+    refresh();
+  }
+
   return (
     <Card key={row.id}>
+      <Modal
+        onClose={() => setCreatePaymentModal(false)}
+        show={createPaymentModal}
+      >
+        <CreatePaymentModal setShow={setCreatePaymentModal} />
+      </Modal>
       <Card.Header>
         <Card.Header.Title>
           #{row.id} — {row.billDate} — {money(row)} — {row.Vendor.name} (#
@@ -161,6 +202,14 @@ export function BillCard({
             size="small"
           >
             Delete
+          </Button>
+          <Button
+            onClick={(e: MouseEvent<any>) => {
+              e.preventDefault();
+              setCreatePaymentModal(true);
+            }}
+          >
+            Add payment
           </Button>
         </Card.Header.Title>
       </Card.Header>
