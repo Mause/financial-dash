@@ -138,6 +138,16 @@ function CreatePaymentModal(props: { setShow: SetB }) {
         <Card.Header.Title>Add Payment</Card.Header.Title>
       </Card.Header>
       <Card.Content></Card.Content>
+      <Card.Footer>
+        <Button
+          onClick={async (e: MouseEvent<any>) => {
+            e.preventDefault();
+            await createPayment({});
+          }}
+        >
+          Create
+        </Button>
+      </Card.Footer>
     </Modal.Card>
   );
 }
