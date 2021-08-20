@@ -14,7 +14,6 @@ import {
 import { pipe, constant } from "fp-ts/function";
 import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
-import useSWR from "swr";
 import { useState, MouseEvent } from "react";
 import {
   Modal,
@@ -29,6 +28,7 @@ import {
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 import * as Sentry from "@sentry/react";
+import useSwrRD from "./useSwrRD";
 
 type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
@@ -259,7 +259,7 @@ export function BillCard({
 function ImportBill(props: { setOpenImportBill: SetB; refresh: () => void }) {
   const [createBillResult, createBill] = useInsert<Bill>("Bill");
   const [month, setMonth] = useState<string>();
-  const { data, error, isValidating } = useSWR<{
+  const transactions = useSwrRD<{
     perMonth: Record<string, { discounted: number }>;
   }>("https://launtel.vercel.app/api/transactions");
 
@@ -274,24 +274,25 @@ function ImportBill(props: { setOpenImportBill: SetB; refresh: () => void }) {
         <Modal.Card.Title>Import Bill</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
-        {JSON.stringify(error)}
+        {RD.isFailure(transactions) && JSON.stringify(transactions.error)}
         {JSON.stringify(createBillResult)}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
             <Form.Select
               onChange={(e) => setMonth(e.target.value)}
-              loading={isValidating}
+              loading={RD.isPending(transactions)}
             >
-              {Object.entries(data?.perMonth ?? {}).map(
-                ([month, { discounted }]) => (
-                  <option key={month} value={month}>
-                    {month}
-                    {" — $"}
-                    {discounted}
-                  </option>
-                )
-              )}
+              {RD.isSuccess(transactions) &&
+                Object.entries(transactions.value).map(
+                  ([month, { discounted }]) => (
+                    <option key={month} value={month}>
+                      {month}
+                      {" — $"}
+                      {discounted}
+                    </option>
+                  )
+                )}
             </Form.Select>
           </Form.Control>
         </Form.Field>
@@ -301,10 +302,16 @@ function ImportBill(props: { setOpenImportBill: SetB; refresh: () => void }) {
           onClick={async (e: MouseEvent<any>) => {
             e.preventDefault();
 
+            const amount = RD.isSuccess(transactions)
+              ? Math.floor(
+                  transactions.value.perMonth[month!]?.discounted! * 100
+                )
+              : undefined;
+
             await createBill({
               vendor: 1, // Launtel,
               billDate: month + "-01",
-              amount: Math.floor(data?.perMonth[month!]?.discounted! * 100),
+              amount,
             });
           }}
         >
@@ -322,7 +329,7 @@ function EnterPayment(props: {
 }) {
   const [bankId, setBankId] = useState<string>();
   const [result, updatePayment] = useUpdate<Payment>("Payment");
-  const { data, error, isValidating } = useSWR<
+  const transactions = useSwrRD<
     {
       id: string;
       attributes: { description: string; message: string; createdAt: string };
@@ -340,25 +347,26 @@ function EnterPayment(props: {
         <Modal.Card.Title>Enter payment</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
-        {JSON.stringify(error)}
+        {RD.isFailure(transactions) && JSON.stringify(transactions.error)}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
             <Form.Select
               onChange={(e) => setBankId(e.target.value)}
-              loading={isValidating}
+              loading={RD.isPending(transactions)}
             >
-              {data?.map((transaction) => (
-                <option key={transaction.id} value={transaction.id}>
-                  {formatISO(parseISO(transaction.attributes.createdAt), {
-                    representation: "date",
-                  })}
-                  {" — "}
-                  {transaction.attributes.description}
-                  {" — "}
-                  {transaction.attributes.message}
-                </option>
-              ))}
+              {RD.isSuccess(transactions) &&
+                transactions.value.map((transaction) => (
+                  <option key={transaction.id} value={transaction.id}>
+                    {formatISO(parseISO(transaction.attributes.createdAt), {
+                      representation: "date",
+                    })}
+                    {" — "}
+                    {transaction.attributes.description}
+                    {" — "}
+                    {transaction.attributes.message}
+                  </option>
+                ))}
             </Form.Select>
           </Form.Control>
         </Form.Field>
