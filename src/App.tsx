@@ -15,7 +15,7 @@ import { pipe, constant } from "fp-ts/function";
 import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, ChangeEvent } from "react";
 import {
   Modal,
   Button,
@@ -126,9 +126,10 @@ function App() {
 }
 type SetB = (b: boolean) => void;
 
-function CreatePaymentModal(props: { setShow: SetB }) {
+function CreatePaymentModal(props: { setShow: SetB; bill: number }) {
   const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
   const [payers] = useTable<Payer>("Payer");
+  const [payer, setPayer] = useState<number>();
 
   if (RD.isSuccess(createPaymentResult)) {
     props.setShow(false);
@@ -140,7 +141,13 @@ function CreatePaymentModal(props: { setShow: SetB }) {
         <Modal.Card.Title>Add Payment</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
-        <Form.Select loading={RD.isPending(payers)}>
+        {RD.isFailure(createPaymentResult) && createPaymentResult}
+        <Form.Select
+          loading={RD.isPending(payers)}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+            setPayer(Number(e.target.value));
+          }}
+        >
           {RD.isSuccess(payers) &&
             payers.value.map((payer) => (
               <option key={payer.id}>{payer.name}</option>
@@ -151,7 +158,10 @@ function CreatePaymentModal(props: { setShow: SetB }) {
         <Button
           onClick={async (e: MouseEvent<any>) => {
             e.preventDefault();
-            await createPayment({});
+            await createPayment({
+              paidBy: payer,
+              paidFor: props.bill,
+            });
           }}
         >
           Create
@@ -195,7 +205,7 @@ export function BillCard({
         onClose={() => setCreatePaymentModal(false)}
         show={createPaymentModal}
       >
-        <CreatePaymentModal setShow={setCreatePaymentModal} />
+        <CreatePaymentModal setShow={setCreatePaymentModal} bill={row.id} />
       </Modal>
       <Card.Header>
         <Card.Header.Title>
