@@ -128,6 +128,7 @@ type SetB = (b: boolean) => void;
 
 function CreatePaymentModal(props: { setShow: SetB }) {
   const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
+  const [payers] = useTable<Payer>("Payer");
 
   if (RD.isSuccess(createPaymentResult)) {
     props.setShow(false);
@@ -138,7 +139,14 @@ function CreatePaymentModal(props: { setShow: SetB }) {
       <Modal.Card.Header>
         <Modal.Card.Title>Add Payment</Modal.Card.Title>
       </Modal.Card.Header>
-      <Modal.Card.Body></Modal.Card.Body>
+      <Modal.Card.Body>
+        <Form.Select loading={RD.isPending(payers)}>
+          {RD.isSuccess(payers) &&
+            payers.value.map((payer) => (
+              <option key={payer.id}>{payer.name}</option>
+            ))}
+        </Form.Select>
+      </Modal.Card.Body>
       <Modal.Card.Footer>
         <Button
           onClick={async (e: MouseEvent<any>) => {
