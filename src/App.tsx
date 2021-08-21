@@ -15,7 +15,7 @@ import { pipe, constant } from "fp-ts/function";
 import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
-import { useState, MouseEvent, ChangeEvent } from "react";
+import { useState, MouseEvent } from "react";
 import {
   Modal,
   Button,
@@ -29,10 +29,11 @@ import {
 import { formatISO, parseISO } from "date-fns";
 import { User } from "@supabase/supabase-js";
 import * as Sentry from "@sentry/react";
+import { CreatePaymentModal } from "./CreatePaymentModal";
 
-type Payment = definitions["Payment"];
+export type Payment = definitions["Payment"];
 type Bill = definitions["Bill"];
-type Payer = definitions["Payer"];
+export type Payer = definitions["Payer"];
 type Vendor = definitions["Vendor"];
 type BillRow = Pick<Bill, "id" | "amount" | "billDate"> & {
   Vendor: Vendor;
@@ -124,61 +125,7 @@ function App() {
     </div>
   );
 }
-type SetB = (b: boolean) => void;
-
-function CreatePaymentModal(props: {
-  setShow: SetB;
-  bill: number;
-  refresh: () => void;
-}) {
-  const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
-  const [payers] = useTable<Payer>("Payer");
-  const [payer, setPayer] = useState<number>();
-
-  if (RD.isSuccess(createPaymentResult)) {
-    props.setShow(false);
-    props.refresh();
-  }
-
-  return (
-    <Modal.Card>
-      <Modal.Card.Header>
-        <Modal.Card.Title>Add Payment</Modal.Card.Title>
-      </Modal.Card.Header>
-      <Modal.Card.Body>
-        {RD.isFailure(createPaymentResult) && (
-          <Notification>{createPaymentResult.error}</Notification>
-        )}
-        <Form.Select
-          loading={RD.isPending(payers)}
-          onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-            setPayer(Number(e.target.value));
-          }}
-        >
-          {RD.isSuccess(payers) &&
-            payers.value.map((payer) => (
-              <option key={payer.id} value={payer.id}>
-                {payer.name}
-              </option>
-            ))}
-        </Form.Select>
-      </Modal.Card.Body>
-      <Modal.Card.Footer>
-        <Button
-          onClick={async (e: MouseEvent<any>) => {
-            e.preventDefault();
-            await createPayment({
-              paidBy: payer,
-              paidFor: props.bill,
-            });
-          }}
-        >
-          Create
-        </Button>
-      </Modal.Card.Footer>
-    </Modal.Card>
-  );
-}
+export type SetB = (b: boolean) => void;
 
 export function BillCard({
   row,
