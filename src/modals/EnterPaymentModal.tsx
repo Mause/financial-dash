@@ -16,7 +16,12 @@ export function EnterPaymentModal(props: {
   const { data, error, isValidating } = useSWR<
     {
       id: string;
-      attributes: { description: string; message: string; createdAt: string };
+      attributes: {
+        description: string;
+        message: string;
+        createdAt: string;
+        amount: { value: string };
+      };
     }[]
   >("https://launtel.vercel.app/api/up");
 
@@ -54,6 +59,7 @@ export function EnterPaymentModal(props: {
                   {formatISO(parseISO(transaction.attributes.createdAt), {
                     representation: "date",
                   })}
+                  {" — "}${transaction.attributes.amount.value}
                   {" — "}
                   {transaction.attributes.description}
                   {" — "}
