@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useState, MouseEvent } from "react";
 import { Modal, Button, Form } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
-import { SetB, Payment, markPaid } from "./App";
+import { SetB, Payment, markPaid } from "../App";
 
 export function EnterPaymentModal(props: {
   setShowModal: SetB;

@@ -3,7 +3,7 @@ import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, MouseEvent } from "react";
 import { Modal, Button, Form } from "react-bulma-components";
-import { SetB, Bill } from "./App";
+import { SetB, Bill } from "../App";
 
 export function ImportBillModal(props: {
   setOpenImportBill: SetB;
