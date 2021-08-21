@@ -21,7 +21,7 @@ function useFetcher() {
         token,
         fold(constant({}), (Authorization) => ({ Authorization }))
       ),
-    });
+    }).then((res) => res.json());
 }
 
 export const AuthProvider: React.VFC<{ children: any }> = (props) => {
