@@ -47,7 +47,7 @@ export function CreatePaymentModal(props: {
               }}
               required
             >
-              <option value=""></option>
+              <option value="">Select a payer</option>
               {RD.isSuccess(payers) &&
                 payers.value.map((payer) => (
                   <option key={payer.id} value={payer.id}>
