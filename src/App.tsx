@@ -152,7 +152,9 @@ function CreatePaymentModal(props: { setShow: SetB; bill: number }) {
         >
           {RD.isSuccess(payers) &&
             payers.value.map((payer) => (
-              <option key={payer.id}>{payer.name}</option>
+              <option key={payer.id} value={payer.id}>
+                {payer.name}
+              </option>
             ))}
         </Form.Select>
       </Modal.Card.Body>
