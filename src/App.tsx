@@ -7,7 +7,6 @@ import {
   useSignOut,
   useFilter,
   useDelete,
-  Filter,
 } from "react-supabase-fp";
 import { pipe, constant } from "fp-ts/function";
 import * as O from "fp-ts/Option";
@@ -301,17 +300,6 @@ function AppHeader() {
       )}
     </header>
   );
-}
-
-export async function markPaid(
-  bankId: string | undefined,
-  payment: Payment,
-  updatePayment: (
-    values: Partial<Payment>,
-    filter: Filter<Payment>
-  ) => Promise<void>
-): Promise<void> {
-  await updatePayment({ bankId }, (query) => query.eq("id", payment.id));
 }
 
 export default App;

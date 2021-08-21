@@ -1,10 +1,10 @@
 import { useUpdate } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
-import { useState, MouseEvent } from "react";
+import { useState, FormEvent } from "react";
 import { Modal, Button, Form } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
-import { SetB, Payment, markPaid } from "../App";
+import { SetB, Payment } from "../App";
 
 export function EnterPaymentModal(props: {
   setShowModal: SetB;
@@ -25,8 +25,18 @@ export function EnterPaymentModal(props: {
     props.refresh();
   }
 
+  console.log(data);
+
   return (
-    <Modal.Card>
+    <Modal.Card
+      renderAs="form"
+      onSubmit={async (e: FormEvent<any>) => {
+        e.preventDefault();
+        await updatePayment({ bankId }, (query) =>
+          query.eq("id", props.selectedPayment.id)
+        );
+      }}
+    >
       <Modal.Card.Header>
         <Modal.Card.Title>Enter payment</Modal.Card.Title>
       </Modal.Card.Header>
@@ -55,14 +65,7 @@ export function EnterPaymentModal(props: {
         </Form.Field>
       </Modal.Card.Body>
       <Modal.Card.Footer renderAs={Button.Group}>
-        <Button
-          onChange={async (e: MouseEvent<any>) => {
-            e.preventDefault();
-            await markPaid(bankId, props.selectedPayment, updatePayment);
-          }}
-        >
-          Pay
-        </Button>
+        <Button type="submit">Pay</Button>
       </Modal.Card.Footer>
     </Modal.Card>
   );

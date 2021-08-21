@@ -1,7 +1,7 @@
 import { useInsert } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
-import { useState, MouseEvent } from "react";
+import { useState, FormEvent } from "react";
 import { Modal, Button, Form } from "react-bulma-components";
 import { SetB, Bill } from "../App";
 
@@ -21,7 +21,17 @@ export function ImportBillModal(props: {
   }
 
   return (
-    <Modal.Card>
+    <Modal.Card
+      renderAs="form"
+      onSubmit={async (e: FormEvent<any>) => {
+        e.preventDefault();
+        await createBill({
+          vendor: 1,
+          billDate: month + "-01",
+          amount: Math.floor(data?.perMonth[month!]?.discounted! * 100),
+        });
+      }}
+    >
       <Modal.Card.Header>
         <Modal.Card.Title>Import Bill</Modal.Card.Title>
       </Modal.Card.Header>
@@ -34,6 +44,7 @@ export function ImportBillModal(props: {
             <Form.Select
               onChange={(e) => setMonth(e.target.value)}
               loading={isValidating}
+              required
             >
               {Object.entries(data?.perMonth ?? {}).map(
                 ([month, { discounted }]) => (
@@ -49,19 +60,7 @@ export function ImportBillModal(props: {
         </Form.Field>
       </Modal.Card.Body>
       <Modal.Card.Footer renderAs={Button.Group}>
-        <Button
-          onClick={async (e: MouseEvent<any>) => {
-            e.preventDefault();
-
-            await createBill({
-              vendor: 1,
-              billDate: month + "-01",
-              amount: Math.floor(data?.perMonth[month!]?.discounted! * 100),
-            });
-          }}
-        >
-          Import
-        </Button>
+        <Button type="submit">Import</Button>
       </Modal.Card.Footer>
     </Modal.Card>
   );
