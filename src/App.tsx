@@ -141,7 +141,9 @@ function CreatePaymentModal(props: { setShow: SetB; bill: number }) {
         <Modal.Card.Title>Add Payment</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
-        {RD.isFailure(createPaymentResult) && createPaymentResult}
+        {RD.isFailure(createPaymentResult) && (
+          <Notification>{createPaymentResult.error}</Notification>
+        )}
         <Form.Select
           loading={RD.isPending(payers)}
           onChange={(e: ChangeEvent<HTMLSelectElement>) => {
