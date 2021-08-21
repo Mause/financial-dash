@@ -126,13 +126,18 @@ function App() {
 }
 type SetB = (b: boolean) => void;
 
-function CreatePaymentModal(props: { setShow: SetB; bill: number }) {
+function CreatePaymentModal(props: {
+  setShow: SetB;
+  bill: number;
+  refresh: () => void;
+}) {
   const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
 
   if (RD.isSuccess(createPaymentResult)) {
     props.setShow(false);
+    props.refresh();
   }
 
   return (
@@ -209,7 +214,11 @@ export function BillCard({
         onClose={() => setCreatePaymentModal(false)}
         show={createPaymentModal}
       >
-        <CreatePaymentModal setShow={setCreatePaymentModal} bill={row.id} />
+        <CreatePaymentModal
+          setShow={setCreatePaymentModal}
+          bill={row.id}
+          refresh={refresh}
+        />
       </Modal>
       <Card.Header>
         <Card.Header.Title>
