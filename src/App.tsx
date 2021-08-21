@@ -12,7 +12,7 @@ import {
 import { pipe, constant } from "fp-ts/function";
 import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, Fragment } from "react";
 import {
   Modal,
   Button,
@@ -106,7 +106,7 @@ function App() {
                 <Columns centered={true}>
                   <Columns.Column size="half">
                     {result.map((row) => (
-                      <>
+                      <Fragment key={row.id}>
                         <BillCard
                           setSelectedPayment={setSelectedPayment}
                           setShowModal={setShowModal}
@@ -114,7 +114,7 @@ function App() {
                           refresh={refresh}
                         />
                         <br />
-                      </>
+                      </Fragment>
                     ))}
                   </Columns.Column>
                 </Columns>
