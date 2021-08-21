@@ -91,7 +91,15 @@ test("Bill", async () => {
             id: 0,
             billDate: "2021-01-01",
             amount: 1111,
-            Payment: [{ id: 0, amount: 500, Payer: { id: 0, name: "Fred" } }],
+            Payment: [
+              {
+                id: 0,
+                amount: 500,
+                Payer: { id: 0, name: "Fred" },
+                paidFor: -1,
+                paidBy: -1,
+              },
+            ],
             Vendor: { id: 0, name: "Synergy" },
           }}
           setSelectedPayment={(a) => {}}
