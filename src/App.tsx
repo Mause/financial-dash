@@ -25,9 +25,9 @@ import {
 } from "react-bulma-components";
 import { User } from "@supabase/supabase-js";
 import * as Sentry from "@sentry/react";
-import { CreatePaymentModal } from "./CreatePaymentModal";
-import { EnterPaymentModal } from "./EnterPaymentModal";
-import { ImportBillModal } from "./ImportBillModal";
+import { CreatePaymentModal } from "./modals/CreatePaymentModal";
+import { EnterPaymentModal } from "./modals/EnterPaymentModal";
+import { ImportBillModal } from "./modals/ImportBillModal";
 
 export type Payment = definitions["Payment"];
 export type Bill = definitions["Bill"];

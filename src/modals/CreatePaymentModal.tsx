@@ -2,7 +2,7 @@ import { useTable, useInsert } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import { useState, MouseEvent, ChangeEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
-import { SetB, Payment, Payer } from "./App";
+import { SetB, Payment, Payer } from "../App";
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
