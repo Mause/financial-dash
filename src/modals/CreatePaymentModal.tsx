@@ -12,6 +12,7 @@ export function CreatePaymentModal(props: {
   const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
+  const [amount, setAmount] = useState<number>();
 
   if (RD.isSuccess(createPaymentResult)) {
     props.setShow(false);
@@ -25,6 +26,7 @@ export function CreatePaymentModal(props: {
         e.preventDefault();
         await createPayment({
           paidBy: payer,
+          amount,
           paidFor: props.bill,
         });
       }}
@@ -36,19 +38,40 @@ export function CreatePaymentModal(props: {
         {RD.isFailure(createPaymentResult) && (
           <Notification>{createPaymentResult.error}</Notification>
         )}
-        <Form.Select
-          loading={RD.isPending(payers)}
-          onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-            setPayer(Number(e.target.value));
-          }}
-        >
-          {RD.isSuccess(payers) &&
-            payers.value.map((payer) => (
-              <option key={payer.id} value={payer.id}>
-                {payer.name}
-              </option>
-            ))}
-        </Form.Select>
+        <Form.Field>
+          <Form.Control>
+            <Form.Select
+              loading={RD.isPending(payers)}
+              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                setPayer(Number(e.target.value));
+              }}
+              required
+            >
+              <option value=""></option>
+              {RD.isSuccess(payers) &&
+                payers.value.map((payer) => (
+                  <option key={payer.id} value={payer.id}>
+                    {payer.name}
+                  </option>
+                ))}
+            </Form.Select>
+          </Form.Control>
+        </Form.Field>
+        <Form.Field kind="addons">
+          <Form.Control>
+            <Button isStatic={true}>$</Button>
+          </Form.Control>
+          <Form.Control>
+            <Form.Input
+              name="amount"
+              placeholder="Amount"
+              required
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setAmount(Number(e.target.value) * 100);
+              }}
+            ></Form.Input>
+          </Form.Control>
+        </Form.Field>
       </Modal.Card.Body>
       <Modal.Card.Footer>
         <Button type="submit">Create</Button>
