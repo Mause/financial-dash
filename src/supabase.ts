@@ -422,12 +422,12 @@ export interface definitions {
      * Note:
      * This is a Foreign Key to `Bill.id`.<fk table='Bill' column='id'/>
      */
-    paidFor?: number;
+    paidFor: number;
     /**
      * Note:
      * This is a Foreign Key to `Payer.id`.<fk table='Payer' column='id'/>
      */
-    paidBy?: number;
+    paidBy: number;
     amount: number;
     bankId?: string;
   };
