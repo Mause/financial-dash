@@ -1,6 +1,6 @@
 import { useTable, useInsert } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
-import { useState, MouseEvent, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Payment, Payer } from "../App";
 
@@ -19,7 +19,16 @@ export function CreatePaymentModal(props: {
   }
 
   return (
-    <Modal.Card>
+    <Modal.Card
+      renderAs="form"
+      onSubmit={async (e: FormEvent<any>) => {
+        e.preventDefault();
+        await createPayment({
+          paidBy: payer,
+          paidFor: props.bill,
+        });
+      }}
+    >
       <Modal.Card.Header>
         <Modal.Card.Title>Add Payment</Modal.Card.Title>
       </Modal.Card.Header>
@@ -42,17 +51,7 @@ export function CreatePaymentModal(props: {
         </Form.Select>
       </Modal.Card.Body>
       <Modal.Card.Footer>
-        <Button
-          onClick={async (e: MouseEvent<any>) => {
-            e.preventDefault();
-            await createPayment({
-              paidBy: payer,
-              paidFor: props.bill,
-            });
-          }}
-        >
-          Create
-        </Button>
+        <Button type="submit">Create</Button>
       </Modal.Card.Footer>
     </Modal.Card>
   );
