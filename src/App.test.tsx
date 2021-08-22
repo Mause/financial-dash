@@ -1,11 +1,12 @@
 import "@testing-library/jest-dom";
 
 import { render, RenderResult, screen } from "@testing-library/react";
-import App from "./App";
+import App, { Payment, PaymentWithPayer } from "./App";
 import { Provider } from "react-supabase-fp";
 import { BillCard } from "./App";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { act } from "@testing-library/react";
+import { EnterPaymentModal } from "./modals/EnterPaymentModal";
 
 test("renders learn react link", async () => {
   await act(async () => {
@@ -117,4 +118,23 @@ test("Bill", async () => {
   });
 
   expect(el!.container).toMatchSnapshot();
+});
+
+test("EnterPaymentModal", () => {
+  const payment: PaymentWithPayer = {
+    id: 0,
+    paidFor: 0,
+    amount: 1500,
+    paidBy: 0,
+    bankId: "",
+    Payer: { id: 0, name: "Hello" },
+  };
+  const el = render(
+    <EnterPaymentModal
+      refresh={() => {}}
+      setShowModal={(b) => {}}
+      selectedPayment={payment}
+    />
+  );
+  expect(el.container).toMatchSnapshot();
 });

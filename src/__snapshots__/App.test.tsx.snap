@@ -129,3 +129,67 @@ exports[`Bill 2`] = `
   </div>
 </div>
 `;
+
+exports[`EnterPaymentModal 1`] = `
+<div>
+  <form
+    class="modal-card"
+  >
+    <header
+      class="modal-card-head"
+    >
+      <p
+        class="modal-card-title"
+      >
+        Enter payment for 
+        Hello
+      </p>
+      <button
+        class="delete"
+        tabindex="0"
+      />
+    </header>
+    <section
+      class="modal-card-body"
+    >
+      <div
+        class="field"
+      >
+        <label
+          class="label"
+        >
+          Select a transaction
+        </label>
+        <div
+          class="control"
+        >
+          <div
+            class="select is-loading"
+          >
+            <select
+              required=""
+            >
+              <option
+                value=""
+              >
+                Select a transaction
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div
+      class="buttons modal-card-foot"
+    >
+      <button
+        class="button"
+        tabindex="0"
+        type="submit"
+      >
+        Pay
+      </button>
+    </div>
+  </form>
+</div>
+`;
