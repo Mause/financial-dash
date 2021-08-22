@@ -69,19 +69,23 @@ function App() {
 
   return (
     <div className="App">
-      <Modal show={showModal} onClose={() => setShowModal(false)}>
-        <EnterPaymentModal
-          setShowModal={setShowModal}
-          selectedPayment={selectedPayment!}
-          refresh={refresh}
-        />
-      </Modal>
-      <Modal show={openImportBill} onClose={() => setOpenImportBill(false)}>
-        <ImportBillModal
-          setOpenImportBill={setOpenImportBill}
-          refresh={refresh}
-        />
-      </Modal>
+      {showModal && (
+        <Modal show={true} onClose={() => setShowModal(false)}>
+          <EnterPaymentModal
+            setShowModal={setShowModal}
+            selectedPayment={selectedPayment!}
+            refresh={refresh}
+          />
+        </Modal>
+      )}
+      {openImportBill && (
+        <Modal show={true} onClose={() => setOpenImportBill(false)}>
+          <ImportBillModal
+            setOpenImportBill={setOpenImportBill}
+            refresh={refresh}
+          />
+        </Modal>
+      )}
       <AppHeader></AppHeader>
       <Heading size={1}>
         Bills
@@ -157,16 +161,15 @@ export function BillCard({
 
   return (
     <Card key={row.id}>
-      <Modal
-        onClose={() => setCreatePaymentModal(false)}
-        show={createPaymentModal}
-      >
-        <CreatePaymentModal
-          setShow={setCreatePaymentModal}
-          bill={row.id}
-          refresh={refresh}
-        />
-      </Modal>
+      {createPaymentModal && (
+        <Modal onClose={() => setCreatePaymentModal(false)} show={true}>
+          <CreatePaymentModal
+            setShow={setCreatePaymentModal}
+            bill={row.id}
+            refresh={refresh}
+          />
+        </Modal>
+      )}
       <Card.Header>
         <Card.Header.Title>
           #{row.id} — {row.billDate} — {money(row)} — {row.Vendor.name} (#
