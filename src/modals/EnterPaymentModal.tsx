@@ -4,11 +4,11 @@ import useSWR from "swr";
 import { useState, FormEvent } from "react";
 import { Modal, Button, Form } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
-import { SetB, Payment } from "../App";
+import { SetB, Payment, PaymentWithPayer } from "../App";
 
 export function EnterPaymentModal(props: {
   setShowModal: SetB;
-  selectedPayment: Payment;
+  selectedPayment: PaymentWithPayer;
   refresh: () => void;
 }) {
   const [bankId, setBankId] = useState<string>();
@@ -43,7 +43,9 @@ export function EnterPaymentModal(props: {
       }}
     >
       <Modal.Card.Header>
-        <Modal.Card.Title>Enter payment</Modal.Card.Title>
+        <Modal.Card.Title>
+          Enter payment for {props.selectedPayment.Payer.name}
+        </Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
         {JSON.stringify(error)}

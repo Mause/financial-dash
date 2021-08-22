@@ -32,9 +32,10 @@ export type Payment = definitions["Payment"];
 export type Bill = definitions["Bill"];
 export type Payer = definitions["Payer"];
 type Vendor = definitions["Vendor"];
+export type PaymentWithPayer = Payment & { Payer: Payer };
 type BillRow = Pick<Bill, "id" | "amount" | "billDate"> & {
   Vendor: Vendor;
-  Payment: Array<Payment & { Payer: Payer }>;
+  Payment: Array<PaymentWithPayer>;
 };
 
 function money(obj: { amount: number }) {
@@ -64,7 +65,7 @@ function App() {
   console.log("result", result);
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [selectedPayment, setSelectedPayment] = useState<Payment>();
+  const [selectedPayment, setSelectedPayment] = useState<PaymentWithPayer>();
   const [openImportBill, setOpenImportBill] = useState(false);
 
   return (
@@ -138,7 +139,7 @@ export function BillCard({
   setShowModal,
 }: {
   row: BillRow;
-  setSelectedPayment: (payment: Payment) => void;
+  setSelectedPayment: (payment: PaymentWithPayer) => void;
   setShowModal: SetB;
   refresh: () => void;
 }) {
