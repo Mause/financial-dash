@@ -51,9 +51,11 @@ export function EnterPaymentModal(props: {
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
             <Form.Select
+              required
               onChange={(e) => setBankId(e.target.value)}
               loading={isValidating}
             >
+              <option value="">Select a transaction</option>
               {data?.map((transaction) => (
                 <option key={transaction.id} value={transaction.id}>
                   {formatISO(parseISO(transaction.attributes.createdAt), {
