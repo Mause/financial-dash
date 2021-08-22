@@ -114,6 +114,7 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Payer.id"];
           name?: parameters["rowFilter.Payer.name"];
+          invoice_ninja_id?: parameters["rowFilter.Payer.invoice_ninja_id"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -166,6 +167,7 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Payer.id"];
           name?: parameters["rowFilter.Payer.name"];
+          invoice_ninja_id?: parameters["rowFilter.Payer.invoice_ninja_id"];
         };
         header: {
           /** Preference */
@@ -182,6 +184,7 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.Payer.id"];
           name?: parameters["rowFilter.Payer.name"];
+          invoice_ninja_id?: parameters["rowFilter.Payer.invoice_ninja_id"];
         };
         body: {
           /** Payer */
@@ -411,6 +414,7 @@ export interface definitions {
      */
     id: number;
     name: string;
+    invoice_ninja_id: string;
   };
   Payment: {
     /**
@@ -472,6 +476,7 @@ export interface parameters {
   "body.Payer": definitions["Payer"];
   "rowFilter.Payer.id": string;
   "rowFilter.Payer.name": string;
+  "rowFilter.Payer.invoice_ninja_id": string;
   /** Payment */
   "body.Payment": definitions["Payment"];
   "rowFilter.Payment.id": string;
