@@ -12,7 +12,7 @@ jobs:
       matrix:
         include:
           - name: supabase
-            url: ${{ secrets.SUPABASE_URL }}/rest/v1/?apikey=${{ secrets.SUPABASE_KEY }}
+            url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
           - name: invoice-ninja
             url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.1.20
 
@@ -24,9 +24,9 @@ jobs:
         uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            npx openapi-typescript ${{ matrix.url }} --output src/${{ matrix.invoice-ninja }}.ts
-          COMMIT_MESSAGE: "chore: update ${{ matrix.invoice-ninja }} types"
+            npx openapi-typescript ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} --output src/${{ matrix.name }}.ts
+          COMMIT_MESSAGE: "chore: update ${{ matrix.name }} types"
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
-          PR_BRANCH_NAME: "chore-${{ matrix.invoice-ninja }}-update-${PR_ID}"
-          PR_TITLE: "chore: update ${{ matrix.invoice-ninja }} types"
+          PR_BRANCH_NAME: "chore-${{ matrix.name }}-update-${PR_ID}"
+          PR_TITLE: "chore: update ${{ matrix.name }} types"
