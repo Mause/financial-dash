@@ -2,23 +2,32 @@ on:
   schedule:
     - cron: 0 0 * * *
   workflow_dispatch: {}
-
-name: Update supabase types
+  
+  
+name: Update types
 jobs:
-  release:
-    name: Update supabase types
+  update_types:
+    name: Update types
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+         - name: supabase
+           url: ${{ secrets.SUPABASE_URL }}/rest/v1/?apikey=${{ secrets.SUPABASE_KEY }}
+         - name: invoice-ninja
+           url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.1.20
+       
     steps:
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: 14
-      - name: Update composer packages
+      - name: Update types
         uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            npx openapi-typescript ${{ secrets.SUPABASE_URL }}/rest/v1/?apikey=${{ secrets.SUPABASE_KEY }} --output src/supabase.ts
-          COMMIT_MESSAGE: "chore: update supabase types"
+            npx openapi-typescript ${{ matrix.url }} --output src/${{ matrix.invoice-ninja }}.ts
+          COMMIT_MESSAGE: "chore: update ${{ matrix.invoice-ninja }} types"
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
-          PR_BRANCH_NAME: "chore-supabase-update-${PR_ID}"
-          PR_TITLE: "chore: update supabase types"
+          PR_BRANCH_NAME: "chore-${{ matrix.invoice-ninja }}-update-${PR_ID}"
+          PR_TITLE: "chore: update ${{ matrix.invoice-ninja }} types"
