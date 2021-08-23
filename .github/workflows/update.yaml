@@ -2,8 +2,7 @@ on:
   schedule:
     - cron: 0 0 * * *
   workflow_dispatch: {}
-  
-  
+
 name: Update types
 jobs:
   update_types:
@@ -12,11 +11,11 @@ jobs:
     strategy:
       matrix:
         include:
-         - name: supabase
-           url: ${{ secrets.SUPABASE_URL }}/rest/v1/?apikey=${{ secrets.SUPABASE_KEY }}
-         - name: invoice-ninja
-           url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.1.20
-       
+          - name: supabase
+            url: ${{ secrets.SUPABASE_URL }}/rest/v1/?apikey=${{ secrets.SUPABASE_KEY }}
+          - name: invoice-ninja
+            url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.1.20
+
     steps:
       - uses: actions/setup-node@v2.1.5
         with:
