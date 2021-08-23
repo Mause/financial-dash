@@ -17,12 +17,14 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
   const { data } = await axios.get<op>(path);
 
-  data.line_items = {0: {
-    cost: 69.81,
-    product_cost: 69.81,
-    product_key: "Internet",
-    quantity: 0.25,
-  } as unknown};
+  data.line_items = {
+    0: {
+      cost: 69.81,
+      product_cost: 69.81,
+      product_key: "Internet",
+      quantity: 0.25,
+    } as unknown,
+  };
 
   res.json(data);
 }
