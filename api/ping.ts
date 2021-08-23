@@ -16,12 +16,12 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
   const { data } = await axios.get<op>(path);
-  
+
   data.line_items.push({
     cost: 69.81,
     product_cost: 69.81,
     product_key: "Internet",
-    quantity: 0.25
+    quantity: 0.25,
   });
 
   res.json(data);
