@@ -27,7 +27,7 @@ export function CreatePaymentModal(props: {
         e.preventDefault();
         Axios.post("/api/ping", {
           client_id: RD.isSuccess(payers)
-            ? payers.value.find((p) => p.id === payer).invoice_ninja_id
+            ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
             : undefined,
           amount,
         }).then(console.log.bind(console), console.error.bind(console));
