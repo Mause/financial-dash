@@ -13,7 +13,7 @@ const axios = Axios.create({
 });
 
 export default async function (req: VercelRequest, res: VercelResponse) {
-  const err = await authenticate<{}>(req, res);
+  const err = await authenticate(req, res);
   if (err.hasOwnProperty("error")) {
     res.json((err as any).error);
     return;
