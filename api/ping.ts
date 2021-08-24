@@ -25,7 +25,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   let { data } = await axios.get<op>(path);
 
   data.client_id = req.body.client_id;
-  const cost = Number(req.body.cost) / 100;
+  const cost = Number(req.body.amount) / 100;
 
   data.date = new Date().toISOString();
 
@@ -38,9 +38,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     } as unknown,
   };
 
+  console.log('pre', JSON.stringify(data, undefined, 2));
+
   const response = await axios.post("/api/v1/invoices", data);
 
-  console.log(JSON.stringify(response.data, undefined, 2));
+  console.log('post', JSON.stringify(response.data, undefined, 2));
 
   res.json(response.data);
 }
