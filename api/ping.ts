@@ -22,7 +22,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
   let { data } = await axios.get<op>(path);
-  
+
   data.client_id = req.body.client_id;
   const cost = req.body.cost;
 
