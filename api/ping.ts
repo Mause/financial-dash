@@ -27,6 +27,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   data.client_id = req.body.client_id;
   const cost = Number(req.body.cost) / 100;
 
+  data.date = new Date().toISOString();
+
   data.line_items = {
     0: {
       cost,
