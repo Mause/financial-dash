@@ -38,7 +38,7 @@ export function CreatePaymentModal(props: {
               : undefined,
             amount,
           },
-          { headers: { Authorization: O.getOrElse(constant(""))(token) } }
+          { headers: { Authorization: 'Bearer ' + O.getOrElse(constant(""))(token) } }
         );
 
         await createPayment({
