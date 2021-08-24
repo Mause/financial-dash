@@ -3,7 +3,10 @@ import * as RD from "@devexperts/remote-data-ts";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Payment, Payer } from "../App";
+import * as O from 'fp-ts/Option';
 import Axios from "axios";
+import { constant } from "fp-ts/lib/function";
+import { useToken } from "../auth";
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
@@ -14,6 +17,7 @@ export function CreatePaymentModal(props: {
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
   const [amount, setAmount] = useState<number>();
+  const token = useToken();
 
   if (RD.isSuccess(createPaymentResult)) {
     props.setShow(false);
@@ -31,7 +35,7 @@ export function CreatePaymentModal(props: {
             ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
             : undefined,
           amount,
-        });
+        }, {headers: {Authorization: O.getOrElse(constant(''))(token)}});
 
         await createPayment({
           paidBy: payer,
