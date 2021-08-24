@@ -3,7 +3,7 @@ import * as RD from "@devexperts/remote-data-ts";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Payment, Payer } from "../App";
-import * as O from 'fp-ts/Option';
+import * as O from "fp-ts/Option";
 import Axios from "axios";
 import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
@@ -29,13 +29,17 @@ export function CreatePaymentModal(props: {
       renderAs="form"
       onSubmit={async (e: FormEvent<any>) => {
         e.preventDefault();
-        
-        await Axios.post("/api/ping", {
-          client_id: RD.isSuccess(payers)
-            ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
-            : undefined,
-          amount,
-        }, {headers: {Authorization: O.getOrElse(constant(''))(token)}});
+
+        await Axios.post(
+          "/api/ping",
+          {
+            client_id: RD.isSuccess(payers)
+              ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
+              : undefined,
+            amount,
+          },
+          { headers: { Authorization: O.getOrElse(constant(""))(token) } }
+        );
 
         await createPayment({
           paidBy: payer,
