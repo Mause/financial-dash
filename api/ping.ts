@@ -28,7 +28,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
   data.client_id = req.body.client_id;
   const cost = req.body.cost;
-  
+
   data.date = new Date().toISOString();
 
   data.line_items = {
