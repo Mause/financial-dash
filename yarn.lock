@@ -11739,11 +11739,12 @@ vendors@^1.0.0:
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.4.tgz#e2b800a53e7a29b93506c3cf41100d16c4c4ad8e"
   integrity sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==
 
-vercel-jwt-auth@^1.0.1:
+"vercel-jwt-auth@https://github.com/Mause/vercel-jwt-auth":
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/vercel-jwt-auth/-/vercel-jwt-auth-1.0.1.tgz#282e062392602dcc7f30a107f80258c2befe43f5"
-  integrity sha512-ITyMSZzMOkzWFRZs3K7n1MXFX26a8e1SPWAEDIKd/4tvVF3XLL3XgVh7745WEU1VngDkzIyqPFrWWqIvGTc15Q==
+  resolved "https://github.com/Mause/vercel-jwt-auth#5ccc61e17d54660a990c4b43c30dcc42eb07617d"
   dependencies:
+    "@types/express" "^4.17.13"
+    "@types/express-jwt" "^6.0.2"
     "@vercel/node" "^1.12.1"
     express "^4.17.1"
     express-jwt "^6.1.0"
