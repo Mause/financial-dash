@@ -13,15 +13,26 @@ const axios = Axios.create({
 });
 
 export default async function (req: VercelRequest, res: VercelResponse) {
-  const err = await authenticate<{}>(req, res);
+  const err = await authenticate(req, res);
   if (err.hasOwnProperty("error")) {
     res.json((err as any).error);
     return;
   }
-  const path = "/api/v1/clients/create";
+  const path = "/api/v1/invoices/create";
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
-  const { data } = await axios.get<op>(path);
+  let { data } = await axios.get<op>(path);
+
+  data.line_items = {
+    0: {
+      cost: 69.81,
+      product_cost: 69.81,
+      product_key: "Internet",
+      quantity: 0.25,
+    } as unknown,
+  };
+
+  data = await axios.post("/api/v1/invoices", data);
 
   res.json(data);
 }
