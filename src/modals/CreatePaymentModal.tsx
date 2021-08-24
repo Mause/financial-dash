@@ -25,12 +25,14 @@ export function CreatePaymentModal(props: {
       renderAs="form"
       onSubmit={async (e: FormEvent<any>) => {
         e.preventDefault();
-        Axios.post("/api/ping", {
+        
+        await Axios.post("/api/ping", {
           client_id: RD.isSuccess(payers)
             ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
             : undefined,
           amount,
-        }).then(console.log.bind(console), console.error.bind(console));
+        });
+
         await createPayment({
           paidBy: payer,
           amount,
