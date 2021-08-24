@@ -14,7 +14,7 @@ const axios = Axios.create({
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   const err = await authenticate(req, res);
-  console.log(err);
+  console.log(err, {hasAuth: !!req.headers.authorization});
   if (err.hasOwnProperty("error")) {
     res.json((err as any).error);
     return;
