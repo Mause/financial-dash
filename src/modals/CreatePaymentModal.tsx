@@ -3,6 +3,7 @@ import * as RD from "@devexperts/remote-data-ts";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Payment, Payer } from "../App";
+import Axios from 'axios';
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
@@ -24,6 +25,7 @@ export function CreatePaymentModal(props: {
       renderAs="form"
       onSubmit={async (e: FormEvent<any>) => {
         e.preventDefault();
+        Axios.post("/api/ping", { client_id: payer.invoice_ninja_id, amount }).then(console.log.bind(console), console.error.bind(console));
         await createPayment({
           paidBy: payer,
           amount,
