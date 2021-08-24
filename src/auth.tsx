@@ -4,7 +4,7 @@ import { useSupabase } from "react-supabase-fp";
 import { SWRConfig } from "swr";
 import React from "react";
 
-function useToken(): Option<string> {
+export function useToken(): Option<string> {
   const supabase = useSupabase();
 
   return pipe(
