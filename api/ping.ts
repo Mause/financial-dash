@@ -14,6 +14,7 @@ const axios = Axios.create({
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   const err = await authenticate(req, res);
+  console.log(err);
   if (err.hasOwnProperty("error")) {
     res.json((err as any).error);
     return;
@@ -22,6 +23,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
   let { data } = await axios.get<op>(path);
+  
+  console.log(data);
 
   data.client_id = req.body.client_id;
   const cost = req.body.cost;
@@ -36,6 +39,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   };
 
   data = await axios.post("/api/v1/invoices", data);
+
+  console.log(data);
 
   res.json(data);
 }
