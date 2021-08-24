@@ -38,9 +38,9 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     } as unknown,
   };
 
-  data = await axios.post("/api/v1/invoices", data);
+  const res = await axios.post("/api/v1/invoices", data);
 
-  console.log(data);
+  console.log(res.data);
 
-  res.json(data);
+  res.json(res.data);
 }
