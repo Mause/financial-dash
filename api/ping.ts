@@ -1,7 +1,9 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { paths } from "../src/invoice-ninja";
 import Axios from "axios";
-import { authenticate } from "vercel-jwt-auth";
+import { factory } from "vercel-jwt-auth";
+
+const authenticate = factory(process.env.JWT_SECRET!);
 
 const axios = Axios.create({
   baseURL: "https://api.invoicing.co",
@@ -38,11 +40,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     } as unknown,
   };
 
-  console.log('pre', JSON.stringify(data, undefined, 2));
+  console.log("pre", JSON.stringify(data, undefined, 2));
 
   const response = await axios.post("/api/v1/invoices", data);
 
-  console.log('post', JSON.stringify(response.data, undefined, 2));
+  console.log("post", JSON.stringify(response.data, undefined, 2));
 
   res.json(response.data);
 }
