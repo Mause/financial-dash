@@ -437,7 +437,7 @@ export interface definitions {
     paidBy: number;
     amount: number;
     bankId?: string;
-    invoice_ninja_id?: string;
+    invoice_ninja_id: string;
   };
   Vendor: {
     /**
