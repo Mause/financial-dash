@@ -96,6 +96,7 @@ test("Bill", async () => {
               {
                 id: 0,
                 amount: 500,
+                invoice_ninja_id: "aaa",
                 Payer: { id: 0, name: "Fred", invoice_ninja_id: "" },
                 paidFor: -1,
                 paidBy: -1,
@@ -127,6 +128,7 @@ test("EnterPaymentModal", () => {
     amount: 1500,
     paidBy: 0,
     bankId: "",
+    invoice_ninja_id: "aaa",
     Payer: { id: 0, name: "Hello", invoice_ninja_id: "" },
   };
   const el = render(
