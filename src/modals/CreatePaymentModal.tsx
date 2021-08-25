@@ -30,7 +30,7 @@ export function CreatePaymentModal(props: {
       onSubmit={async (e: FormEvent<any>) => {
         e.preventDefault();
 
-        const res = await Axios.post<{ id: string }>(
+        const res = await Axios.post<{ data: { id: string } }>(
           "/api/ping",
           {
             client_id: RD.isSuccess(payers)
@@ -49,7 +49,7 @@ export function CreatePaymentModal(props: {
           paidBy: payer,
           amount,
           paidFor: props.bill,
-          invoice_ninja_id: res.data.id,
+          invoice_ninja_id: res.data.data.id,
         });
       }}
     >
