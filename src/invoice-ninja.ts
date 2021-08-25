@@ -16,10 +16,6 @@ export interface paths {
     /** Gets a PDF for the given activity */
     get: operations["getActivityHistoricalEntityPdf"];
   };
-  "/api/v1/reset_password": {
-    /** Resets a users email password */
-    post: operations["reset_password"];
-  };
   "/api/v1/login": {
     /** Returns a CompanyUser object on success */
     post: operations["postLogin"];
@@ -86,6 +82,10 @@ export interface paths {
   "/api/v1/client_gateway_tokens/create": {
     /** Returns a blank object with default values */
     get: operations["getClientGatewayTokensCreate"];
+  };
+  "/api/v1/client_statement": {
+    /** Return a PDF of the client statement */
+    post: operations["clientStatement"];
   };
   "/api/v1/companies": {
     /**
@@ -284,6 +284,10 @@ export interface paths {
     /** Handles the uploading of a document to a expense */
     put: operations["uploadExpense"];
   };
+  "/api/v1/export": {
+    /** Export data from the system */
+    post: operations["getExport"];
+  };
   "/api/v1/group_settings": {
     /**
      * Lists group_settings, search and filters allow fine grained lists to be generated.
@@ -317,11 +321,15 @@ export interface paths {
     /** Pre Import checks - returns a reference to the job and the headers of the CSV */
     post: operations["preimport"];
   };
+  "/api/v1/import_json": {
+    /** Import data from the system */
+    post: operations["getImportJson"];
+  };
   "/api/v1/invoices": {
     /**
      * Lists invoices, search and filters allow fine grained lists to be generated.
      *      *
-     *      *  Query parameters can be added to performed more fine grained filtering of the invoices, these are handled by the InvoiceFilters class which defines the methods available
+     *      *		Query parameters can be added to performed more fine grained filtering of the invoices, these are handled by the InvoiceFilters class which defines the methods available
      */
     get: operations["getInvoices"];
     /** Adds an invoice to the system */
@@ -2587,47 +2595,6 @@ export interface operations {
       };
     };
   };
-  /** Resets a users email password */
-  reset_password: {
-    parameters: {
-      header: {
-        /** The API secret as defined by the .env variable API_SECRET */
-        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
-        /** Used to send the XMLHttpRequest header */
-        "X-Requested-With": components["parameters"]["X-Requested-With"];
-      };
-    };
-    responses: {
-      /** The Reset response */
-      201: {
-        headers: {};
-        content: {
-          "application/json": string[];
-        };
-      };
-      /** Validation error */
-      401: {
-        content: {
-          "application/json": string[];
-        };
-      };
-      /** Unexpected Error */
-      default: {
-        content: {
-          "application/json": components["schemas"]["Error"];
-        };
-      };
-    };
-    /** Password reset email */
-    requestBody: {
-      content: {
-        "application/json": {
-          /** The user email address */
-          email?: string;
-        };
-      };
-    };
-  };
   /** Returns a CompanyUser object on success */
   postLogin: {
     parameters: {
@@ -3370,6 +3337,61 @@ export interface operations {
       default: {
         content: {
           "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Return a PDF of the client statement */
+  clientStatement: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+    };
+    responses: {
+      /** Returns the client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["Client"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    /** Statment Options */
+    requestBody: {
+      content: {
+        "application/json": {
+          /** The start date of the statement period - format Y-m-d */
+          start_date?: string;
+          /** The start date of the statement period - format Y-m-d */
+          end_date?: string;
+          /** The hashed ID of the client */
+          client_id?: string;
+          /** Flag which determines if the payments table is shown */
+          show_payments_table?: boolean;
+          /** Flag which determines if the aging table is shown */
+          show_aging_table?: boolean;
         };
       };
     };
@@ -5531,6 +5553,33 @@ export interface operations {
       };
     };
   };
+  /** Export data from the system */
+  getExport: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+    };
+    responses: {
+      /** success */
+      200: unknown;
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
   /**
    * Lists group_settings, search and filters allow fine grained lists to be generated.
    *
@@ -5889,10 +5938,37 @@ export interface operations {
       };
     };
   };
+  /** Import data from the system */
+  getImportJson: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+    };
+    responses: {
+      /** success */
+      200: unknown;
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
   /**
    * Lists invoices, search and filters allow fine grained lists to be generated.
    *      *
-   *      *  Query parameters can be added to performed more fine grained filtering of the invoices, these are handled by the InvoiceFilters class which defines the methods available
+   *      *		Query parameters can be added to performed more fine grained filtering of the invoices, these are handled by the InvoiceFilters class which defines the methods available
    */
   getInvoices: {
     parameters: {
