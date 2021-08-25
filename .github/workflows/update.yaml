@@ -14,7 +14,7 @@ jobs:
           - name: supabase
             url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
           - name: invoice-ninja
-            url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.1.20
+            url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
 
     steps:
       - uses: actions/setup-node@v2.1.5
