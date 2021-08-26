@@ -1,18 +1,9 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { paths } from "../src/invoice-ninja";
-import Axios from "axios";
+import invoiceninja from "../support/invoiceninja";
 import { factory } from "vercel-jwt-auth";
 
 const authenticate = factory(process.env.JWT_SECRET!);
-
-const axios = Axios.create({
-  baseURL: "https://api.invoicing.co",
-  headers: {
-    "X-Api-Secret": process.env.INVOICE_NINJA_SECRET,
-    "X-Api-Token": process.env.INVOICE_NINJA_TOKEN,
-    "X-Requested-With": "XMLHttpRequest",
-  },
-});
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   const err = await authenticate(req, res);
@@ -24,7 +15,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const path = "/api/v1/invoices/create";
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
-  let { data } = await axios.get<op>(path);
+  let { data } = await invoiceninja.get<op>(path);
 
   data.client_id = req.body.client_id;
   const cost = Number(req.body.amount) / 100;
@@ -42,7 +33,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
   console.log("pre", JSON.stringify(data, undefined, 2));
 
-  const response = await axios.post("/api/v1/invoices", data);
+  const response = await invoiceninja.post("/api/v1/invoices", data);
 
   console.log("post", JSON.stringify(response.data, undefined, 2));
 
