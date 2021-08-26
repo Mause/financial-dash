@@ -5,13 +5,10 @@ import { factory } from "vercel-jwt-auth";
 
 const authenticate = factory(process.env.JWT_SECRET!);
 
-export default async function (req: VercelRequest, res: VercelResponse) {
-  const err = await authenticate(req, res);
-  console.log(err, { hasAuth: !!req.headers.authorization });
-  if (err.hasOwnProperty("error")) {
-    res.json((err as any).error);
-    return;
-  }
+export default authenticate(async function (
+  req: VercelRequest,
+  res: VercelResponse
+) {
   const path = "/api/v1/invoices/create";
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
@@ -38,4 +35,4 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   console.log("post", JSON.stringify(response.data, undefined, 2));
 
   res.json(response.data);
-}
+});
