@@ -23,7 +23,7 @@ export default authenticate(async function (req, res) {
       (
         await invoiceninja.put<
           paths[typeof path]["put"]["responses"][200]["content"]["application/json"]
-        >(path.replace("{id}", invoice_id), res.body)
+        >(path.replace("{id}", invoice_id), req.body)
       ).data
     );
   } else {
