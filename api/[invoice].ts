@@ -12,7 +12,7 @@ export default authenticate(async function (req, res) {
     const path = "/api/v1/invoices/{id}";
     res.json(
       await invoiceninja.get<
-        paths[typeof path]["get"][200]["application/json"]
+        paths[typeof path]["get"]["responses"][200]["application/json"]
       >(path.replace("{id}", invoice_id).data)
     );
   } else {
