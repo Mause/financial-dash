@@ -5,7 +5,7 @@ import { paths } from "../src/invoice-ninja";
 const authenticate = factory(process.env.JWT_SECRET!);
 
 export default authenticate(async function (req, res) {
-  const parts = req.url.split("/");
+  const parts = req.url!.split("/");
   const invoice_id = parts[parts.length - 1];
 
   if (req.method === "GET") {
