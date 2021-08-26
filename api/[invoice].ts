@@ -10,7 +10,7 @@ export default authenticate(async function(res, req) {
 
   if (req.method === 'GET') {
     const path = '/api/v1/invoice/{id}';
-    res.json((await invoiceninja.get<paths[typeof path]['get'][200]['application/json']>(path.replace("{id}", invoice_id).data));
+    res.json((await invoiceninja.get<paths[typeof path]['get'][200]['application/json']>(path.replace("{id}", invoice_id).data)));
   } else {
     res.json(`${req.method} not supported`);
   }
