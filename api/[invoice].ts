@@ -1,10 +1,10 @@
 import { factory } from "vercel-jwt-auth";
 import invoiceninja from "../support/invoiceninja";
-import { paths } from "../invoiceninja";
+import { paths } from "../src/invoice-ninja";
 
 const authenticate = factory(process.env.JWT_SECRET!);
 
-export default authenticate(async function (res, req) {
+export default authenticate(async function (req, res) {
   const parts = res.url.split("/");
   const invoice_id = parts[parts.length - 1];
 
