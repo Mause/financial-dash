@@ -17,7 +17,7 @@ export default authenticate(async function (req, res) {
         >(path.replace("{id}", invoice_id))
       ).data
     );
-  } else if (req.method === 'PUT') {
+  } else if (req.method === "PUT") {
     const path = "/api/v1/invoices/{id}";
     res.json(
       (
