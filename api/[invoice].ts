@@ -5,11 +5,11 @@ import { paths } from "../src/invoice-ninja";
 const authenticate = factory(process.env.JWT_SECRET!);
 
 export default authenticate(async function (req, res) {
-  const parts = res.url.split("/");
+  const parts = req.url.split("/");
   const invoice_id = parts[parts.length - 1];
 
   if (req.method === "GET") {
-    const path = "/api/v1/invoice/{id}";
+    const path = "/api/v1/invoices/{id}";
     res.json(
       await invoiceninja.get<
         paths[typeof path]["get"][200]["application/json"]
