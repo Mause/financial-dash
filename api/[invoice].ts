@@ -17,12 +17,12 @@ export default authenticate(async function (req, res) {
         >(path.replace("{id}", invoice_id))
       ).data
     );
-  } else if (req.method === 'PATCH') {
+  } else if (req.method === 'PUT') {
     const path = "/api/v1/invoices/{id}";
     res.json(
       (
-        await invoiceninja.patch<
-          paths[typeof path]["patch"]["responses"][200]["content"]["application/json"]
+        await invoiceninja.put<
+          paths[typeof path]["put"]["responses"][200]["content"]["application/json"]
         >(path.replace("{id}", invoice_id), res.body)
       ).data
     );
