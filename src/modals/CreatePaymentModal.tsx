@@ -31,7 +31,7 @@ export function CreatePaymentModal(props: {
         e.preventDefault();
 
         const res = await Axios.post<{ data: { id: string } }>(
-          "/api/ping",
+          "/api/invoice",
           {
             client_id: RD.isSuccess(payers)
               ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
