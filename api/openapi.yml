@@ -9,20 +9,38 @@ components:
       scheme: bearer
       bearerFormat: jwt
   schemas:
-    CreateInvoiceRequest:
+    InvoiceResponse:
       type: object
-      required: [clientId, amount]
+      required: [clientId, amount, id]
       properties:
         clientId:
           type: string
         amount:
           type: number
-    CreateInvoiceResponse:
-      type: object
-      required: [id]
-      properties:
         id:
           type: string
+    PartialInvoiceRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        amount:
+          type: number
+    CreateInvoiceRequest:
+      allOf:
+        - $ref: "#/components/schemas/PartialInvoiceRequest"
+        - type: object
+          required: [clientId, amount]
+    CreateInvoiceResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [id]
+          properties:
+            id:
+              type: string
 security:
   - Jwt: []
 servers:
@@ -38,6 +56,39 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/CreateInvoiceRequest"
+      responses:
+        default:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateInvoiceResponse"
+  /api/invoice/{invoiceId}:
+    parameters:
+      - name: invoiceId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getInvoice
+      tags: [invoice]
+      responses:
+        default:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvoiceResponse"
+    put:
+      operationId: updateInvoice
+      tags: [invoice]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PartialInvoiceRequest"
       responses:
         default:
           description: OK
