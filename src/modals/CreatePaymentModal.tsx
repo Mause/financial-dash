@@ -44,8 +44,7 @@ export function CreatePaymentModal(props: {
         if (!RD.isSuccess(payers)) return;
 
         const res = await invoiceApi.createInvoice({
-          clientId: payers.value.find((p) => p.id === payer)!
-            .invoice_ninja_id,
+          clientId: payers.value.find((p) => p.id === payer)!.invoice_ninja_id,
           amount: amount!,
         });
 
