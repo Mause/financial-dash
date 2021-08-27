@@ -60,6 +60,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/CreateInvoiceResponse"
   /api/invoice/{invoiceId}:
+    parameters:
+      - name: invoiceId
+        type: string
     get:
       operationId: getInvoice
       tags: [invoice]
