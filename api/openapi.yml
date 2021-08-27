@@ -19,14 +19,18 @@ components:
           type: number
         id:
           type: string
-    CreateInvoiceRequest:
+    PartialInvoiceRequest:
       type: object
-      required: [clientId, amount]
       properties:
         clientId:
           type: string
         amount:
           type: number
+    CreateInvoiceRequest:
+      allOf:
+        - $ref: "#/components/schemas/PartialInvoiceRequest"
+        - type: object
+          required: [clientId, amount]
     CreateInvoiceResponse:
       type: object
       required: [data]
@@ -37,8 +41,6 @@ components:
           properties:
             id:
               type: string
-    Empty:
-      type: object
 security:
   - Jwt: []
 servers:
@@ -86,9 +88,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/CreateInvoiceRequest"
-                - $ref: "#/components/schemas/Empty"
+              $ref: "#/components/schemas/PartialInvoiceRequest"
       responses:
         default:
           description: OK
