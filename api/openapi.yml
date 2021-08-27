@@ -31,6 +31,7 @@ paths:
   /api/invoice:
     post:
       operationId: createInvoice
+      tags: [invoice]
       requestBody:
         required: true
         content:
