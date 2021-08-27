@@ -37,7 +37,9 @@ export function ImportBillModal(props: {
       </Modal.Card.Header>
       <Modal.Card.Body>
         {error && <Notification>{error}</Notification>}
-        {RD.isFailure(createBillResult) && <Notification>{createBillResult.error}</Notification>}
+        {RD.isFailure(createBillResult) && (
+          <Notification>{createBillResult.error}</Notification>
+        )}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
