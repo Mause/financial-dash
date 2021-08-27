@@ -7,9 +7,9 @@ import * as O from "fp-ts/Option";
 import Axios from "axios";
 import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
-import { InvoiceService } from "../invoice-ninja";
+import { InvoiceApi } from "../financial-dash";
 
-const invoiceService = new InvoiceService();
+const invoiceApi = new InvoiceApi();
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
@@ -33,11 +33,14 @@ export function CreatePaymentModal(props: {
       onSubmit={async (e: FormEvent<any>) => {
         e.preventDefault();
 
-        const res = await invoiceService.createInvoice(
-          RD.isSuccess(payers)
-            ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
-            : undefined,
-          amount,
+        if (!RD.isSuccess(payers)) return;
+
+        const res = await invoiceApi.createInvoice(
+          {
+            clientId: payers.value.find((p) => p.id === payer)!
+              .invoice_ninja_id,
+            amount: amount!,
+          },
           {
             tokenProvider: {
               getToken() {
@@ -51,7 +54,7 @@ export function CreatePaymentModal(props: {
           paidBy: payer,
           amount,
           paidFor: props.bill,
-          invoice_ninja_id: res.id,
+          invoice_ninja_id: res.data.id,
         });
       }}
     >
