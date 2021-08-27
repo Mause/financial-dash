@@ -34,15 +34,15 @@ export function CreatePaymentModal(props: {
         e.preventDefault();
 
         const res = await invoiceService.createInvoice(
-            RD.isSuccess(payers)
-              ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
-              : undefined,
-            amount,
+          RD.isSuccess(payers)
+            ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
+            : undefined,
+          amount,
           {
             tokenProvider: {
               getToken() {
                 return Promise.resolve(O.getOrElse(constant(""))(token));
-              }
+              },
             },
           }
         );
