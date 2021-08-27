@@ -88,7 +88,6 @@ paths:
                 - $ref: "#/components/schemas/CreateInvoiceRequest"
                 - type: object
                   required: []
-                  properties: {}
       responses:
         default:
           description: OK
