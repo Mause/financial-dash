@@ -2,17 +2,15 @@
 
 All URIs are relative to *https://financial-dash.vercel.app*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**createInvoice**](DefaultApi.md#createInvoice) | **POST** /api/invoice | 
-
+| Method                                           | HTTP request          | Description |
+| ------------------------------------------------ | --------------------- | ----------- |
+| [**createInvoice**](DefaultApi.md#createInvoice) | **POST** /api/invoice |
 
 # **createInvoice**
+
 > createInvoice(inlineObject)
 
-
 ### Example
-
 
 ```typescript
 import {  } from '';
@@ -34,13 +32,11 @@ apiInstance.createInvoice(body).then((data:any) => {
 }).catch((error:any) => console.error(error));
 ```
 
-
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **inlineObject** | **InlineObject**|  |
-
+| Name             | Type             | Description | Notes |
+| ---------------- | ---------------- | ----------- | ----- |
+| **inlineObject** | **InlineObject** |             |
 
 ### Return type
 
@@ -52,15 +48,13 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
-
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 ### HTTP response details
+
 | Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**0** | OK |  -  |
+| ----------- | ----------- | ---------------- |
+| **0**       | OK          | -                |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-
