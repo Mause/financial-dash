@@ -8,7 +8,17 @@ import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
 import { InvoiceApi } from "../financial-dash";
 
-const invoiceApi = new InvoiceApi();
+function useInvoiceApi() {
+  const token = useToken();
+
+  return new InvoiceApi({
+    tokenProvider: {
+      getToken() {
+        return Promise.resolve(O.getOrElse(constant(""))(token));
+      },
+    },
+  });
+}
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
@@ -19,7 +29,6 @@ export function CreatePaymentModal(props: {
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
   const [amount, setAmount] = useState<number>();
-  const token = useToken();
 
   if (RD.isSuccess(createPaymentResult)) {
     props.setShow(false);
@@ -34,20 +43,11 @@ export function CreatePaymentModal(props: {
 
         if (!RD.isSuccess(payers)) return;
 
-        const res = await invoiceApi.createInvoice(
-          {
-            clientId: payers.value.find((p) => p.id === payer)!
-              .invoice_ninja_id,
-            amount: amount!,
-          },
-          {
-            tokenProvider: {
-              getToken() {
-                return Promise.resolve(O.getOrElse(constant(""))(token));
-              },
-            },
-          }
-        );
+        const res = await invoiceApi.createInvoice({
+          clientId: payers.value.find((p) => p.id === payer)!
+            .invoice_ninja_id,
+          amount: amount!,
+        });
 
         await createPayment({
           paidBy: payer,
