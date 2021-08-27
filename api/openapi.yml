@@ -8,6 +8,21 @@ components:
       type: http
       scheme: bearer
       bearerFormat: jwt
+  schemas:
+    CreateInvoiceRequest:
+      type: object
+      required: [clientId, amount]
+      properties:
+        clientId:
+          type: string
+        amount:
+          type: number
+    CreateInvoiceResponse:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
 security:
   - Jwt: []
 servers:
@@ -21,21 +36,11 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [clientId, amount]
-              properties:
-                clientId:
-                  type: string
-                amount:
-                  type: number
+              $ref: "#/components/schemas/CreateInvoiceRequest"
       responses:
         default:
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                required: [id]
-                properties:
-                  id:
-                    type: string
+                $ref: "#/components/schemas/CreateInvoiceResponse"
