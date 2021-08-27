@@ -11,7 +11,7 @@ components:
   schemas:
     InvoiceResponse:
       type: object
-      required: [clientId, amount, data]
+      required: [clientId, amount, id]
       properties:
         clientId:
           type: string
@@ -86,7 +86,9 @@ paths:
             schema:
               allOf:
                 - $ref: "#/components/schemas/CreateInvoiceRequest"
-                - properties: {}
+                - type: object
+                  required: []
+                  properties: {}
       responses:
         default:
           description: OK
