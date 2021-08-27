@@ -11,11 +11,13 @@ import { InvoiceApi, Configuration } from "../financial-dash";
 function useInvoiceApi() {
   const token = useToken();
 
-  return new InvoiceApi(new Configuration({
-    accessToken() {
-      return O.getOrElse(constant(""))(token);
-    },
-  }));
+  return new InvoiceApi(
+    new Configuration({
+      accessToken() {
+        return O.getOrElse(constant(""))(token);
+      },
+    })
+  );
 }
 
 export function CreatePaymentModal(props: {
