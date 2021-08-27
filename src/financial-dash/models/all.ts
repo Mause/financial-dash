@@ -1,2 +1,2 @@
-export * from './InlineObject'
-export * from './InlineResponseDefault'
+export * from "./InlineObject";
+export * from "./InlineResponseDefault";
