@@ -63,7 +63,9 @@ paths:
     parameters:
       - name: invoiceId
         in: path
-        type: string
+        required: true
+        schema:
+          type: string
     get:
       operationId: getInvoice
       tags: [invoice]
