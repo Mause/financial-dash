@@ -1,0 +1,38 @@
+openapi: 3.0.1
+info:
+  title: Financial Dash
+  version: 0.0.1
+components:
+  securitySchemes:
+    Jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: jwt
+security:
+  - Jwt: []
+paths:
+  /api/invoice:
+    post:
+      operationId: createInvoice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [clientId, amount]
+              properties:
+                clientId:
+                  type: string
+                amount:
+                  type: number
+      responses:
+        default:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
