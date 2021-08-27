@@ -62,6 +62,7 @@ paths:
   /api/invoice/{invoiceId}:
     parameters:
       - name: invoiceId
+        in: path
         type: string
     get:
       operationId: getInvoice
