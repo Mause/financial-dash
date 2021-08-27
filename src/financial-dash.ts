@@ -9,7 +9,17 @@ export interface paths {
   };
 }
 
-export interface components {}
+export interface components {
+  schemas: {
+    CreateInvoiceRequest: {
+      clientId: string;
+      amount: number;
+    };
+    CreateInvoiceResponse: {
+      id: string;
+    };
+  };
+}
 
 export interface operations {
   createInvoice: {
@@ -17,18 +27,13 @@ export interface operations {
       /** OK */
       default: {
         content: {
-          "application/json": {
-            id: string;
-          };
+          "application/json": components["schemas"]["CreateInvoiceResponse"];
         };
       };
     };
     requestBody: {
       content: {
-        "application/json": {
-          clientId: string;
-          amount: number;
-        };
+        "application/json": components["schemas"]["CreateInvoiceRequest"];
       };
     };
   };
