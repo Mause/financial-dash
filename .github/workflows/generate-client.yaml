@@ -11,10 +11,10 @@ jobs:
     strategy:
       matrix:
         include:
-#          - name: supabase
- #           url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
-  #        - name: invoice-ninja
-   #         url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
+          #          - name: supabase
+          #           url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
+          #        - name: invoice-ninja
+          #         url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
           - name: financial-dash
             url: https://github.com/Mause/financial-dash/raw/main/api/openapi.yml
 
@@ -26,7 +26,7 @@ jobs:
         uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            npx @openapitools/openapi-generator-cli generate -i ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} -o src/${{ matrix.name }} -g typescript
+            npx @openapitools/openapi-generator-cli generate -i ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} -o src/${{ matrix.name }} -g typescript-axios
           COMMIT_MESSAGE: "chore: update ${{ matrix.name }} client"
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
