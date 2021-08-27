@@ -1,15 +1,23 @@
 openapi: 3.0.1
 info:
   title: Financial Dash
+  version: 0.0.1
 paths:
   /api/invoice:
     post:
       operationId: createInvoice
       requestBody:
-        - name: clientId
-          type: string
-        - name: amount
-          type: number
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [clientId, amount]
+              properties:
+                clientId:
+                  type: string
+                amount:
+                  type: number
       responses:
         default:
           description: OK
