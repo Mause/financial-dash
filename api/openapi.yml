@@ -1,0 +1,18 @@
+openapi: 3.0.1
+paths:
+  /api/invoice:
+    post:
+      operationId: createInvoice
+      parameters:
+        clientId:
+          type: string
+        amount:
+          type: number
+      responses:
+        200:
+          content:
+            application/json:
+              type: object
+              properties:
+                id:
+                  type: string
