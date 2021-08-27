@@ -4,7 +4,6 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Payment, Payer } from "../App";
 import * as O from "fp-ts/Option";
-import Axios from "axios";
 import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
 import { InvoiceApi } from "../financial-dash";
