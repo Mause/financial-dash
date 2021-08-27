@@ -1,0 +1,34 @@
+on:
+  schedule:
+    - cron: 0 0 * * *
+  workflow_dispatch: {}
+
+name: Update client
+jobs:
+  update_client:
+    name: Update client
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+#          - name: supabase
+ #           url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
+  #        - name: invoice-ninja
+   #         url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
+          - name: financial-dash
+            url: https://github.com/Mause/financial-dash/raw/main/api/openapi.yml
+
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14
+      - name: Update types
+        uses: technote-space/create-pr-action@v2
+        with:
+          EXECUTE_COMMANDS: |
+            npx @openapitools/openapi-generator-cli -i ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} -o src/${{ matrix.name }} -g typescript
+          COMMIT_MESSAGE: "chore: update ${{ matrix.name }} client"
+          COMMIT_NAME: "GitHub Actions"
+          COMMIT_EMAIL: "example@example.com"
+          PR_BRANCH_NAME: "chore-${{ matrix.name }}-update-client-${PR_ID}"
+          PR_TITLE: "chore: update ${{ matrix.name }} client"
