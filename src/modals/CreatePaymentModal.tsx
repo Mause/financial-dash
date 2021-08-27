@@ -6,16 +6,16 @@ import { SetB, Payment, Payer } from "../App";
 import * as O from "fp-ts/Option";
 import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
-import { InvoiceApi } from "../financial-dash";
+import { InvoiceApi, Configuration } from "../financial-dash";
 
 function useInvoiceApi() {
   const token = useToken();
 
-  return new InvoiceApi({
+  return new InvoiceApi(new Configuration({
     accessToken() {
       return O.getOrElse(constant(""))(token);
     },
-  });
+  }));
 }
 
 export function CreatePaymentModal(props: {
