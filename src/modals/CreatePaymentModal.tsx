@@ -7,6 +7,9 @@ import * as O from "fp-ts/Option";
 import Axios from "axios";
 import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
+import { InvoiceApi } from "../financial-dash";
+
+const invoiceApi = new InvoiceApi();
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
@@ -30,17 +33,19 @@ export function CreatePaymentModal(props: {
       onSubmit={async (e: FormEvent<any>) => {
         e.preventDefault();
 
-        const res = await Axios.post<{ data: { id: string } }>(
-          "/api/invoice",
+        if (!RD.isSuccess(payers)) return;
+
+        const res = await invoiceApi.createInvoice(
           {
-            client_id: RD.isSuccess(payers)
-              ? payers.value.find((p) => p.id === payer)!.invoice_ninja_id
-              : undefined,
-            amount,
+            clientId: payers.value.find((p) => p.id === payer)!
+              .invoice_ninja_id,
+            amount: amount!,
           },
           {
-            headers: {
-              Authorization: "Bearer " + O.getOrElse(constant(""))(token),
+            tokenProvider: {
+              getToken() {
+                return Promise.resolve(O.getOrElse(constant(""))(token));
+              },
             },
           }
         );
@@ -49,7 +54,7 @@ export function CreatePaymentModal(props: {
           paidBy: payer,
           amount,
           paidFor: props.bill,
-          invoice_ninja_id: res.data.data.id,
+          invoice_ninja_id: res.data.id,
         });
       }}
     >

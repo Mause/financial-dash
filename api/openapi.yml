@@ -19,10 +19,14 @@ components:
           type: number
     CreateInvoiceResponse:
       type: object
-      required: [id]
+      required: [data]
       properties:
-        id:
-          type: string
+        data:
+          type: object
+          required: [id]
+          properties:
+            id:
+              type: string
 security:
   - Jwt: []
 servers:
