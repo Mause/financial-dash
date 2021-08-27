@@ -64,8 +64,21 @@ export interface CreateInvoiceRequest {
 export interface CreateInvoiceResponse {
   /**
    *
-   * @type {string}
+   * @type {CreateInvoiceResponseData}
    * @memberof CreateInvoiceResponse
+   */
+  data: CreateInvoiceResponseData;
+}
+/**
+ *
+ * @export
+ * @interface CreateInvoiceResponseData
+ */
+export interface CreateInvoiceResponseData {
+  /**
+   *
+   * @type {string}
+   * @memberof CreateInvoiceResponseData
    */
   id: string;
 }

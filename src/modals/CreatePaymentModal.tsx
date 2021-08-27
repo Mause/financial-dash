@@ -53,7 +53,7 @@ export function CreatePaymentModal(props: {
           paidBy: payer,
           amount,
           paidFor: props.bill,
-          invoice_ninja_id: res.data.id,
+          invoice_ninja_id: res.data.data.id,
         });
       }}
     >
