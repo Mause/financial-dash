@@ -10,6 +10,8 @@ components:
       bearerFormat: jwt
 security:
   - Jwt: []
+servers:
+  - url: https://financial-dash.vercel.app
 paths:
   /api/invoice:
     post:
@@ -33,6 +35,7 @@ paths:
             application/json:
               schema:
                 type: object
+                required: [id]
                 properties:
                   id:
                     type: string
