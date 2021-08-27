@@ -12,10 +12,8 @@ function useInvoiceApi() {
   const token = useToken();
 
   return new InvoiceApi({
-    tokenProvider: {
-      getToken() {
-        return Promise.resolve(O.getOrElse(constant(""))(token));
-      },
+    accessToken() {
+      return O.getOrElse(constant(""))(token);
     },
   });
 }
@@ -29,6 +27,7 @@ export function CreatePaymentModal(props: {
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
   const [amount, setAmount] = useState<number>();
+  const invoiceApi = useInvoiceApi();
 
   if (RD.isSuccess(createPaymentResult)) {
     props.setShow(false);
