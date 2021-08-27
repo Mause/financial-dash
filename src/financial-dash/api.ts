@@ -82,6 +82,50 @@ export interface CreateInvoiceResponseData {
    */
   id: string;
 }
+/**
+ *
+ * @export
+ * @interface InvoiceResponse
+ */
+export interface InvoiceResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof InvoiceResponse
+   */
+  clientId: string;
+  /**
+   *
+   * @type {number}
+   * @memberof InvoiceResponse
+   */
+  amount: number;
+  /**
+   *
+   * @type {string}
+   * @memberof InvoiceResponse
+   */
+  id: string;
+}
+/**
+ *
+ * @export
+ * @interface PartialInvoiceRequest
+ */
+export interface PartialInvoiceRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof PartialInvoiceRequest
+   */
+  clientId?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof PartialInvoiceRequest
+   */
+  amount?: number;
+}
 
 /**
  * InvoiceApi - axios parameter creator
@@ -148,6 +192,119 @@ export const InvoiceApiAxiosParamCreator = function (
         options: localVarRequestOptions,
       };
     },
+    /**
+     *
+     * @param {string} invoiceId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getInvoice: async (
+      invoiceId: string,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'invoiceId' is not null or undefined
+      assertParamExists("getInvoice", "invoiceId", invoiceId);
+      const localVarPath = `/api/invoice/{invoiceId}`.replace(
+        `{${"invoiceId"}}`,
+        encodeURIComponent(String(invoiceId))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Jwt required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} invoiceId
+     * @param {PartialInvoiceRequest} partialInvoiceRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateInvoice: async (
+      invoiceId: string,
+      partialInvoiceRequest: PartialInvoiceRequest,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'invoiceId' is not null or undefined
+      assertParamExists("updateInvoice", "invoiceId", invoiceId);
+      // verify required parameter 'partialInvoiceRequest' is not null or undefined
+      assertParamExists(
+        "updateInvoice",
+        "partialInvoiceRequest",
+        partialInvoiceRequest
+      );
+      const localVarPath = `/api/invoice/{invoiceId}`.replace(
+        `{${"invoiceId"}}`,
+        encodeURIComponent(String(invoiceId))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "PUT",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Jwt required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        partialInvoiceRequest,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -175,6 +332,61 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.createInvoice(
         createInvoiceRequest,
+        options
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      );
+    },
+    /**
+     *
+     * @param {string} invoiceId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getInvoice(
+      invoiceId: string,
+      options?: any
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<InvoiceResponse>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getInvoice(
+        invoiceId,
+        options
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      );
+    },
+    /**
+     *
+     * @param {string} invoiceId
+     * @param {PartialInvoiceRequest} partialInvoiceRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async updateInvoice(
+      invoiceId: string,
+      partialInvoiceRequest: PartialInvoiceRequest,
+      options?: any
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<CreateInvoiceResponse>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateInvoice(
+        invoiceId,
+        partialInvoiceRequest,
         options
       );
       return createRequestFunction(
@@ -212,6 +424,36 @@ export const InvoiceApiFactory = function (
         .createInvoice(createInvoiceRequest, options)
         .then((request) => request(axios, basePath));
     },
+    /**
+     *
+     * @param {string} invoiceId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getInvoice(
+      invoiceId: string,
+      options?: any
+    ): AxiosPromise<InvoiceResponse> {
+      return localVarFp
+        .getInvoice(invoiceId, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} invoiceId
+     * @param {PartialInvoiceRequest} partialInvoiceRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateInvoice(
+      invoiceId: string,
+      partialInvoiceRequest: PartialInvoiceRequest,
+      options?: any
+    ): AxiosPromise<CreateInvoiceResponse> {
+      return localVarFp
+        .updateInvoice(invoiceId, partialInvoiceRequest, options)
+        .then((request) => request(axios, basePath));
+    },
   };
 };
 
@@ -235,6 +477,37 @@ export class InvoiceApi extends BaseAPI {
   ) {
     return InvoiceApiFp(this.configuration)
       .createInvoice(createInvoiceRequest, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} invoiceId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof InvoiceApi
+   */
+  public getInvoice(invoiceId: string, options?: any) {
+    return InvoiceApiFp(this.configuration)
+      .getInvoice(invoiceId, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} invoiceId
+   * @param {PartialInvoiceRequest} partialInvoiceRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof InvoiceApi
+   */
+  public updateInvoice(
+    invoiceId: string,
+    partialInvoiceRequest: PartialInvoiceRequest,
+    options?: any
+  ) {
+    return InvoiceApiFp(this.configuration)
+      .updateInvoice(invoiceId, partialInvoiceRequest, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
