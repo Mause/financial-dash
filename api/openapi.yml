@@ -27,7 +27,7 @@ components:
           type: number
     CreateInvoiceRequest:
       allOf:
-        - $ref: "#/components/PartialInvoiceRequest"
+        - $ref: "#/components/schemas/PartialInvoiceRequest"
         - type: object
           required: [clientId, amount]
     CreateInvoiceResponse:
