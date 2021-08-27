@@ -2,7 +2,7 @@ import { useInsert } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, FormEvent } from "react";
-import { Modal, Button, Form } from "react-bulma-components";
+import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Bill } from "../App";
 
 export function ImportBillModal(props: {
@@ -36,8 +36,8 @@ export function ImportBillModal(props: {
         <Modal.Card.Title>Import Bill</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
-        {JSON.stringify(error)}
-        {JSON.stringify(createBillResult)}
+        {error && <Notification>{error}</Notification>}
+        {RD.isFailure(createBillResult) && <Notification>{createBillResult.error}</Notification>}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
