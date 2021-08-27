@@ -36,11 +36,11 @@ paths:
         content:
           application/json:
             schema:
-              ref: #/components/schemas/CreateInvoiceRequest
+              ref: "#/components/schemas/CreateInvoiceRequest"
       responses:
         default:
           description: OK
           content:
             application/json:
               schema:
-                ref: #/components/schemas/CreateInvoiceResponse
+                ref: "#/components/schemas/CreateInvoiceResponse"
