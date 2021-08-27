@@ -9,6 +9,16 @@ components:
       scheme: bearer
       bearerFormat: jwt
   schemas:
+    InvoiceResponse:
+      type: object
+      required: [clientId, amount, data]
+      properties:
+        clientId:
+          type: string
+        amount:
+          type: number
+        id:
+          type: string
     CreateInvoiceRequest:
       type: object
       required: [clientId, amount]
@@ -42,6 +52,35 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/CreateInvoiceRequest"
+      responses:
+        default:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateInvoiceResponse"
+  /api/invoice/{invoiceId}:
+    get:
+      operationId: getInvoice
+      tags: [invoice]
+      responses:
+        default:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvoiceResponse"
+    put:
+      operationId: updateInvoice
+      tags: [invoice]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateInvoiceRequest"
+                - properties: {}
       responses:
         default:
           description: OK
