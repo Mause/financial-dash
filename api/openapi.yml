@@ -9,8 +9,9 @@ components:
       scheme: bearer
       bearerFormat: jwt
   schemas:
-    Invoice:
+    InvoiceResponse:
       type: object
+      required: [clientId, amount, id]
       properties:
         clientId:
           type: string
@@ -78,7 +79,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Invoice"
+                $ref: "#/components/schemas/InvoiceResponse"
     put:
       operationId: updateInvoice
       tags: [invoice]
