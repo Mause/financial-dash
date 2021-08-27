@@ -48,7 +48,7 @@ export function EnterPaymentModal(props: {
         </Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
-        {JSON.stringify(error)}
+        {error && <Notification>{error}</Notification>}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
