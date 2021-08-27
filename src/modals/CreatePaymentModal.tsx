@@ -42,6 +42,7 @@ export function CreatePaymentModal(props: {
             tokenProvider: {
               getToken() {
                 return Promise.resolve(O.getOrElse(constant(""))(token));
+              }
             },
           }
         );
