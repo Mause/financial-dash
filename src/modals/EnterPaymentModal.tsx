@@ -2,7 +2,7 @@ import { useUpdate } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
 import { useState, FormEvent } from "react";
-import { Modal, Button, Form } from "react-bulma-components";
+import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { SetB, Payment, PaymentWithPayer } from "../App";
 
@@ -48,7 +48,7 @@ export function EnterPaymentModal(props: {
         </Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
-        {JSON.stringify(error)}
+        {error && <Notification>{error}</Notification>}
         <Form.Field>
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
