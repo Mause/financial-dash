@@ -27,7 +27,7 @@ jobs:
         with:
           EXECUTE_COMMANDS: |
             npx @openapitools/openapi-generator-cli generate -i ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} -o src/${{ matrix.name }} -g typescript-axios
-            npx prettier .
+            npx prettier . --write
           COMMIT_MESSAGE: "chore: update ${{ matrix.name }} client"
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
