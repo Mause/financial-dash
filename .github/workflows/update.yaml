@@ -15,8 +15,6 @@ jobs:
             url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
           - name: invoice-ninja
             url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
-          - name: financial-dash
-            url: https://github.com/Mause/financial-dash/raw/main/api/openapi.yml
 
     steps:
       - uses: actions/setup-node@v2.1.5
