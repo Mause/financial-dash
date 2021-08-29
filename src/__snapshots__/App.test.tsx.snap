@@ -164,7 +164,7 @@ exports[`EnterPaymentModal 1`] = `
           class="control"
         >
           <div
-            class="select is-loading"
+            class="select"
           >
             <select
               required=""
