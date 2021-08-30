@@ -1,8 +1,6 @@
-import { factory } from "vercel-jwt-auth";
 import invoiceninja from "../support/invoiceninja";
 import { paths } from "../src/invoice-ninja";
-
-const authenticate = factory(process.env.JWT_SECRET!);
+import authenticate from "../support/auth";
 
 export default authenticate(async function (req, res) {
   const parts = req.url!.split("/");
@@ -10,6 +8,8 @@ export default authenticate(async function (req, res) {
 
   if (req.method === "GET") {
     const path = "/api/v1/invoices/{id}";
+
+    res.status(200);
     res.json(
       (
         await invoiceninja.get<
@@ -19,6 +19,7 @@ export default authenticate(async function (req, res) {
     );
   } else if (req.method === "PUT") {
     const path = "/api/v1/invoices/{id}";
+    res.status(200);
     res.json(
       (
         await invoiceninja.put<
