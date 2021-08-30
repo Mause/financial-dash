@@ -14,5 +14,5 @@ jobs:
       - name: TypeScript Error Reporter
         uses: andoshin11/typescript-error-reporter-action@v1.0.2
       - run: yarn test
-      - run: yarn test
-        working-directory: api_tests/
+      - run: jest
+        working-directory: api_tests
