@@ -66,21 +66,21 @@ servers:
 paths:
   /api/payment:
     post:
-     operationId: createPayment
-     tags: [payment]
-     requestBody:
-       required: true
-       content:
-         application/json:
-           schema:
-             $ref: "#/components/schemas/CreatePaymentRequest"
-     responses:
-       default:
-         description: OK
-         content:
-           application/json:
-             schema:
-               $ref: "#/components/schemas/CreatePaymentResponse"
+      operationId: createPayment
+      tags: [payment]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePaymentRequest"
+      responses:
+        default:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreatePaymentResponse"
   /api/invoice:
     post:
       operationId: createInvoice
