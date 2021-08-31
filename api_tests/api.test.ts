@@ -39,7 +39,6 @@ testApi("../api/[invoice]", "PUT /invoice/hello", async (url) => {
   expect(response.data).toEqual({});
 });
 
-
 testApi("../api/payment", "POST /payment", async (url) => {
   moxios.stubOnce("POST", /.*/, {
     response: { payment_id: "payment_id" },
