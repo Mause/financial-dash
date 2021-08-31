@@ -16,3 +16,4 @@ jobs:
       - run: yarn test
       - run: ../node_modules/.bin/jest
         working-directory: api_tests/
+        timeout-minutes: 2
