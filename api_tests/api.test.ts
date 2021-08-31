@@ -23,27 +23,31 @@ const axios = Axios.create({
   },
 });
 
-testApi("../api/[invoice]", "GET /invoice/hello", async (url) => {
-  moxios.stubOnce("GET", /ident/, {
-    response: {},
-  });
-  const response = await axios.get(url + "/ident");
-  expect(response.data).toEqual({});
-});
+testApi("../api/[invoice]", "GET /invoice/hello", (url) =>
+  it("works", async () => {
+    moxios.stubOnce("GET", /ident/, {
+      response: {},
+    });
+    const response = await axios.get(url() + "/ident");
+    expect(response.data).toEqual({});
+  })
+);
 
-testApi("../api/[invoice]", "PUT /invoice/hello", async (url) => {
-  moxios.stubOnce("PUT", /ident/, {
-    response: {},
-  });
-  const response = await axios.put(url + "/ident", { status: "PAID" });
-  expect(response.data).toEqual({});
-});
+testApi("../api/[invoice]", "PUT /invoice/hello", (url) =>
+  it("works", async () => {
+    moxios.stubOnce("PUT", /ident/, {
+      response: {},
+    });
+    const response = await axios.put(url + "/ident", { status: "PAID" });
+    expect(response.data).toEqual({});
+  })
+);
 
 testApi("../api/payment", "POST /payment", async (url) => {
   moxios.stubOnce("POST", /.*/, {
     response: { payment_id: "payment_id" },
   });
-  const response = await axios.post(url, {
+  const response = await axios.post(url(), {
     client_id: "client_id",
     invoice_id: "invoice_id",
     transaction_reference: "transaction_reference",
@@ -52,21 +56,23 @@ testApi("../api/payment", "POST /payment", async (url) => {
   expect(response.data).toEqual({ payment_id: "payment_id" });
 });
 
-testApi("../api/payment", "POST /payment (error case)", async (url) => {
-  let res;
-  try {
-    res = await axios.post(url, { amount: 1500 });
-    console.log(res, res.data);
-  } catch (e) {
-    expect(e).toBeNull();
-  }
-  expect(res?.data).toEqual([]);
-});
+testApi("../api/payment", "POST /payment (error case)", (url) =>
+  it("works", async () => {
+    let res;
+    try {
+      res = await axios.post(url(), { amount: 1500 });
+      console.log(res, res.data);
+    } catch (e) {
+      expect(e).toBeNull();
+    }
+    expect(res?.data).toEqual([]);
+  })
+);
 
 function testApi(
   apiFunction: string,
   description: string,
-  testFunction: (url: string) => void
+  testFunction: (f: () => string) => void
 ) {
   describe(description, () => {
     let server: Server;
@@ -84,6 +90,6 @@ function testApi(
       moxios.uninstall(invoiceninja);
     });
 
-    it(description, () => testFunction(url));
+    testFunction(() => url);
   });
 }
