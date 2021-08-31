@@ -55,7 +55,7 @@ testApi("../api/payment", "POST /payment", async (url) => {
 testApi("../api/payment", "POST /payment", async (url) => {
   expect.assertions(1);
   try {
-    const res = await axios.post(url, {amount: 1500});
+    const res = await axios.post(url, { amount: 1500 });
   } catch (e) {
     expect(e).toBeNull();
   }
