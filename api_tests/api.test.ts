@@ -52,7 +52,7 @@ testApi("../api/payment", "POST /payment", async (url) => {
   expect(response.data).toEqual({ payment_id: "payment_id" });
 });
 
-testApi("../api/payment", "POST /payment", async (url) => {
+testApi("../api/payment", "POST /payment (error case)", async (url) => {
   expect.assertions(1);
   try {
     const res = await axios.post(url, { amount: 1500 });
