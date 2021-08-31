@@ -24,13 +24,7 @@ export default authenticate(async function (req, res) {
   }
 
   const clientRequest = new PostPayment(req.body);
-
-  try {
-    await validateOrReject(clientRequest);
-  } catch (e) {
-    console.error(e);
-    throw e;
-  }
+  await validateOrReject(clientRequest);
 
   const path = "/api/v1/payments";
   type op = paths[typeof path]["post"];
