@@ -53,12 +53,14 @@ testApi("../api/payment", "POST /payment", async (url) => {
 });
 
 testApi("../api/payment", "POST /payment (error case)", async (url) => {
-  expect.assertions(1);
+  let res;
   try {
-    const res = await axios.post(url, { amount: 1500 });
+    res = await axios.post(url, { amount: 1500 });
+    console.log(res, res.data);
   } catch (e) {
     expect(e).toBeNull();
   }
+  expect(res?.data).toEqual([]);
 });
 
 function testApi(
