@@ -6,9 +6,10 @@ export default (handler: VercelApiHandler) => {
     try {
       return factory(process.env.JWT_SECRET!)(handler)(req, res);
     } catch (e) {
-      console.error(e);
+      console.error('Error:', e);
       if (Array.isArray(e)) {
-        res.status(422).json(e);
+        res.status(422);
+        res.json(e);
       } else {
         throw e;
       }
