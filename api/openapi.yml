@@ -45,15 +45,20 @@ components:
       type: object
       required: [client_id, amount, transaction_reference, invoice_id]
       properties:
-        client_id: type: string
-        amount: type: number
-        transaction_reference: type: string
-        invoice_id: type: string
+        client_id:
+          type: string
+        amount:
+          type: number
+        transaction_reference:
+          type: string
+        invoice_id:
+          type: string
     CreatePaymentResponse:
       type: object
       required: [payment_id]
       properties:
-        payment_id: type: string
+        payment_id:
+          type: string
 security:
   - Jwt: []
 servers:
