@@ -38,7 +38,7 @@ testApi("../api/[invoice]", "PUT /invoice/hello", (url) =>
     moxios.stubOnce("PUT", /ident/, {
       response: {},
     });
-    const response = await axios.put(url + "/ident", { status: "PAID" });
+    const response = await axios.put(url() + "/ident", { status: "PAID" });
     expect(response.data).toEqual({});
   })
 );
