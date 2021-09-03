@@ -97,7 +97,7 @@ export function CreatePaymentModal(props: {
             ></Form.Input>
           </Form.Control>
         </Form.Field>
-        
+
         <Form.Field kind="addons">
           <Form.Control>
             <Button isStatic={true}>%</Button>
