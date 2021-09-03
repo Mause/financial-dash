@@ -22,7 +22,7 @@ function useInvoiceApi() {
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
-  bill: Bill;
+  bill: Pick<Bill, "id" | "amount">;
   refresh: () => void;
 }) {
   const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
