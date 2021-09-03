@@ -107,7 +107,7 @@ export function CreatePaymentModal(props: {
               name="percentage"
               placeholder="Percentage"
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setAmount(bill.amount * (Number(e.target.value) / 100));
+                setAmount(props.bill.amount * (Number(e.target.value) / 100));
               }}
             ></Form.Input>
           </Form.Control>
