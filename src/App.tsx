@@ -166,7 +166,7 @@ export function BillCard({
         <Modal onClose={() => setCreatePaymentModal(false)} show={true}>
           <CreatePaymentModal
             setShow={setCreatePaymentModal}
-            bill={row.id}
+            bill={row}
             refresh={refresh}
           />
         </Modal>
