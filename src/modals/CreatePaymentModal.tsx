@@ -2,7 +2,7 @@ import { useTable, useInsert } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
-import { SetB, Payment, Payer } from "../App";
+import { SetB, Bill, Payment, Payer } from "../App";
 import * as O from "fp-ts/Option";
 import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
@@ -22,7 +22,7 @@ function useInvoiceApi() {
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
-  bill: number;
+  bill: Bill;
   refresh: () => void;
 }) {
   const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
@@ -52,7 +52,7 @@ export function CreatePaymentModal(props: {
         await createPayment({
           paidBy: payer,
           amount,
-          paidFor: props.bill,
+          paidFor: props.bill.id,
           invoice_ninja_id: res.data.data.id,
         });
       }}
@@ -91,9 +91,23 @@ export function CreatePaymentModal(props: {
             <Form.Input
               name="amount"
               placeholder="Amount"
-              required
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setAmount(Number(e.target.value) * 100);
+              }}
+            ></Form.Input>
+          </Form.Control>
+        </Form.Field>
+        
+        <Form.Field kind="addons">
+          <Form.Control>
+            <Button isStatic={true}>%</Button>
+          </Form.Control>
+          <Form.Control>
+            <Form.Input
+              name="percentage"
+              placeholder="Percentage"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setAmount(bill.amount * (Number(e.target.value) / 100));
               }}
             ></Form.Input>
           </Form.Control>
