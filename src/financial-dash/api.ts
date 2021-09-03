@@ -85,6 +85,50 @@ export interface CreateInvoiceResponseData {
 /**
  *
  * @export
+ * @interface CreatePaymentRequest
+ */
+export interface CreatePaymentRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof CreatePaymentRequest
+   */
+  client_id: string;
+  /**
+   *
+   * @type {number}
+   * @memberof CreatePaymentRequest
+   */
+  amount: number;
+  /**
+   *
+   * @type {string}
+   * @memberof CreatePaymentRequest
+   */
+  transaction_reference: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreatePaymentRequest
+   */
+  invoice_id: string;
+}
+/**
+ *
+ * @export
+ * @interface CreatePaymentResponse
+ */
+export interface CreatePaymentResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof CreatePaymentResponse
+   */
+  payment_id: string;
+}
+/**
+ *
+ * @export
  * @interface InvoiceResponse
  */
 export interface InvoiceResponse {
@@ -508,6 +552,162 @@ export class InvoiceApi extends BaseAPI {
   ) {
     return InvoiceApiFp(this.configuration)
       .updateInvoice(invoiceId, partialInvoiceRequest, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * PaymentApi - axios parameter creator
+ * @export
+ */
+export const PaymentApiAxiosParamCreator = function (
+  configuration?: Configuration
+) {
+  return {
+    /**
+     *
+     * @param {CreatePaymentRequest} createPaymentRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createPayment: async (
+      createPaymentRequest: CreatePaymentRequest,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'createPaymentRequest' is not null or undefined
+      assertParamExists(
+        "createPayment",
+        "createPaymentRequest",
+        createPaymentRequest
+      );
+      const localVarPath = `/api/payment`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "POST",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Jwt required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        createPaymentRequest,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * PaymentApi - functional programming interface
+ * @export
+ */
+export const PaymentApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = PaymentApiAxiosParamCreator(configuration);
+  return {
+    /**
+     *
+     * @param {CreatePaymentRequest} createPaymentRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async createPayment(
+      createPaymentRequest: CreatePaymentRequest,
+      options?: any
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<CreatePaymentResponse>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.createPayment(
+        createPaymentRequest,
+        options
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      );
+    },
+  };
+};
+
+/**
+ * PaymentApi - factory interface
+ * @export
+ */
+export const PaymentApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
+) {
+  const localVarFp = PaymentApiFp(configuration);
+  return {
+    /**
+     *
+     * @param {CreatePaymentRequest} createPaymentRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createPayment(
+      createPaymentRequest: CreatePaymentRequest,
+      options?: any
+    ): AxiosPromise<CreatePaymentResponse> {
+      return localVarFp
+        .createPayment(createPaymentRequest, options)
+        .then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * PaymentApi - object-oriented interface
+ * @export
+ * @class PaymentApi
+ * @extends {BaseAPI}
+ */
+export class PaymentApi extends BaseAPI {
+  /**
+   *
+   * @param {CreatePaymentRequest} createPaymentRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof PaymentApi
+   */
+  public createPayment(
+    createPaymentRequest: CreatePaymentRequest,
+    options?: any
+  ) {
+    return PaymentApiFp(this.configuration)
+      .createPayment(createPaymentRequest, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
