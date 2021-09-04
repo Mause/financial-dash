@@ -1,3 +1,4 @@
+import "../support/sentry";
 import authenticate from "../support/auth";
 import invoiceninja from "../support/invoiceninja";
 import { paths } from "../src/invoice-ninja";

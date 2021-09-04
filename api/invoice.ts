@@ -1,3 +1,4 @@
+import "../support/sentry";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { paths } from "../src/invoice-ninja";
 import invoiceninja from "../support/invoiceninja";
