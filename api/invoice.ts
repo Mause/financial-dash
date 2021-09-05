@@ -8,7 +8,7 @@ import { validate } from "../support/validation";
 
 class PostInvoice {
   @IsNotEmpty()
-  client_id!: string;
+  clientId!: string;
   @IsNotEmpty()
   amount!: number;
   constructor(body: any) {
@@ -33,7 +33,7 @@ export default authenticate(async function (
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
   let { data } = await invoiceninja.get<op>(path);
 
-  data.client_id = request.client_id;
+  data.client_id = request.clientId;
   const cost = request.amount / 100;
 
   data.date = new Date().toISOString();
