@@ -30,6 +30,7 @@ export function CreatePaymentModal(props: {
   const [payer, setPayer] = useState<number>();
   const [amount, setAmount] = useState<number>();
   const invoiceApi = useInvoiceApi();
+  const [error, setError] = useState<string>();
 
   if (RD.isSuccess(createPaymentResult)) {
     props.setShow(false);
@@ -44,10 +45,17 @@ export function CreatePaymentModal(props: {
 
         if (!RD.isSuccess(payers)) return;
 
-        const res = await invoiceApi.createInvoice({
-          clientId: payers.value.find((p) => p.id === payer)!.invoice_ninja_id,
-          amount: amount!,
-        });
+        let res;
+        try {
+          res = await invoiceApi.createInvoice({
+            clientId: payers.value.find((p) => p.id === payer)!
+              .invoice_ninja_id,
+            amount: amount!,
+          });
+        } catch (e) {
+          setError((e as object).toString());
+          return;
+        }
 
         await createPayment({
           paidBy: payer,
@@ -61,6 +69,7 @@ export function CreatePaymentModal(props: {
         <Modal.Card.Title>Add Payment</Modal.Card.Title>
       </Modal.Card.Header>
       <Modal.Card.Body>
+        {error && <Notification>{error}</Notification>}
         {RD.isFailure(createPaymentResult) && (
           <Notification>{createPaymentResult.error}</Notification>
         )}
