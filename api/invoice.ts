@@ -3,7 +3,8 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { paths } from "../src/invoice-ninja";
 import invoiceninja from "../support/invoiceninja";
 import { factory } from "vercel-jwt-auth";
-import { validateOrReject, IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from "class-validator";
+import { validate } from "../support/validation";
 
 class PostInvoice {
   @IsNotEmpty()
@@ -25,9 +26,7 @@ export default authenticate(async function (
     return res.status(405).json("Bad method");
   }
 
-  const request = new PostInvoice(req.body);
-  console.log(request);
-  await validateOrReject(request);
+  const request = await validate(req, (t) => new PostInvoice(t));
 
   const path = "/api/v1/invoices/create";
   type op =

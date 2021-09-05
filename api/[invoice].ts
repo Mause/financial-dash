@@ -2,7 +2,8 @@ import "../support/sentry";
 import invoiceninja from "../support/invoiceninja";
 import { paths } from "../src/invoice-ninja";
 import authenticate from "../support/auth";
-import { IsNotEmpty, validateOrReject, IsEnum } from "class-validator";
+import { IsNotEmpty, IsEnum } from "class-validator";
+import { validate } from "../support/validation";
 
 enum Status {
   PAID,
@@ -36,9 +37,7 @@ export default authenticate(async function (req, res) {
   } else if (req.method === "PUT") {
     const path = "/api/v1/invoices/{id}";
 
-    const clientRequest = new PutInvoice(req.body);
-    console.log(clientRequest);
-    await validateOrReject(clientRequest);
+    const clientRequest = await validate(req, (t) => new PutInvoice(t));
 
     return res
       .status(200)

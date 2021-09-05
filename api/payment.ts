@@ -2,7 +2,8 @@ import "../support/sentry";
 import authenticate from "../support/auth";
 import invoiceninja from "../support/invoiceninja";
 import { paths } from "../src/invoice-ninja";
-import { IsNotEmpty, validateOrReject } from "class-validator";
+import { IsNotEmpty } from "class-validator";
+import { validate } from "../support/validation";
 
 class PostPayment {
   @IsNotEmpty()
@@ -24,9 +25,7 @@ export default authenticate(async function (req, res) {
     return res.status(422).json("Bad request");
   }
 
-  const clientRequest = new PostPayment(req.body);
-  console.log(clientRequest);
-  await validateOrReject(clientRequest);
+  const clientRequest = await validate(req, (t) => new PostPayment(t));
 
   const path = "/api/v1/payments";
   type op = paths[typeof path]["post"];
