@@ -6,6 +6,9 @@ import { sign } from "jsonwebtoken";
 import invoiceninja from "../support/invoiceninja";
 import moxios from "moxios";
 
+import * as Sentry from "@sentry/node";
+const captureException = jest.spyOn(Sentry, "captureException");
+
 const SECRET = "SECRET";
 process.env.JWT_SECRET = SECRET;
 process.env.INVOICE_NINJA_TOKEN = "TOKEN";
@@ -63,6 +66,28 @@ testApi("../api/payment", "POST /payment (error case)", (url) =>
     await expect(
       async () => await axios.post(url(), { amount: 1500 })
     ).rejects.toThrow();
+  })
+);
+
+testApi("../api/payment", "POST /payment (failed downstream call)", (url) =>
+  it("works", async () => {
+    moxios.stubOnce("POST", /.*/, {
+      status: 500,
+      response: { error: "Server down" },
+    });
+    await expect(
+      async () =>
+        await axios.post(url(), {
+          client_id: "client_id",
+          invoice_id: "invoice_id",
+          transaction_reference: "transaction_reference",
+          amount: 1500,
+        })
+    ).rejects.toThrow();
+
+    expect(captureException).toBeCalledWith(
+      new Error("Request failed with status code 500")
+    );
   })
 );
 
