@@ -3,11 +3,12 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { paths } from "../src/invoice-ninja";
 import invoiceninja from "../support/invoiceninja";
 import { factory } from "vercel-jwt-auth";
-import { validateOrReject, IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from "class-validator";
+import { validate } from "../support/validation";
 
 class PostInvoice {
   @IsNotEmpty()
-  client_id!: string;
+  clientId!: string;
   @IsNotEmpty()
   amount!: number;
   constructor(body: any) {
@@ -21,15 +22,18 @@ export default authenticate(async function (
   req: VercelRequest,
   res: VercelResponse
 ) {
-  const request = new PostInvoice(req.body);
-  await validateOrReject(request);
+  if (req.method !== "POST") {
+    return res.status(405).json("Bad method");
+  }
+
+  const request = await validate(req, (t) => new PostInvoice(t));
 
   const path = "/api/v1/invoices/create";
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
   let { data } = await invoiceninja.get<op>(path);
 
-  data.client_id = request.client_id;
+  data.client_id = request.clientId;
   const cost = request.amount / 100;
 
   data.date = new Date().toISOString();
