@@ -26,6 +26,7 @@ export default authenticate(async function (
   }
 
   const request = new PostInvoice(req.body);
+  console.log(request);
   await validateOrReject(request);
 
   const path = "/api/v1/invoices/create";
