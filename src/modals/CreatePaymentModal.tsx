@@ -7,11 +7,7 @@ import * as O from "fp-ts/Option";
 import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
 import { InvoiceApi, Configuration } from "../financial-dash";
-import { AxiosError } from "axios";
-
-function isAxiosError(r: any): r is AxiosError {
-  return r.isAxiosError;
-}
+import AxiosStatic from "axios";
 
 function useInvoiceApi() {
   const token = useToken();
@@ -58,7 +54,7 @@ export function CreatePaymentModal(props: {
             amount: amount!,
           });
         } catch (e) {
-          if (e && isAxiosError(e) && e.response) {
+          if (e && AxiosStatic.isAxiosError(e) && e.response) {
             setError(JSON.stringify(e.response.data));
           } else {
             setError((e as object).toString());
