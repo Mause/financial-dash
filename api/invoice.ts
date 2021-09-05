@@ -21,6 +21,10 @@ export default authenticate(async function (
   req: VercelRequest,
   res: VercelResponse
 ) {
+  if (req.method !== "POST") {
+    return res.status(405).json("Bad method");
+  }
+
   const request = new PostInvoice(req.body);
   await validateOrReject(request);
 

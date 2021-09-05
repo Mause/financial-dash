@@ -10,26 +10,28 @@ export default authenticate(async function (req, res) {
   if (req.method === "GET") {
     const path = "/api/v1/invoices/{id}";
 
-    res.status(200);
-    res.json(
-      (
-        await invoiceninja.get<
-          paths[typeof path]["get"]["responses"][200]["content"]["application/json"]
-        >(path.replace("{id}", invoice_id))
-      ).data
-    );
+    return res
+      .status(200)
+      .json(
+        (
+          await invoiceninja.get<
+            paths[typeof path]["get"]["responses"][200]["content"]["application/json"]
+          >(path.replace("{id}", invoice_id))
+        ).data
+      );
   } else if (req.method === "PUT") {
     const path = "/api/v1/invoices/{id}";
-    res.status(200);
-    res.json(
-      (
-        await invoiceninja.put<
-          paths[typeof path]["put"]["responses"][200]["content"]["application/json"]
-        >(path.replace("{id}", invoice_id), req.body)
-      ).data
-    );
+
+    return res
+      .status(200)
+      .json(
+        (
+          await invoiceninja.put<
+            paths[typeof path]["put"]["responses"][200]["content"]["application/json"]
+          >(path.replace("{id}", invoice_id), req.body)
+        ).data
+      );
   } else {
-    res.status(405);
-    res.json(`${req.method} not supported`);
+    return res.status(405).json(`${req.method} not supported`);
   }
 });
