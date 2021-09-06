@@ -5,36 +5,38 @@
 
 export interface paths {
   "/api/up": {
-    get: {
-      responses: {
-        /** Ok */
-        default: {
-          content: {
-            "application/json": components["schemas"]["UpResponse"];
-          };
-        };
-      };
-    };
+    get: operations["getUpTransactions"];
   };
 }
 
 export interface components {
   schemas: {
     UpResponse: {
-      id?: string;
-      attributes?: {
-        description?: string;
-        message?: string;
-        createdAt?: string;
-        amount?: components["schemas"]["Amount"];
+      id: string;
+      attributes: {
+        description: string;
+        message: string;
+        createdAt: string;
+        amount: components["schemas"]["Amount"];
       };
     }[];
     Amount: {
-      value?: string;
+      value: string;
     };
   };
 }
 
-export interface operations {}
+export interface operations {
+  getUpTransactions: {
+    responses: {
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["UpResponse"];
+        };
+      };
+    };
+  };
+}
 
 export interface external {}
