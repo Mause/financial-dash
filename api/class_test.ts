@@ -8,7 +8,7 @@ function Authenticated() {
   ) {
     const original = descriptor.value;
     descriptor.value = async (req: VercelRequest, res: VercelResponse) => {
-      if ((req as any).user) return await original(req, res);
+      if ((req as any).user) {return await original(req, res);}
       else {
         res.status(401).send("Unauthorized");
       }
