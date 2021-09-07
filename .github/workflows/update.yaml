@@ -16,7 +16,7 @@ jobs:
           - name: invoice-ninja
             url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
           - name: launtel
-            url: https://launtel.vercel.app/api/openapi.yaml
+            url: https://launtel.vercel.app/openapi.yaml
 
     steps:
       - uses: actions/setup-node@v2.1.5
