@@ -1,12 +1,16 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
 function Authenticated() {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) {
     const original = descriptor.value;
     descriptor.value = async (req: VercelRequest, res: VercelResponse) => {
       if ((req as any).user) return await original(req, res);
       else {
-        res.status(401).send('Unauthorized');
+        res.status(401).send("Unauthorized");
       }
     };
   };
