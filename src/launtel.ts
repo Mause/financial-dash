@@ -25,6 +25,9 @@ export interface components {
     Amount: {
       value: string;
     };
+    DummyResponse: {
+      id: string;
+    };
   };
 }
 
