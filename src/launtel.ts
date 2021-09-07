@@ -7,6 +7,8 @@ export interface paths {
   "/api/up": {
     get: operations["getUpTransactions"];
   };
+  "/api/transactions": {};
+  "/api/usage": {};
 }
 
 export interface components {
