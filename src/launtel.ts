@@ -7,8 +7,12 @@ export interface paths {
   "/api/up": {
     get: operations["getUpTransactions"];
   };
-  "/api/transactions": {};
-  "/api/usage": {};
+  "/api/transactions": {
+    get: operations["getTransactions"];
+  };
+  "/api/usage": {
+    get: operations["getUsage"];
+  };
 }
 
 export interface components {
@@ -25,6 +29,9 @@ export interface components {
     Amount: {
       value: string;
     };
+    UsageResponse: {
+      usage: string;
+    };
     DummyResponse: {
       id: string;
     };
@@ -38,6 +45,26 @@ export interface operations {
       default: {
         content: {
           "application/json": components["schemas"]["UpResponse"];
+        };
+      };
+    };
+  };
+  getTransactions: {
+    responses: {
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["DummyResponse"];
+        };
+      };
+    };
+  };
+  getUsage: {
+    responses: {
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["DummyResponse"];
         };
       };
     };
