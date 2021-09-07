@@ -33,3 +33,4 @@ jobs:
           COMMIT_EMAIL: "example@example.com"
           PR_BRANCH_NAME: "chore-${{ matrix.name }}-update-client-${PR_ID}"
           PR_TITLE: "chore: update ${{ matrix.name }} client"
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
