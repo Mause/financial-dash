@@ -1,7 +1,9 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
 function Authenticated() {
-  return undefined;
+  return (descriptor) => {
+    return descriptor();
+  };
 }
 
 class ClassTest {
