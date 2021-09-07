@@ -1,7 +1,9 @@
 on: [push, pull_request]
 
+name: Validate openapi
+
 jobs:
-  test_swagger_editor_validator_remote:
+  validate:
     runs-on: ubuntu-latest
     name: Swagger Editor Validator Remote
 
