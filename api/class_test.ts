@@ -6,4 +6,4 @@ class ClassTest {
   }
 }
 
-export default (res, req) => new ClassTest().invoke(req, res);
+export default (req: VercelRequest, res: VercelResponse) => new ClassTest().invoke(req, res);
