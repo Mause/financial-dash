@@ -4,11 +4,11 @@
  */
 
 export interface paths {
-  "/api/up": {
-    get: operations["getUpTransactions"];
-  };
   "/api/transactions": {
     get: operations["getTransactions"];
+  };
+  "/api/up": {
+    get: operations["getUp"];
   };
   "/api/usage": {
     get: operations["getUsage"];
@@ -17,20 +17,14 @@ export interface paths {
 
 export interface components {
   schemas: {
-    UpResponse: {
-      id: string;
-      attributes: {
-        description: string;
-        message: string;
-        createdAt: string;
-        amount: components["schemas"]["Amount"];
-      };
-    }[];
-    Amount: {
-      value: string;
+    LauntelTransactionResponse: {
+      perMonth: string;
+    };
+    UpTransaction: {
+      attributes: string;
     };
     UsageResponse: {
-      usage: string;
+      usage: { [key: string]: unknown };
     };
     DummyResponse: {
       id: string;
@@ -39,22 +33,22 @@ export interface components {
 }
 
 export interface operations {
-  getUpTransactions: {
-    responses: {
-      /** Ok */
-      default: {
-        content: {
-          "application/json": components["schemas"]["UpResponse"];
-        };
-      };
-    };
-  };
   getTransactions: {
     responses: {
       /** Ok */
       default: {
         content: {
-          "application/json": components["schemas"]["DummyResponse"];
+          "application/json": components["schemas"]["LauntelTransactionResponse"];
+        };
+      };
+    };
+  };
+  getUp: {
+    responses: {
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["UpTransactionResponse"];
         };
       };
     };
@@ -64,7 +58,7 @@ export interface operations {
       /** Ok */
       default: {
         content: {
-          "application/json": components["schemas"]["DummyResponse"];
+          "application/json": components["schemas"]["UsageResponse"];
         };
       };
     };
