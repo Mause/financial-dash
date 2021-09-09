@@ -20,14 +20,21 @@ export interface components {
     LauntelTransactionResponse: {
       perMonth: string;
     };
+    UpAttributes: {
+      description: string;
+      message: string;
+      createdAt: string | string;
+      amount: { [key: string]: unknown };
+    };
     UpTransaction: {
-      attributes: string;
+      id: string;
+      attributes: { [key: string]: unknown };
+    };
+    UpTransactionResponse: {
+      items: { [key: string]: unknown }[];
     };
     UsageResponse: {
       usage: { [key: string]: unknown };
-    };
-    DummyResponse: {
-      id: string;
     };
   };
 }
