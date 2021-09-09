@@ -1,6 +1,6 @@
 import "../support/sentry";
 import invoiceninja from "../support/invoiceninja";
-import { paths } from "../src/invoice-ninja";
+import { paths } from "../src/types/invoice-ninja";
 import authenticate from "../support/auth";
 import { IsNotEmpty, IsEnum } from "class-validator";
 import { validate } from "../support/validation";
