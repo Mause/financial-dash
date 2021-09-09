@@ -15,7 +15,7 @@ export function EnterPaymentModal(props: {
   const [bankId, setBankId] = useState<string>();
   const [result, updatePayment] = useUpdate<Payment>("Payment");
   const { data, error, isValidating } = useSWR<
-    components["schemas"]["UpResponse"]
+    components["schemas"]["UpTransactionResponse"]
   >("https://launtel.vercel.app/api/up");
 
   if (RD.isSuccess(result)) {
