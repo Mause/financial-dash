@@ -4,11 +4,11 @@
  */
 
 export interface paths {
-  "/api/up": {
-    get: operations["getUpTransactions"];
-  };
   "/api/transactions": {
     get: operations["getTransactions"];
+  };
+  "/api/up": {
+    get: operations["getUp"];
   };
   "/api/usage": {
     get: operations["getUsage"];
@@ -17,44 +17,45 @@ export interface paths {
 
 export interface components {
   schemas: {
-    UpResponse: {
+    LauntelTransactionResponse: {
+      perMonth: string;
+    };
+    UpAttributes: {
+      description: string;
+      message: string;
+      createdAt: string | string;
+      amount: { [key: string]: unknown };
+    };
+    UpTransaction: {
       id: string;
-      attributes: {
-        description: string;
-        message: string;
-        createdAt: string;
-        amount: components["schemas"]["Amount"];
-      };
-    }[];
-    Amount: {
-      value: string;
+      attributes: { [key: string]: unknown };
+    };
+    UpTransactionResponse: {
+      items: { [key: string]: unknown }[];
     };
     UsageResponse: {
-      usage: string;
-    };
-    DummyResponse: {
-      id: string;
+      usage: { [key: string]: unknown };
     };
   };
 }
 
 export interface operations {
-  getUpTransactions: {
-    responses: {
-      /** Ok */
-      default: {
-        content: {
-          "application/json": components["schemas"]["UpResponse"];
-        };
-      };
-    };
-  };
   getTransactions: {
     responses: {
       /** Ok */
       default: {
         content: {
-          "application/json": components["schemas"]["DummyResponse"];
+          "application/json": components["schemas"]["LauntelTransactionResponse"];
+        };
+      };
+    };
+  };
+  getUp: {
+    responses: {
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["UpTransactionResponse"];
         };
       };
     };
@@ -64,7 +65,7 @@ export interface operations {
       /** Ok */
       default: {
         content: {
-          "application/json": components["schemas"]["DummyResponse"];
+          "application/json": components["schemas"]["UsageResponse"];
         };
       };
     };

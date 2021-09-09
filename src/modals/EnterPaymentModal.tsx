@@ -5,7 +5,7 @@ import { useState, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { SetB, Payment, PaymentWithPayer } from "../App";
-import { components } from "../types/launtel";
+import { components } from "../types/up";
 
 export function EnterPaymentModal(props: {
   setShowModal: SetB;
@@ -15,8 +15,8 @@ export function EnterPaymentModal(props: {
   const [bankId, setBankId] = useState<string>();
   const [result, updatePayment] = useUpdate<Payment>("Payment");
   const { data, error, isValidating } = useSWR<
-    components["schemas"]["UpResponse"]
-  >("https://launtel.vercel.app/api/up");
+    components["schemas"]["UpTransactionResponse"]
+  >("https://up.vc.mause.me/api/up");
 
   if (RD.isSuccess(result)) {
     props.setShowModal(false);
@@ -51,7 +51,7 @@ export function EnterPaymentModal(props: {
               loading={isValidating}
             >
               <option value="">Select a transaction</option>
-              {data?.map((transaction) => (
+              {data?.items.map((transaction) => (
                 <option key={transaction.id} value={transaction.id}>
                   {formatISO(parseISO(transaction.attributes.createdAt), {
                     representation: "date",
