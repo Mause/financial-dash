@@ -1,5 +1,5 @@
 import "./App.css";
-import { definitions } from "./supabase";
+import { definitions } from "./types/supabase";
 import {
   useTable,
   useUser,

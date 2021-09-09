@@ -5,7 +5,7 @@ import { useState, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { SetB, Payment, PaymentWithPayer } from "../App";
-import { components } from "../launtel";
+import { components } from "../types/launtel";
 
 export function EnterPaymentModal(props: {
   setShowModal: SetB;

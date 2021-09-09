@@ -1,7 +1,7 @@
 import "../support/sentry";
 import authenticate from "../support/auth";
 import invoiceninja from "../support/invoiceninja";
-import { paths } from "../src/invoice-ninja";
+import { paths } from "../src/types/invoice-ninja";
 import { IsNotEmpty } from "class-validator";
 import { validate } from "../support/validation";
 
