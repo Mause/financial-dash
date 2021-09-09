@@ -26,6 +26,7 @@ export interface components {
     };
     Amount: {
       valueInBaseUnits: number;
+      value: string;
     };
   };
 }
