@@ -1,6 +1,6 @@
 import "../support/sentry";
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { paths } from "../src/invoice-ninja";
+import { paths } from "../src/types/invoice-ninja";
 import invoiceninja from "../support/invoiceninja";
 import { factory } from "vercel-jwt-auth";
 import { IsNotEmpty } from "class-validator";
