@@ -51,7 +51,7 @@ export function EnterPaymentModal(props: {
               loading={isValidating}
             >
               <option value="">Select a transaction</option>
-              {data?.map((transaction) => (
+              {data?.items.map((transaction) => (
                 <option key={transaction.id} value={transaction.id}>
                   {formatISO(parseISO(transaction.attributes.createdAt), {
                     representation: "date",
