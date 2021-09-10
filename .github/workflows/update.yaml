@@ -16,7 +16,9 @@ jobs:
           - name: invoice-ninja
             url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
           - name: launtel
-            url: https://launtel.vercel.app/api/openapi.yaml
+            url: https://launtel.vercel.app/openapi.yaml
+          - name: up
+            url: https://up.vc.mause.me/openapi.yaml
 
     steps:
       - uses: actions/setup-node@v2.1.5
@@ -26,9 +28,10 @@ jobs:
         uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            npx openapi-typescript ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} --output src/${{ matrix.name }}.ts
+            npx openapi-typescript ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} --output src/types/${{ matrix.name }}.ts
           COMMIT_MESSAGE: "chore: update ${{ matrix.name }} types"
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
           PR_BRANCH_NAME: "chore-${{ matrix.name }}-update-${PR_ID}"
           PR_TITLE: "chore: update ${{ matrix.name }} types"
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
