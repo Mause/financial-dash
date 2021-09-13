@@ -19,7 +19,9 @@ class PutInvoice {
 }
 
 export default authenticate(async function (req, res) {
-  const invoice_id = req.query.invoice as string;
+  console.log(req?.query);
+  const invoice_id = req?.query?.invoice as string | undefined;
+  if (!invoice_id) return res.status(422);
 
   if (req.method === "GET") {
     const path = "/api/v1/invoices/{id}";
