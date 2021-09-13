@@ -54,4 +54,5 @@ export default authenticate(async function (req, res) {
 });
 
 export const methods = new Set(["GET", "PUT"]);
+export const requestShape = PutInvoice.name;
 export const responseShape = PutInvoice.name;
