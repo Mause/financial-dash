@@ -29,17 +29,16 @@ export interface components {
       value: string;
     };
   };
+  responses: {};
+  parameters: {};
+  requestBodies: {};
+  headers: {};
 }
 
 export interface operations {
   getUp: {
     responses: {
-      /** Ok */
-      default: {
-        content: {
-          "application/json": components["schemas"]["UpTransactionResponse"];
-        };
-      };
+      default: components["schemas"]["UpTransactionResponse"];
     };
   };
 }
