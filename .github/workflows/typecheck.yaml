@@ -1,4 +1,4 @@
-on: [push, pull_request]
+on: push
 
 name: Build
 jobs:
@@ -17,3 +17,8 @@ jobs:
       - run: ../node_modules/.bin/jest
         working-directory: api_tests/
         timeout-minutes: 2
+      - run: yarn run vercel-openapi generate .  --inputFile public/openapi.yaml
+        env:
+          JWT_SECRET: secret
+          TS_NODE_COMPILER_OPTIONS: |
+            {"module": "commonjs" }

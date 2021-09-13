@@ -16,6 +16,15 @@ class PostInvoice {
   }
 }
 
+class InvoiceResponse extends PostInvoice {
+  @IsNotEmpty()
+  id!: string;
+
+  constructor(body: any) {
+    super(body);
+  }
+}
+
 const authenticate = factory(process.env.JWT_SECRET!);
 
 export default authenticate(async function (
@@ -55,3 +64,7 @@ export default authenticate(async function (
 
   res.json(response.data);
 });
+
+export const methods = new Set(["POST"]);
+export const requestShape = PostInvoice.name;
+export const responseShape = InvoiceResponse.name;
