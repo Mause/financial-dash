@@ -49,7 +49,13 @@ testApi("../api/[invoice]", "PUT /invoice/hello", (url) =>
 testApi("../api/payment", "POST /payment", (url) =>
   it("works", async () => {
     moxios.stubOnce("POST", /.*/, {
-      response: { id: "payment_id" },
+      response: {
+        id: "payment_id",
+        client_id: "client_id",
+        invoice_id: "invoice_id",
+        amount: "1500",
+        transaction_reference: "transaction_reference",
+      },
     });
     const response = await axios.post(url(), {
       client_id: "client_id",
@@ -57,7 +63,13 @@ testApi("../api/payment", "POST /payment", (url) =>
       transaction_reference: "transaction_reference",
       amount: "1500",
     });
-    expect(response.data).toEqual({ id: "payment_id" });
+    expect(response.data).toEqual({
+      id: "payment_id",
+      client_id: "client_id",
+      invoice_id: "invoice_id",
+      amount: "1500",
+      transaction_reference: "transaction_reference",
+    });
   })
 );
 
