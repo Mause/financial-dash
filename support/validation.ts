@@ -3,7 +3,7 @@ import { VercelRequest } from "@vercel/node";
 
 export async function validate<T>(
   req: VercelRequest,
-  build: (o: object) => T
+  build: (o: any) => T
 ): Promise<T> {
   const request = build(
     typeof req.body === "string" ? JSON.parse(req.body) : req.body

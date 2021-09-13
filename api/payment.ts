@@ -16,15 +16,15 @@ class PostPayment {
   invoice_id: string;
 
   constructor(body: {
-    client_id: string;
-    amount: number;
-    transaction_reference: string;
-    invoice_id: string;
+    client_id?: string;
+    amount?: number;
+    transaction_reference?: string;
+    invoice_id?: string;
   }) {
-    this.client_id = body.client_id;
-    this.amount = body.amount;
-    this.transaction_reference = body.transaction_reference;
-    this.invoice_id = body.invoice_id;
+    this.client_id = body.client_id!;
+    this.amount = body.amount!;
+    this.transaction_reference = body.transaction_reference!;
+    this.invoice_id = body.invoice_id!;
   }
 }
 class PaymentResponse extends PostPayment {
@@ -32,15 +32,15 @@ class PaymentResponse extends PostPayment {
   id!: string;
 
   constructor(
-    body: { id: string } & {
-      client_id: string;
-      amount: number;
-      transaction_reference: string;
-      invoice_id: string;
+    body: { id?: string } & {
+      client_id?: string;
+      amount?: number;
+      transaction_reference?: string;
+      invoice_id?: string;
     }
   ) {
     super(body);
-    this.id = body.id;
+    this.id = body.id!;
   }
 }
 
@@ -59,10 +59,9 @@ export default authenticate(async function (req, res) {
     amount: clientRequest.amount,
   };
 
-  const payment = await invoiceninja.post<op["responses"]["200"]["content"]>(
-    path,
-    requestBody
-  );
+  const payment = await invoiceninja.post<
+    op["responses"]["200"]["content"]["application/json"]
+  >(path, requestBody);
 
   const responseData = new PaymentResponse(payment.data);
   await validateOrReject(responseData);
