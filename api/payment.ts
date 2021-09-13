@@ -48,8 +48,7 @@ export default authenticate(async function (req, res) {
     requestBody
   );
 
-  res.status(201);
-  res.json(payment.data);
+  res.status(201).json(await validate(new PaymentResponse(payment.data)));
 });
 
 export const methods = new Set(["POST"]);
