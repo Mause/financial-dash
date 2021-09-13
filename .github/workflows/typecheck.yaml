@@ -17,3 +17,4 @@ jobs:
       - run: ../node_modules/.bin/jest
         working-directory: api_tests/
         timeout-minutes: 2
+      - run: yarn run vercel-openapi
