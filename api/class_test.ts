@@ -24,5 +24,7 @@ class ClassTest {
   }
 }
 
+export const responseShape = null;
+
 export default (req: VercelRequest, res: VercelResponse) =>
   new ClassTest().invoke(req, res);
