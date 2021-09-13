@@ -1,9 +1,7 @@
-import "../support/sentry";
-import invoiceninja from "../support/invoiceninja";
-import { paths } from "../src/types/invoice-ninja";
-import authenticate from "../support/auth";
+import "../../support/sentry";
+import { paths } from "../../src/types/invoice-ninja";
 import { IsNotEmpty, IsEnum } from "class-validator";
-import { validate } from "../support/validation";
+import { authenticate, invoiceninja, validate } from "../../support";
 
 enum Status {
   PAID,

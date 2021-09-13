@@ -26,22 +26,24 @@ const axios = Axios.create({
   },
 });
 
-testApi("../api/[invoice]", "GET /invoice/hello", (url) =>
+testApi("../api/invoice/[invoice]", "GET /invoice/hello", (url) =>
   it("works", async () => {
     moxios.stubOnce("GET", /ident/, {
       response: {},
     });
-    const response = await axios.get(url() + "/ident");
+    const response = await axios.get(url() + "?invoice=ident");
     expect(response.data).toEqual({});
   })
 );
 
-testApi("../api/[invoice]", "PUT /invoice/hello", (url) =>
+testApi("../api/invoice/[invoice]", "PUT /invoice/hello", (url) =>
   it("works", async () => {
     moxios.stubOnce("PUT", /ident/, {
       response: {},
     });
-    const response = await axios.put(url() + "/ident", { status: "PAID" });
+    const response = await axios.put(url() + "?invoice=ident", {
+      status: "PAID",
+    });
     expect(response.data).toEqual({});
   })
 );
