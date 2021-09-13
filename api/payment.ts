@@ -2,7 +2,7 @@ import "../support/sentry";
 import authenticate from "../support/auth";
 import invoiceninja from "../support/invoiceninja";
 import { paths } from "../src/types/invoice-ninja";
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString, validateOrReject } from "class-validator";
 import { validate } from "../support/validation";
 
 class PostPayment {
@@ -48,7 +48,9 @@ export default authenticate(async function (req, res) {
     requestBody
   );
 
-  res.status(201).json(await validate(new PaymentResponse(payment.data)));
+  const responseData = new PaymentResponse(payment.data);
+  await validateOrReject(responseData);
+  res.status(201).json(responseData);
 });
 
 export const methods = new Set(["POST"]);
