@@ -29,6 +29,10 @@ export interface components {
       value: string;
     };
   };
+  responses: {};
+  parameters: {};
+  requestBodies: {};
+  headers: {};
 }
 
 export interface operations {
