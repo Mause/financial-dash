@@ -21,7 +21,10 @@ class PostPayment {
     transaction_reference: string;
     invoice_id: string;
   }) {
-    Object.assign(this, body);
+    this.client_id = body.client_id;
+    this.amount = body.amount;
+    this.transaction_reference = body.transaction_reference;
+    this.invoice_id = body.invoice_id;
   }
 }
 class PaymentResponse extends PostPayment {
@@ -37,6 +40,7 @@ class PaymentResponse extends PostPayment {
     }
   ) {
     super(body);
+    this.id = body.id;
   }
 }
 
