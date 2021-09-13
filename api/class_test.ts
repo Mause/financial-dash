@@ -1,10 +1,10 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { IsString } from 'class-validator';
+import { IsString } from "class-validator";
 
 class DummyResponse {
   @IsString()
   id: string;
-  
+
   constructor(id: string) {
     this.id = id;
   }
