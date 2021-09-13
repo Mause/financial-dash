@@ -21,27 +21,21 @@ export interface components {
       usage: { [key: string]: unknown };
     };
   };
+  responses: {};
+  parameters: {};
+  requestBodies: {};
+  headers: {};
 }
 
 export interface operations {
   getTransactions: {
     responses: {
-      /** Ok */
-      default: {
-        content: {
-          "application/json": components["schemas"]["LauntelTransactionResponse"];
-        };
-      };
+      default: components["schemas"]["LauntelTransactionResponse"];
     };
   };
   getUsage: {
     responses: {
-      /** Ok */
-      default: {
-        content: {
-          "application/json": components["schemas"]["UsageResponse"];
-        };
-      };
+      default: components["schemas"]["UsageResponse"];
     };
   };
 }
