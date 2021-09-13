@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { IsString } from 'class-validator';
+import { IsString } from "class-validator";
 
 class DummyResponse {
   @IsString()
