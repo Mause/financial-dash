@@ -1,4 +1,14 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
+import { IsString } from "class-validator";
+
+class DummyResponse {
+  @IsString()
+  id: string;
+
+  constructor(id: string) {
+    this.id = id;
+  }
+}
 
 function Authenticated() {
   return function (
@@ -20,9 +30,11 @@ function Authenticated() {
 class ClassTest {
   @Authenticated()
   invoke(req: VercelRequest, res: VercelResponse) {
-    res.status(200).send("hello");
+    res.status(200).send(new DummyResponse("hello"));
   }
 }
+
+export const responseShape = DummyResponse.name;
 
 export default (req: VercelRequest, res: VercelResponse) =>
   new ClassTest().invoke(req, res);
