@@ -19,5 +19,6 @@ jobs:
         timeout-minutes: 2
       - run: yarn run vercel-openapi generate .
         env:
+          JWT_SECRET: secret
           TS_NODE_COMPILER_OPTIONS: |
             {"module": "commonjs" }
