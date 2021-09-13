@@ -13,8 +13,8 @@ jobs:
         include:
           #          - name: supabase
           #           url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
-          #        - name: invoice-ninja
-          #         url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
+          - name: invoice-ninja
+            url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
           - name: financial-dash
             url: https://github.com/Mause/financial-dash/raw/main/public/openapi.yaml
 
