@@ -52,3 +52,6 @@ export default authenticate(async function (req, res) {
     return res.status(405).json(`${req.method} not supported`);
   }
 });
+
+export const methods = new Set(['GET', 'PUT']);
+export const responseShape = PutInvoice.name;
