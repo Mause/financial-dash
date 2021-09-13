@@ -19,6 +19,14 @@ class PostPayment {
     Object.assign(this, body);
   }
 }
+class PaymentResponse extends PostPayment {
+  @IsString()
+  id!: string;
+
+  constructor(body: any) {
+    super(body);
+  }
+}
 
 export default authenticate(async function (req, res) {
   if (req.method !== "POST") {
@@ -43,3 +51,7 @@ export default authenticate(async function (req, res) {
   res.status(201);
   res.json(payment.data);
 });
+
+export const methods = new Set(['POST']);
+export const requestShape = PostPayment.name;
+export const responseShape = PaymentResponse.name;
