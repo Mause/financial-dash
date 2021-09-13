@@ -6,7 +6,6 @@ import { factory } from "vercel-jwt-auth";
 import { IsNotEmpty } from "class-validator";
 import { validate } from "../support/validation";
 
-
 class PostInvoice {
   @IsNotEmpty()
   clientId!: string;
@@ -66,6 +65,6 @@ export default authenticate(async function (
   res.json(response.data);
 });
 
-export const methods = new Set(['POST']);
+export const methods = new Set(["POST"]);
 export const requestShape = PostInvoice.name;
 export const responseShape = InvoiceResponse.name;
