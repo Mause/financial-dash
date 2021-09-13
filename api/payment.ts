@@ -15,7 +15,12 @@ class PostPayment {
   @IsNotEmpty()
   invoice_id: string;
 
-  constructor(body: {client_id: string, amount:number, transaction_reference:string, invoice_id:string}) {
+  constructor(body: {
+    client_id: string;
+    amount: number;
+    transaction_reference: string;
+    invoice_id: string;
+  }) {
     Object.assign(this, body);
   }
 }
@@ -23,7 +28,14 @@ class PaymentResponse extends PostPayment {
   @IsString()
   id!: string;
 
-  constructor(body: {id: string} & {client_id: string, amount:number, transaction_reference:string, invoice_id:string}) {
+  constructor(
+    body: { id: string } & {
+      client_id: string;
+      amount: number;
+      transaction_reference: string;
+      invoice_id: string;
+    }
+  ) {
     super(body);
   }
 }
