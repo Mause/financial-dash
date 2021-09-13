@@ -7,15 +7,15 @@ import { validate } from "../support/validation";
 
 class PostPayment {
   @IsNotEmpty()
-  client_id!: string;
+  client_id: string;
   @IsNotEmpty()
-  amount!: number;
+  amount: number;
   @IsNotEmpty()
-  transaction_reference!: string;
+  transaction_reference: string;
   @IsNotEmpty()
-  invoice_id!: string;
+  invoice_id: string;
 
-  constructor(body: any) {
+  constructor(body: {client_id: string, amount:number, transaction_reference:string, invoice_id:string}) {
     Object.assign(this, body);
   }
 }
@@ -23,7 +23,7 @@ class PaymentResponse extends PostPayment {
   @IsString()
   id!: string;
 
-  constructor(body: any) {
+  constructor(body: {id: string} & {client_id: string, amount:number, transaction_reference:string, invoice_id:string}) {
     super(body);
   }
 }
