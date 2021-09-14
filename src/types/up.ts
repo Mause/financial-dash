@@ -38,7 +38,12 @@ export interface components {
 export interface operations {
   getUp: {
     responses: {
-      default: components["schemas"]["UpTransactionResponse"];
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["UpTransactionResponse"];
+        };
+      };
     };
   };
 }
