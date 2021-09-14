@@ -68,3 +68,4 @@ export default authenticate(async function (
 export const methods = new Set(["POST"]);
 export const requestShape = PostInvoice.name;
 export const responseShape = InvoiceResponse.name;
+export const tags = ["invoice"];
