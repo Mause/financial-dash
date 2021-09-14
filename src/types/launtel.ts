@@ -6,9 +6,11 @@
 export interface paths {
   "/api/transactions": {
     get: operations["getTransactions"];
+    parameters: {};
   };
   "/api/usage": {
     get: operations["getUsage"];
+    parameters: {};
   };
 }
 
@@ -29,13 +31,25 @@ export interface components {
 
 export interface operations {
   getTransactions: {
+    parameters: {};
     responses: {
-      default: components["schemas"]["LauntelTransactionResponse"];
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["LauntelTransactionResponse"];
+        };
+      };
     };
   };
   getUsage: {
+    parameters: {};
     responses: {
-      default: components["schemas"]["UsageResponse"];
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["UsageResponse"];
+        };
+      };
     };
   };
 }
