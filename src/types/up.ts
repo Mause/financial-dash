@@ -6,6 +6,7 @@
 export interface paths {
   "/api/up": {
     get: operations["getUp"];
+    parameters: {};
   };
 }
 
@@ -37,6 +38,7 @@ export interface components {
 
 export interface operations {
   getUp: {
+    parameters: {};
     responses: {
       /** Ok */
       default: {
