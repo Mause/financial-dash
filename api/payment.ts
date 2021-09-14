@@ -71,3 +71,4 @@ export default authenticate(async function (req, res) {
 export const methods = new Set(["POST"]);
 export const requestShape = PostPayment.name;
 export const responseShape = PaymentResponse.name;
+export const tags = ["payment"];
