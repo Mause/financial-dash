@@ -11,4 +11,4 @@ components:
 security:
   - Jwt: []
 servers:
-  - url: https://financial-dash.vercel.app
+  - url: https://financial-dash.vc.mause.me
