@@ -26,7 +26,7 @@ export default function useApi<T>(clazz: { new (c: Configuration): T }): T {
         })
       )
     );
-  }, [token]);
+  }, [token, clazz]);
 
   return api;
 }
