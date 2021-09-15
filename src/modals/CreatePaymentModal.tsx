@@ -48,10 +48,10 @@ export function CreatePaymentModal(props: {
 
         let res;
         try {
-          res = await invoiceApi.createInvoice({
+          res = await invoiceApi.postInvoice({
             clientId: payers.value.find((p) => p.id === payer)!
               .invoice_ninja_id,
-            amount: amount!,
+            amount: String(amount!),
           });
         } catch (e) {
           if (e && AxiosStatic.isAxiosError(e) && e.response) {
