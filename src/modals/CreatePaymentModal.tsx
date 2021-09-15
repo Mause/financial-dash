@@ -8,18 +8,7 @@ import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
 import { InvoiceApi, Configuration } from "../financial-dash";
 import AxiosStatic from "axios";
-
-function useInvoiceApi() {
-  const token = useToken();
-
-  return new InvoiceApi(
-    new Configuration({
-      accessToken() {
-        return O.getOrElse(constant(""))(token);
-      },
-    })
-  );
-}
+import useApi from '../use_api';
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
@@ -30,7 +19,7 @@ export function CreatePaymentModal(props: {
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
   const [amount, setAmount] = useState<number>();
-  const invoiceApi = useInvoiceApi();
+  const invoiceApi = useApi(InvoiceApi);
   const [error, setError] = useState<string>();
 
   if (RD.isSuccess(createPaymentResult)) {
