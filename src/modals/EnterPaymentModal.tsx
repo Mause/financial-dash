@@ -25,7 +25,7 @@ export function EnterPaymentModal(props: {
     props.refresh();
   }
 
-  const paymentClient = useApi(PaymentApi.call);
+  const paymentClient = useApi(PaymentApi);
 
   console.log(data);
 
