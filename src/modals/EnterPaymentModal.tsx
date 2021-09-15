@@ -7,6 +7,7 @@ import { formatISO, parseISO } from "date-fns";
 import { SetB, Payment, PaymentWithPayer } from "../App";
 import { components } from "../types/up";
 import { PaymentApi } from "../financial-dash";
+import useApi from "../use_api";
 
 export function EnterPaymentModal(props: {
   setShowModal: SetB;
@@ -24,7 +25,7 @@ export function EnterPaymentModal(props: {
     props.refresh();
   }
 
-  const paymentClient = new PaymentApi();
+  const paymentClient = useApi(PaymentApi.call);
 
   console.log(data);
 
