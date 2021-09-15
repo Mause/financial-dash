@@ -4,10 +4,10 @@ import { useToken } from "./auth";
 import { Configuration } from "./financial-dash";
 import { useEffect, useState } from "react";
 
-export default function useApi<T>(clazz: (c: Configuration) => T): T {
+export default function useApi<T>(clazz: { new (c: Configuration): T }): T {
   const token = useToken();
   const [api, setApi] = useState(
-    clazz(
+    new clazz(
       new Configuration({
         accessToken() {
           throw new Error("Don't have access token yet");
@@ -18,7 +18,7 @@ export default function useApi<T>(clazz: (c: Configuration) => T): T {
 
   useEffect(() => {
     setApi(
-      clazz(
+      new clazz(
         new Configuration({
           accessToken() {
             return O.getOrElse(constant(""))(token);
