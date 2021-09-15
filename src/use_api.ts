@@ -4,7 +4,7 @@ import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
 import { InvoiceApi, Configuration } from "../financial-dash";
 
-export default function useApi<T>(clazz: (c: Configuration) -> T): T {
+export default function useApi<T>(clazz: (c: Configuration) => T): T {
   const token = useToken();
 
   return clazz(
