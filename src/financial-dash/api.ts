@@ -58,20 +58,33 @@ export interface DummyResponse {
 export interface InvoiceResponse {
   /**
    *
-   * @type {string}
+   * @type {object}
    * @memberof InvoiceResponse
+   */
+  data: object;
+}
+/**
+ *
+ * @export
+ * @interface InvoiceResponseData
+ */
+export interface InvoiceResponseData {
+  /**
+   *
+   * @type {string}
+   * @memberof InvoiceResponseData
    */
   id: string;
   /**
    *
    * @type {string}
-   * @memberof InvoiceResponse
+   * @memberof InvoiceResponseData
    */
   clientId: string;
   /**
    *
    * @type {string}
-   * @memberof InvoiceResponse
+   * @memberof InvoiceResponseData
    */
   amount: string;
 }
