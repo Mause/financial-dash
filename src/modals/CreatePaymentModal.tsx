@@ -8,7 +8,7 @@ import { constant } from "fp-ts/lib/function";
 import { useToken } from "../auth";
 import { InvoiceApi, Configuration } from "../financial-dash";
 import AxiosStatic from "axios";
-import useApi from '../use_api';
+import useApi from "../use_api";
 
 export function CreatePaymentModal(props: {
   setShow: SetB;
