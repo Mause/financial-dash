@@ -13,6 +13,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "strictBindCallApply": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
