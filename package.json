@@ -33,7 +33,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && yarn generateOpenapi",
-    "generateOpenapi": "JWT_SECRET=secret TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' vercel-openapi generate . --outputFile build/openapi.yaml",
+    "generateOpenapi": "vercel-openapi generate . --outputFile build/openapi.yaml --envVar JWT_SECRET=secret --envVar TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
