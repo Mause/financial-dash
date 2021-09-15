@@ -6,6 +6,7 @@ import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { SetB, Payment, PaymentWithPayer } from "../App";
 import { components } from "../types/up";
+import { PaymentApi } from "../financial-dash";
 
 export function EnterPaymentModal(props: {
   setShowModal: SetB;
@@ -23,6 +24,8 @@ export function EnterPaymentModal(props: {
     props.refresh();
   }
 
+  const paymentClient = new PaymentApi();
+
   console.log(data);
 
   return (
@@ -30,6 +33,12 @@ export function EnterPaymentModal(props: {
       renderAs="form"
       onSubmit={async (e: FormEvent<any>) => {
         e.preventDefault();
+        await paymentClient.postPayment({
+          client_id: props.selectedPayment.Payer.invoice_ninja_id,
+          amount: String(props.selectedPayment.amount!),
+          invoice_id: props.selectedPayment.invoice_ninja_id,
+          transaction_reference: bankId!,
+        });
         await updatePayment({ bankId }, (query) =>
           query.eq("id", props.selectedPayment.id)
         );
