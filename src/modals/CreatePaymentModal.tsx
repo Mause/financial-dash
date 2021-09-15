@@ -3,10 +3,7 @@ import * as RD from "@devexperts/remote-data-ts";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Bill, Payment, Payer } from "../App";
-import * as O from "fp-ts/Option";
-import { constant } from "fp-ts/lib/function";
-import { useToken } from "../auth";
-import { InvoiceApi, Configuration } from "../financial-dash";
+import { InvoiceApi } from "../financial-dash";
 import AxiosStatic from "axios";
 import useApi from "../use_api";
 
@@ -19,7 +16,7 @@ export function CreatePaymentModal(props: {
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
   const [amount, setAmount] = useState<number>();
-  const invoiceApi = useApi(InvoiceApi);
+  const invoiceApi = useApi(InvoiceApi.call);
   const [error, setError] = useState<string>();
 
   if (RD.isSuccess(createPaymentResult)) {
