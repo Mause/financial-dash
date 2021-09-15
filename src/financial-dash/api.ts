@@ -58,10 +58,10 @@ export interface DummyResponse {
 export interface InvoiceResponse {
   /**
    *
-   * @type {object}
+   * @type {InvoiceResponseData}
    * @memberof InvoiceResponse
    */
-  data: object;
+  data: InvoiceResponseData;
 }
 /**
  *
