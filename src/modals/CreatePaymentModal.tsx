@@ -16,7 +16,7 @@ export function CreatePaymentModal(props: {
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
   const [amount, setAmount] = useState<number>();
-  const invoiceApi = useApi(InvoiceApi.call);
+  const invoiceApi = useApi(InvoiceApi);
   const [error, setError] = useState<string>();
 
   if (RD.isSuccess(createPaymentResult)) {

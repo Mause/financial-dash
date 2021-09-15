@@ -1,10 +1,10 @@
-import { useState, ChangeEvent, FormEvent } from "react";
 import * as O from "fp-ts/Option";
 import { constant } from "fp-ts/lib/function";
 import { useToken } from "./auth";
-import { InvoiceApi, Configuration } from "./financial-dash";
+import { Configuration } from "./financial-dash";
+import { BaseAPI } from "./financial-dash/base";
 
-export default function useApi<T>(clazz: (c: Configuration) => T): T {
+export default function useApi<T extends BaseAPI>(clazz: NewableFunction): T {
   const token = useToken();
 
   return clazz(
