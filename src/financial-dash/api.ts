@@ -40,91 +40,15 @@ import {
 /**
  *
  * @export
- * @interface CreateInvoiceRequest
+ * @interface DummyResponse
  */
-export interface CreateInvoiceRequest {
+export interface DummyResponse {
   /**
    *
    * @type {string}
-   * @memberof CreateInvoiceRequest
-   */
-  clientId: string;
-  /**
-   *
-   * @type {number}
-   * @memberof CreateInvoiceRequest
-   */
-  amount: number;
-}
-/**
- *
- * @export
- * @interface CreateInvoiceResponse
- */
-export interface CreateInvoiceResponse {
-  /**
-   *
-   * @type {CreateInvoiceResponseData}
-   * @memberof CreateInvoiceResponse
-   */
-  data: CreateInvoiceResponseData;
-}
-/**
- *
- * @export
- * @interface CreateInvoiceResponseData
- */
-export interface CreateInvoiceResponseData {
-  /**
-   *
-   * @type {string}
-   * @memberof CreateInvoiceResponseData
+   * @memberof DummyResponse
    */
   id: string;
-}
-/**
- *
- * @export
- * @interface CreatePaymentRequest
- */
-export interface CreatePaymentRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof CreatePaymentRequest
-   */
-  client_id: string;
-  /**
-   *
-   * @type {number}
-   * @memberof CreatePaymentRequest
-   */
-  amount: number;
-  /**
-   *
-   * @type {string}
-   * @memberof CreatePaymentRequest
-   */
-  transaction_reference: string;
-  /**
-   *
-   * @type {string}
-   * @memberof CreatePaymentRequest
-   */
-  invoice_id: string;
-}
-/**
- *
- * @export
- * @interface CreatePaymentResponse
- */
-export interface CreatePaymentResponse {
-  /**
-   *
-   * @type {string}
-   * @memberof CreatePaymentResponse
-   */
-  payment_id: string;
 }
 /**
  *
@@ -134,41 +58,269 @@ export interface CreatePaymentResponse {
 export interface InvoiceResponse {
   /**
    *
-   * @type {string}
+   * @type {InvoiceResponseData}
    * @memberof InvoiceResponse
    */
-  clientId: string;
-  /**
-   *
-   * @type {number}
-   * @memberof InvoiceResponse
-   */
-  amount: number;
-  /**
-   *
-   * @type {string}
-   * @memberof InvoiceResponse
-   */
-  id: string;
+  data: InvoiceResponseData;
 }
 /**
  *
  * @export
- * @interface PartialInvoiceRequest
+ * @interface InvoiceResponseData
  */
-export interface PartialInvoiceRequest {
+export interface InvoiceResponseData {
   /**
    *
    * @type {string}
-   * @memberof PartialInvoiceRequest
+   * @memberof InvoiceResponseData
    */
-  clientId?: string;
+  id: string;
   /**
    *
-   * @type {number}
-   * @memberof PartialInvoiceRequest
+   * @type {string}
+   * @memberof InvoiceResponseData
    */
-  amount?: number;
+  clientId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof InvoiceResponseData
+   */
+  amount: string;
+}
+/**
+ *
+ * @export
+ * @interface PaymentResponse
+ */
+export interface PaymentResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof PaymentResponse
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PaymentResponse
+   */
+  client_id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PaymentResponse
+   */
+  amount: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PaymentResponse
+   */
+  transaction_reference: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PaymentResponse
+   */
+  invoice_id: string;
+}
+/**
+ *
+ * @export
+ * @interface PostInvoice
+ */
+export interface PostInvoice {
+  /**
+   *
+   * @type {string}
+   * @memberof PostInvoice
+   */
+  clientId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PostInvoice
+   */
+  amount: string;
+}
+/**
+ *
+ * @export
+ * @interface PostPayment
+ */
+export interface PostPayment {
+  /**
+   *
+   * @type {string}
+   * @memberof PostPayment
+   */
+  client_id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PostPayment
+   */
+  amount: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PostPayment
+   */
+  transaction_reference: string;
+  /**
+   *
+   * @type {string}
+   * @memberof PostPayment
+   */
+  invoice_id: string;
+}
+/**
+ *
+ * @export
+ * @interface PutInvoice
+ */
+export interface PutInvoice {
+  /**
+   *
+   * @type {string}
+   * @memberof PutInvoice
+   */
+  status: PutInvoiceStatusEnum;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum PutInvoiceStatusEnum {
+  Paid = "PAID",
+  _0 = "0",
+}
+
+/**
+ * DefaultApi - axios parameter creator
+ * @export
+ */
+export const DefaultApiAxiosParamCreator = function (
+  configuration?: Configuration
+) {
+  return {
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getClassTest: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/api/class_test`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Jwt required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * DefaultApi - functional programming interface
+ * @export
+ */
+export const DefaultApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration);
+  return {
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getClassTest(
+      options?: any
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<DummyResponse>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getClassTest(
+        options
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      );
+    },
+  };
+};
+
+/**
+ * DefaultApi - factory interface
+ * @export
+ */
+export const DefaultApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
+) {
+  const localVarFp = DefaultApiFp(configuration);
+  return {
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getClassTest(options?: any): AxiosPromise<DummyResponse> {
+      return localVarFp
+        .getClassTest(options)
+        .then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * DefaultApi - object-oriented interface
+ * @export
+ * @class DefaultApi
+ * @extends {BaseAPI}
+ */
+export class DefaultApi extends BaseAPI {
+  /**
+   *
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getClassTest(options?: any) {
+    return DefaultApiFp(this.configuration)
+      .getClassTest(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
 }
 
 /**
@@ -181,76 +333,19 @@ export const InvoiceApiAxiosParamCreator = function (
   return {
     /**
      *
-     * @param {CreateInvoiceRequest} createInvoiceRequest
+     * @param {string} invoice
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createInvoice: async (
-      createInvoiceRequest: CreateInvoiceRequest,
+    getInvoiceInvoice: async (
+      invoice: string,
       options: any = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'createInvoiceRequest' is not null or undefined
-      assertParamExists(
-        "createInvoice",
-        "createInvoiceRequest",
-        createInvoiceRequest
-      );
-      const localVarPath = `/api/invoice`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = {
-        method: "POST",
-        ...baseOptions,
-        ...options,
-      };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      // authentication Jwt required
-      // http bearer authentication required
-      await setBearerAuthToObject(localVarHeaderParameter, configuration);
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        createInvoiceRequest,
-        localVarRequestOptions,
-        configuration
-      );
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     *
-     * @param {string} invoiceId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getInvoice: async (
-      invoiceId: string,
-      options: any = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'invoiceId' is not null or undefined
-      assertParamExists("getInvoice", "invoiceId", invoiceId);
-      const localVarPath = `/api/invoice/{invoiceId}`.replace(
-        `{${"invoiceId"}}`,
-        encodeURIComponent(String(invoiceId))
+      // verify required parameter 'invoice' is not null or undefined
+      assertParamExists("getInvoiceInvoice", "invoice", invoice);
+      const localVarPath = `/api/invoice/{invoice}`.replace(
+        `{${"invoice"}}`,
+        encodeURIComponent(String(invoice))
       );
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -287,27 +382,76 @@ export const InvoiceApiAxiosParamCreator = function (
     },
     /**
      *
-     * @param {string} invoiceId
-     * @param {PartialInvoiceRequest} partialInvoiceRequest
+     * @param {PostInvoice} postInvoice
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateInvoice: async (
-      invoiceId: string,
-      partialInvoiceRequest: PartialInvoiceRequest,
+    postInvoice: async (
+      postInvoice: PostInvoice,
       options: any = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'invoiceId' is not null or undefined
-      assertParamExists("updateInvoice", "invoiceId", invoiceId);
-      // verify required parameter 'partialInvoiceRequest' is not null or undefined
-      assertParamExists(
-        "updateInvoice",
-        "partialInvoiceRequest",
-        partialInvoiceRequest
+      // verify required parameter 'postInvoice' is not null or undefined
+      assertParamExists("postInvoice", "postInvoice", postInvoice);
+      const localVarPath = `/api/invoice`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "POST",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Jwt required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        postInvoice,
+        localVarRequestOptions,
+        configuration
       );
-      const localVarPath = `/api/invoice/{invoiceId}`.replace(
-        `{${"invoiceId"}}`,
-        encodeURIComponent(String(invoiceId))
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} invoice
+     * @param {PutInvoice} putInvoice
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putInvoiceInvoice: async (
+      invoice: string,
+      putInvoice: PutInvoice,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'invoice' is not null or undefined
+      assertParamExists("putInvoiceInvoice", "invoice", invoice);
+      // verify required parameter 'putInvoice' is not null or undefined
+      assertParamExists("putInvoiceInvoice", "putInvoice", putInvoice);
+      const localVarPath = `/api/invoice/{invoice}`.replace(
+        `{${"invoice"}}`,
+        encodeURIComponent(String(invoice))
       );
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -339,7 +483,7 @@ export const InvoiceApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        partialInvoiceRequest,
+        putInvoice,
         localVarRequestOptions,
         configuration
       );
@@ -361,23 +505,18 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
-     * @param {CreateInvoiceRequest} createInvoiceRequest
+     * @param {string} invoice
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async createInvoice(
-      createInvoiceRequest: CreateInvoiceRequest,
+    async getInvoiceInvoice(
+      invoice: string,
       options?: any
     ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<CreateInvoiceResponse>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutInvoice>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.createInvoice(
-        createInvoiceRequest,
-        options
-      );
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getInvoiceInvoice(invoice, options);
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
@@ -387,12 +526,12 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @param {string} invoiceId
+     * @param {PostInvoice} postInvoice
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async getInvoice(
-      invoiceId: string,
+    async postInvoice(
+      postInvoice: PostInvoice,
       options?: any
     ): Promise<
       (
@@ -400,8 +539,8 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
         basePath?: string
       ) => AxiosPromise<InvoiceResponse>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getInvoice(
-        invoiceId,
+      const localVarAxiosArgs = await localVarAxiosParamCreator.postInvoice(
+        postInvoice,
         options
       );
       return createRequestFunction(
@@ -413,26 +552,24 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @param {string} invoiceId
-     * @param {PartialInvoiceRequest} partialInvoiceRequest
+     * @param {string} invoice
+     * @param {PutInvoice} putInvoice
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async updateInvoice(
-      invoiceId: string,
-      partialInvoiceRequest: PartialInvoiceRequest,
+    async putInvoiceInvoice(
+      invoice: string,
+      putInvoice: PutInvoice,
       options?: any
     ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<CreateInvoiceResponse>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutInvoice>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateInvoice(
-        invoiceId,
-        partialInvoiceRequest,
-        options
-      );
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.putInvoiceInvoice(
+          invoice,
+          putInvoice,
+          options
+        );
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
@@ -456,46 +593,46 @@ export const InvoiceApiFactory = function (
   return {
     /**
      *
-     * @param {CreateInvoiceRequest} createInvoiceRequest
+     * @param {string} invoice
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createInvoice(
-      createInvoiceRequest: CreateInvoiceRequest,
+    getInvoiceInvoice(
+      invoice: string,
       options?: any
-    ): AxiosPromise<CreateInvoiceResponse> {
+    ): AxiosPromise<PutInvoice> {
       return localVarFp
-        .createInvoice(createInvoiceRequest, options)
+        .getInvoiceInvoice(invoice, options)
         .then((request) => request(axios, basePath));
     },
     /**
      *
-     * @param {string} invoiceId
+     * @param {PostInvoice} postInvoice
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getInvoice(
-      invoiceId: string,
+    postInvoice(
+      postInvoice: PostInvoice,
       options?: any
     ): AxiosPromise<InvoiceResponse> {
       return localVarFp
-        .getInvoice(invoiceId, options)
+        .postInvoice(postInvoice, options)
         .then((request) => request(axios, basePath));
     },
     /**
      *
-     * @param {string} invoiceId
-     * @param {PartialInvoiceRequest} partialInvoiceRequest
+     * @param {string} invoice
+     * @param {PutInvoice} putInvoice
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateInvoice(
-      invoiceId: string,
-      partialInvoiceRequest: PartialInvoiceRequest,
+    putInvoiceInvoice(
+      invoice: string,
+      putInvoice: PutInvoice,
       options?: any
-    ): AxiosPromise<CreateInvoiceResponse> {
+    ): AxiosPromise<PutInvoice> {
       return localVarFp
-        .updateInvoice(invoiceId, partialInvoiceRequest, options)
+        .putInvoiceInvoice(invoice, putInvoice, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -510,48 +647,45 @@ export const InvoiceApiFactory = function (
 export class InvoiceApi extends BaseAPI {
   /**
    *
-   * @param {CreateInvoiceRequest} createInvoiceRequest
+   * @param {string} invoice
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof InvoiceApi
    */
-  public createInvoice(
-    createInvoiceRequest: CreateInvoiceRequest,
-    options?: any
-  ) {
+  public getInvoiceInvoice(invoice: string, options?: any) {
     return InvoiceApiFp(this.configuration)
-      .createInvoice(createInvoiceRequest, options)
+      .getInvoiceInvoice(invoice, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    *
-   * @param {string} invoiceId
+   * @param {PostInvoice} postInvoice
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof InvoiceApi
    */
-  public getInvoice(invoiceId: string, options?: any) {
+  public postInvoice(postInvoice: PostInvoice, options?: any) {
     return InvoiceApiFp(this.configuration)
-      .getInvoice(invoiceId, options)
+      .postInvoice(postInvoice, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    *
-   * @param {string} invoiceId
-   * @param {PartialInvoiceRequest} partialInvoiceRequest
+   * @param {string} invoice
+   * @param {PutInvoice} putInvoice
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof InvoiceApi
    */
-  public updateInvoice(
-    invoiceId: string,
-    partialInvoiceRequest: PartialInvoiceRequest,
+  public putInvoiceInvoice(
+    invoice: string,
+    putInvoice: PutInvoice,
     options?: any
   ) {
     return InvoiceApiFp(this.configuration)
-      .updateInvoice(invoiceId, partialInvoiceRequest, options)
+      .putInvoiceInvoice(invoice, putInvoice, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -566,20 +700,16 @@ export const PaymentApiAxiosParamCreator = function (
   return {
     /**
      *
-     * @param {CreatePaymentRequest} createPaymentRequest
+     * @param {PostPayment} postPayment
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createPayment: async (
-      createPaymentRequest: CreatePaymentRequest,
+    postPayment: async (
+      postPayment: PostPayment,
       options: any = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'createPaymentRequest' is not null or undefined
-      assertParamExists(
-        "createPayment",
-        "createPaymentRequest",
-        createPaymentRequest
-      );
+      // verify required parameter 'postPayment' is not null or undefined
+      assertParamExists("postPayment", "postPayment", postPayment);
       const localVarPath = `/api/payment`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -611,7 +741,7 @@ export const PaymentApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        createPaymentRequest,
+        postPayment,
         localVarRequestOptions,
         configuration
       );
@@ -633,21 +763,21 @@ export const PaymentApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
-     * @param {CreatePaymentRequest} createPaymentRequest
+     * @param {PostPayment} postPayment
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async createPayment(
-      createPaymentRequest: CreatePaymentRequest,
+    async postPayment(
+      postPayment: PostPayment,
       options?: any
     ): Promise<
       (
         axios?: AxiosInstance,
         basePath?: string
-      ) => AxiosPromise<CreatePaymentResponse>
+      ) => AxiosPromise<PaymentResponse>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.createPayment(
-        createPaymentRequest,
+      const localVarAxiosArgs = await localVarAxiosParamCreator.postPayment(
+        postPayment,
         options
       );
       return createRequestFunction(
@@ -673,16 +803,16 @@ export const PaymentApiFactory = function (
   return {
     /**
      *
-     * @param {CreatePaymentRequest} createPaymentRequest
+     * @param {PostPayment} postPayment
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createPayment(
-      createPaymentRequest: CreatePaymentRequest,
+    postPayment(
+      postPayment: PostPayment,
       options?: any
-    ): AxiosPromise<CreatePaymentResponse> {
+    ): AxiosPromise<PaymentResponse> {
       return localVarFp
-        .createPayment(createPaymentRequest, options)
+        .postPayment(postPayment, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -697,17 +827,14 @@ export const PaymentApiFactory = function (
 export class PaymentApi extends BaseAPI {
   /**
    *
-   * @param {CreatePaymentRequest} createPaymentRequest
+   * @param {PostPayment} postPayment
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof PaymentApi
    */
-  public createPayment(
-    createPaymentRequest: CreatePaymentRequest,
-    options?: any
-  ) {
+  public postPayment(postPayment: PostPayment, options?: any) {
     return PaymentApiFp(this.configuration)
-      .createPayment(createPaymentRequest, options)
+      .postPayment(postPayment, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
