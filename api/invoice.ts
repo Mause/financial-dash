@@ -3,8 +3,9 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { paths } from "../src/types/invoice-ninja";
 import invoiceninja from "../support/invoiceninja";
 import { factory } from "vercel-jwt-auth";
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsNotEmptyObject } from "class-validator";
 import { validate } from "../support/validation";
+import { Type } from "class-transformer";
 
 class PostInvoice {
   @IsNotEmpty()
@@ -16,7 +17,16 @@ class PostInvoice {
   }
 }
 
-class InvoiceResponse extends PostInvoice {
+class InvoiceResponse {
+  @Type(() => InvoiceResponseData)
+  @IsNotEmptyObject()
+  data: InvoiceResponseData;
+
+  constructor(data: InvoiceResponseData) {
+    this.data = data;
+  }
+}
+class InvoiceResponseData extends PostInvoice {
   @IsNotEmpty()
   id!: string;
 
