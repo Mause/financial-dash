@@ -12309,10 +12309,10 @@ vercel-node-server@^2.2.1:
     micro "^9.3.4"
     querystring "^0.2.0"
 
-vercel-openapi@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/vercel-openapi/-/vercel-openapi-0.1.1.tgz#58634f0ce2c507b0043bc0fa43dd299ca218b852"
-  integrity sha512-QO0+E6xJz3awePr8/zK16YK4STO0QMd2NLQdnmhY488m81zP/0Udh/crkDbXE0i+ZriQ9YWoEQj8tDc90TTnGQ==
+vercel-openapi@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/vercel-openapi/-/vercel-openapi-0.1.4.tgz#852a64fb14f29cca32fb349eaa79a78f04d15fa6"
+  integrity sha512-ZtBgkPzvfKOJfL/SOy7ntTYnw593v/XCnoxE8mNrSEt3rgKCLn0NoQzc7tLIzXgPU4Lo/ZfwlV9DSNok9JtQUA==
   dependencies:
     "@oclif/command" "^1"
     "@oclif/config" "^1"
