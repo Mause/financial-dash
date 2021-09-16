@@ -272,7 +272,7 @@ function AppHeader() {
                   }}
                 >
                   <Form.Field>
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label textColor="white">Email</Form.Label>
                     <Form.Control>
                       <Form.Input
                         type="email"
