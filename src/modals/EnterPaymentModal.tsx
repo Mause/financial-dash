@@ -1,6 +1,6 @@
 import { useUpdate } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
-import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 import { useState, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
@@ -8,6 +8,17 @@ import { SetB, Payment, PaymentWithPayer } from "../App";
 import { components } from "../types/up";
 import { PaymentApi } from "../financial-dash";
 import useApi from "../use_api";
+import _ from "lodash";
+
+function getKey(
+  pageIndex: number,
+  previousPageData: components["schemas"]["UpTransactionResponse"] | null
+) {
+  if (pageIndex === 0) {
+    return "https://up.vc.mause.me/api/up";
+  }
+  return previousPageData?.links?.next || null;
+}
 
 export function EnterPaymentModal(props: {
   setShowModal: SetB;
@@ -16,9 +27,8 @@ export function EnterPaymentModal(props: {
 }) {
   const [bankId, setBankId] = useState<string>();
   const [result, updatePayment] = useUpdate<Payment>("Payment");
-  const { data, error, isValidating } = useSWR<
-    components["schemas"]["UpTransactionResponse"]
-  >("https://up.vc.mause.me/api/up");
+  const { data, size, setSize, error, isValidating } =
+    useSWRInfinite<components["schemas"]["UpTransactionResponse"]>(getKey);
 
   if (RD.isSuccess(result)) {
     props.setShowModal(false);
@@ -61,19 +71,22 @@ export function EnterPaymentModal(props: {
               loading={isValidating}
             >
               <option value="">Select a transaction</option>
-              {data?.items.map((transaction) => (
-                <option key={transaction.id} value={transaction.id}>
-                  {formatISO(parseISO(transaction.attributes.createdAt), {
-                    representation: "date",
-                  })}
-                  {" — "}${transaction.attributes.amount.value}
-                  {" — "}
-                  {transaction.attributes.description}
-                  {" — "}
-                  {transaction.attributes.message}
-                </option>
-              ))}
+              {_.flatMap(data, (page) =>
+                page.items.map((transaction) => (
+                  <option key={transaction.id} value={transaction.id}>
+                    {formatISO(parseISO(transaction.attributes.createdAt), {
+                      representation: "date",
+                    })}
+                    {" — "}${transaction.attributes.amount.value}
+                    {" — "}
+                    {transaction.attributes.description}
+                    {" — "}
+                    {transaction.attributes.message}
+                  </option>
+                ))
+              )}
             </Form.Select>
+            <button onClick={() => setSize(size + 1)}>Load More</button>
           </Form.Control>
         </Form.Field>
       </Modal.Card.Body>

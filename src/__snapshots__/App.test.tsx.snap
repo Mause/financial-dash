@@ -164,7 +164,7 @@ exports[`EnterPaymentModal 1`] = `
           class="control"
         >
           <div
-            class="select"
+            class="select is-loading"
           >
             <select
               required=""
@@ -176,6 +176,9 @@ exports[`EnterPaymentModal 1`] = `
               </option>
             </select>
           </div>
+          <button>
+            Load More
+          </button>
         </div>
       </div>
     </section>
