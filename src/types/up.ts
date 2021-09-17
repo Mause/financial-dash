@@ -22,8 +22,12 @@ export interface components {
       id: string;
       attributes: components["schemas"]["UpAttributes"];
     };
+    UpLinks: {
+      next?: string;
+    };
     UpTransactionResponse: {
       items: components["schemas"]["UpTransaction"][];
+      links: components["schemas"]["UpLinks"];
     };
     Amount: {
       valueInBaseUnits: number;
