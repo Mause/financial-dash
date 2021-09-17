@@ -153,7 +153,7 @@ exports[`EnterPaymentModal 1`] = `
       class="modal-card-body"
     >
       <div
-        class="field"
+        class="field has-addons"
       >
         <label
           class="label"
@@ -176,7 +176,14 @@ exports[`EnterPaymentModal 1`] = `
               </option>
             </select>
           </div>
-          <button>
+        </div>
+        <div
+          class="control"
+        >
+          <button
+            class="button"
+            tabindex="0"
+          >
             Load More
           </button>
         </div>

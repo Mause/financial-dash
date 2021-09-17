@@ -62,7 +62,7 @@ export function EnterPaymentModal(props: {
       </Modal.Card.Header>
       <Modal.Card.Body>
         {error && <Notification>{JSON.stringify(error)}</Notification>}
-        <Form.Field>
+        <Form.Field kind="addons">
           <Form.Label>Select a transaction</Form.Label>
           <Form.Control>
             <Form.Select
@@ -86,7 +86,9 @@ export function EnterPaymentModal(props: {
                 ))
               )}
             </Form.Select>
-            <button onClick={() => setSize(size + 1)}>Load More</button>
+          </Form.Control>
+          <Form.Control>
+            <Button onClick={() => setSize(size + 1)}>Load More</Button>
           </Form.Control>
         </Form.Field>
       </Modal.Card.Body>
