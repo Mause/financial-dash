@@ -16,7 +16,7 @@ function getKey(
   if (pageIndex === 0) {
     return "https://up.vc.mause.me/api/up";
   }
-  return previousPageData?.links?.next;
+  return previousPageData?.links?.next || null;
 }
 
 export function EnterPaymentModal(props: {
