@@ -8,6 +8,7 @@ import { SetB, Payment, PaymentWithPayer } from "../App";
 import { components } from "../types/up";
 import { PaymentApi } from "../financial-dash";
 import useApi from "../use_api";
+import _ from "lodash";
 
 function getKey(
   pageIndex: number,
@@ -70,7 +71,7 @@ export function EnterPaymentModal(props: {
               loading={isValidating}
             >
               <option value="">Select a transaction</option>
-              {data?.map((page) => {
+              {_.flatMap(data, (page) =>
                 page.items.map((transaction) => (
                   <option key={transaction.id} value={transaction.id}>
                     {formatISO(parseISO(transaction.attributes.createdAt), {
@@ -82,8 +83,8 @@ export function EnterPaymentModal(props: {
                     {" — "}
                     {transaction.attributes.message}
                   </option>
-                ));
-              })}
+                ))
+              )}
             </Form.Select>
             <button onClick={() => setSize(size + 1)}>Load More</button>
           </Form.Control>
