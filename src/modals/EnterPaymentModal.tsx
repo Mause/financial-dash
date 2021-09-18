@@ -62,8 +62,11 @@ export function EnterPaymentModal(props: {
       </Modal.Card.Header>
       <Modal.Card.Body>
         {error && <Notification>{JSON.stringify(error)}</Notification>}
+        <Form.Label>Select a transaction</Form.Label>
         <Form.Field kind="addons">
-          <Form.Label>Select a transaction</Form.Label>
+          <Form.Control>
+            <Button isStatic={true}>Page {size}</Button>
+          </Form.Control>
           <Form.Control>
             <Form.Select
               required

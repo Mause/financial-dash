@@ -152,14 +152,25 @@ exports[`EnterPaymentModal 1`] = `
     <section
       class="modal-card-body"
     >
+      <label
+        class="label"
+      >
+        Select a transaction
+      </label>
       <div
         class="field has-addons"
       >
-        <label
-          class="label"
+        <div
+          class="control"
         >
-          Select a transaction
-        </label>
+          <span
+            class="is-static button"
+            tabindex="0"
+          >
+            Page 
+            1
+          </span>
+        </div>
         <div
           class="control"
         >
