@@ -22,6 +22,8 @@
     "date-fns": "^2.24.0",
     "fp-ts": "^2.11.2",
     "lodash": "^4.17.21",
+    "pino": "^6.13.2",
+    "pino-pretty": "^7.0.1",
     "react": "^17.0.2",
     "react-bulma-components": "^4.0.7",
     "react-dom": "^17.0.2",
