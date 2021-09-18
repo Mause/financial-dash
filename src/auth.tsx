@@ -19,7 +19,7 @@ function useFetcher() {
     fetch(url, {
       headers: pipe(
         token,
-        fold(constant({}), (Authorization) => ({ Authorization }))
+        fold(constant({}), (token) => ({ Authorization: "Bearer " + token }))
       ),
     }).then((res) => res.json());
 }
