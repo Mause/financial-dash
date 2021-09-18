@@ -15,7 +15,7 @@ function getKey(
   previousPageData: components["schemas"]["UpTransactionResponse"] | null
 ) {
   if (pageIndex === 0) {
-    return "https://up.vc.mause.me/api/up?page[size]=200";
+    return "https://up.vc.mause.me/api/up?page[size]=100";
   }
   return previousPageData?.links?.next || null;
 }
