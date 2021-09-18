@@ -1,7 +1,7 @@
 import { useUpdate } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWRInfinite from "swr/infinite";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, MouseEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { SetB, Payment, PaymentWithPayer } from "../App";
@@ -88,7 +88,14 @@ export function EnterPaymentModal(props: {
             </Form.Select>
           </Form.Control>
           <Form.Control>
-            <Button onClick={() => setSize(size + 1)}>Load More</Button>
+            <Button
+              onClick={(e: MouseEvent) => {
+                e.preventDefault();
+                setSize(size + 1);
+              }}
+            >
+              Load More
+            </Button>
           </Form.Control>
         </Form.Field>
       </Modal.Card.Body>
