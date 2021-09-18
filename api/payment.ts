@@ -61,6 +61,12 @@ export default authenticate(async function (req, res) {
     transaction_reference: clientRequest.transaction_reference,
     client_id: clientRequest.client_id,
     amount: clientRequest.amount,
+    invoices: [
+      {
+        invoice_id: clientRequest.invoice_id,
+        amount: String(clientRequest.amount!),
+      },
+    ],
   };
 
   let payment;
@@ -72,6 +78,7 @@ export default authenticate(async function (req, res) {
     if ((e as any).isAxiosError) log.error((e as AxiosError).response!.data);
     throw e;
   }
+  log.info({ payment }, "Created payment");
 
   const responseData = new PaymentResponse(payment.data);
   await validateOrReject(responseData);
