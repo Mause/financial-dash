@@ -53,8 +53,10 @@ function App() {
       id,
       amount,
       bankId,
+      invoice_ninja_id,
       Payer (
-        name
+        name,
+        invoice_ninja_id
       )
     ),
     Vendor (
