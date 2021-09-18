@@ -1,7 +1,9 @@
 import { factory } from "vercel-jwt-auth";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import * as Sentry from "@sentry/node";
+import pino from "pino";
 
+const log = pino({ prettyPrint: true });
 const authenticate = factory(process.env.JWT_SECRET!);
 
 type VercelApiHandler = (
@@ -26,6 +28,7 @@ const catchValidationErrors: Trans =
       await handler(req, res);
     } catch (e) {
       if (Array.isArray(e)) {
+        log.error({ errors: e }, "Validation errors");
         res.status(422);
         res.json(e);
       } else {
@@ -39,6 +42,7 @@ const catchErrors: Trans =
     try {
       await handler(req, res);
     } catch (e) {
+      log.error({ error: e }, "Uncaught error");
       Sentry.captureException(e);
       throw e;
     }
