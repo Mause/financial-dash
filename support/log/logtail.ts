@@ -11,14 +11,6 @@ const logtail = new Logtail(process.env.LOGTAIL_TOKEN!, {
   syncMax: 1,
 });
 
-interface LogEvent {
-  level: number;
-  pid: number;
-  hostname: string;
-  time: number;
-  [key: string]: string | number;
-}
-
 export default (options: {}) => {
   return new Writable({
     write(chunk: Buffer, enc: string, cb) {
