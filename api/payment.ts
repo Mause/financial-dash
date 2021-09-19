@@ -55,11 +55,10 @@ export default authenticate(async function (req, res) {
   const requestBody: op["requestBody"]["content"]["application/json"] = {
     transaction_reference: clientRequest.transaction_reference,
     client_id: clientRequest.client_id,
-    amount: clientRequest.amount,
+    amount: clientRequest.amount / 100,
     invoices: [
       {
         invoice_id: clientRequest.invoice_id,
-        amount: String(clientRequest.amount!),
       },
     ],
   };
