@@ -2,7 +2,6 @@ import { Writable } from "stream";
 import { Logtail } from "@logtail/node";
 import { LogLevel } from "@logtail/types";
 import _ from "lodash";
-import { isString } from "class-validator";
 import * as Pino from "pino";
 
 type Levels = Pino.P.Level;
@@ -38,12 +37,7 @@ async function wrapper(event_string: string) {
   await logtail.log(
     pop(event, "msg") as string,
     remap(pop(event, "level") as Levels),
-    _.fromPairs(
-      Object.entries(event).map(([key, value]) => [
-        key,
-        isString(value) ? value : JSON.stringify(value),
-      ])
-    )
+    event
   );
 }
 
