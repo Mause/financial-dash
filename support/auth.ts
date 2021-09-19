@@ -1,9 +1,8 @@
 import { factory } from "vercel-jwt-auth";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import * as Sentry from "@sentry/node";
-import pino from "pino";
+import { log } from "./log";
 
-const log = pino({ prettyPrint: true });
 const authenticate = factory(process.env.JWT_SECRET!);
 
 type VercelApiHandler = (
