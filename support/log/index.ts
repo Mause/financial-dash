@@ -1,15 +1,15 @@
-import pino from "pino";
+import pino, { P } from "pino";
 
-export const log = pino(
-  pino.transport({
-    targets: [
-      {
-        target: "pino-pretty",
-        options: { destination: 1 }, // use 2 for stderr
-        level: "debug",
-      },
-      { target: "./logtail.js", options: {}, level: "debug" },
-    ],
-    worker: {},
-  })
-);
+const targets: P.TransportTargetOptions[] = [
+  {
+    target: "pino-pretty",
+    options: { destination: 1 },
+    level: "debug",
+  },
+];
+
+if (process.env.LOGTAIL_TOKEN) {
+  targets.push({ target: "./logtail.js", options: {}, level: "debug" });
+}
+
+export const log = pino(pino.transport({ targets, worker: {} }));

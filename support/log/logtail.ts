@@ -3,6 +3,9 @@ import { Logtail } from "@logtail/node";
 import { LogLevel } from "@logtail/types";
 import _ from "lodash";
 import { isString } from "class-validator";
+import * as Pino from "pino";
+
+type Levels = Pino.P.Level;
 
 const logtail = new Logtail(process.env.LOGTAIL_TOKEN!, {
   batchSize: 1,
@@ -30,13 +33,7 @@ function pop(thing: any, prop: string): any {
 }
 
 async function wrapper(event_string: string) {
-  let event: string;
-  try {
-    event = JSON.parse(event_string);
-  } catch (e) {
-    console.error(e);
-    event = event_string;
-  }
+  const event = JSON.parse(event_string);
 
   await logtail.log(
     pop(event, "msg") as string,
@@ -50,12 +47,11 @@ async function wrapper(event_string: string) {
   );
 }
 
-type Levels = "debug" | "info" | "error" | "warn";
-
 function remap(level: Levels) {
   switch (level) {
     case "debug":
       return LogLevel.Debug;
+    case "fatal":
     case "error":
       return LogLevel.Error;
     case "info":
