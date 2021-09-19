@@ -54,7 +54,7 @@ testApi("../api/payment", "POST /payment", (url) =>
       response: {
         id: "payment_id",
         client_id: "client_id",
-        invoice_id: "invoice_id",
+        invoices: [{ invoice_id: "invoice_id" }],
         amount: "1500",
         transaction_reference: "transaction_reference",
       },
@@ -68,9 +68,6 @@ testApi("../api/payment", "POST /payment", (url) =>
     expect(response.data).toEqual({
       id: "payment_id",
       client_id: "client_id",
-      invoice_id: "invoice_id",
-      amount: "1500",
-      transaction_reference: "transaction_reference",
     });
   })
 );
