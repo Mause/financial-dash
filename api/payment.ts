@@ -30,20 +30,15 @@ class PostPayment {
     this.invoice_id = body.invoice_id!;
   }
 }
-class PaymentResponse extends PostPayment {
+class PaymentResponse {
   @IsString()
-  id!: string;
+  id: string;
+  @IsNotEmpty()
+  client_id: string;
 
-  constructor(
-    body: { id?: string } & {
-      client_id?: string;
-      amount?: number;
-      transaction_reference?: string;
-      invoice_id?: string;
-    }
-  ) {
-    super(body);
+  constructor(body: { id?: string; client_id?: string }) {
     this.id = body.id!;
+    this.client_id = body.client_id!;
   }
 }
 
@@ -80,7 +75,10 @@ export default authenticate(async function (req, res) {
   }
   log.info({ payment }, "Created payment");
 
-  const responseData = new PaymentResponse(payment.data);
+  const responseData = new PaymentResponse({
+    id: payment.data.id,
+    client_id: payment.data.client_id,
+  });
   await validateOrReject(responseData);
   res.status(201).json(responseData);
 });
