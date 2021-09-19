@@ -5,7 +5,7 @@ import { paths } from "../src/types/invoice-ninja";
 import { IsNotEmpty, IsString, validateOrReject } from "class-validator";
 import { validate } from "../support/validation";
 import { AxiosError } from "axios";
-import { log } from "../support/log";
+import { log } from "../support";
 
 class PostPayment {
   @IsNotEmpty()
