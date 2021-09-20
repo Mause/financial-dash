@@ -1,8 +1,15 @@
-import { readdirSync } from "fs";
+import { readdirSync, readFileSync } from "fs";
 import pino, { P } from "pino";
 import logtail from "./logtail";
 
 console.log("loading", logtail.name, readdirSync(__dirname));
+
+const files = readdirSync(__dirname);
+
+const hasAdapter = files.indexOf("logtail_adapter.js");
+const name = hasAdapter ? "logtail_adapter" : "logtail";
+
+console.log(readFileSync(__dirname + "/" + name));
 
 const targets: P.TransportTargetOptions[] = [
   {
@@ -14,7 +21,7 @@ const targets: P.TransportTargetOptions[] = [
 
 if (process.env.LOGTAIL_TOKEN) {
   targets.push({
-    target: __dirname + "/logtail_adapter",
+    target: __dirname + "/" + name,
     options: {},
     level: "debug",
   });
