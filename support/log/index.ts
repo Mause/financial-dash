@@ -6,7 +6,7 @@ console.log("loading", logtail.name, readdirSync(__dirname));
 
 const files = readdirSync(__dirname);
 
-const hasDirect = files.indexOf("logtail.js");
+const hasDirect = files.indexOf("logtail.js") !== -1;
 const name = hasDirect ? "logtail" : "logtail_adapter";
 
 console.log(readFileSync(__dirname + "/" + name + ".js").toString());
