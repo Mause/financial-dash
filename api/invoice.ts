@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import "../support/sentry";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { paths } from "../src/types/invoice-ninja";
