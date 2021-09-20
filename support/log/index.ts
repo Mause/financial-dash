@@ -9,7 +9,7 @@ const files = readdirSync(__dirname);
 const hasAdapter = files.indexOf("logtail_adapter.js");
 const name = hasAdapter ? "logtail_adapter" : "logtail";
 
-console.log(readFileSync(__dirname + "/" + name));
+console.log(readFileSync(__dirname + "/" + name + ".js"));
 
 const targets: P.TransportTargetOptions[] = [
   {
