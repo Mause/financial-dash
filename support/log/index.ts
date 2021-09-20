@@ -9,7 +9,7 @@ const targets: P.TransportTargetOptions[] = [
 ];
 
 if (process.env.LOGTAIL_TOKEN) {
-  targets.push({ target: "./logtail", options: {}, level: "debug" });
+  targets.push({ target: __dirname + "/logtail", options: {}, level: "debug" });
 }
 
 export const log = pino(pino.transport({ targets, worker: {} }));
