@@ -106,24 +106,6 @@ export interface PaymentResponse {
    * @memberof PaymentResponse
    */
   client_id: string;
-  /**
-   *
-   * @type {string}
-   * @memberof PaymentResponse
-   */
-  amount: string;
-  /**
-   *
-   * @type {string}
-   * @memberof PaymentResponse
-   */
-  transaction_reference: string;
-  /**
-   *
-   * @type {string}
-   * @memberof PaymentResponse
-   */
-  invoice_id: string;
 }
 /**
  *
