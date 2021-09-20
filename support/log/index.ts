@@ -13,7 +13,11 @@ const targets: P.TransportTargetOptions[] = [
 ];
 
 if (process.env.LOGTAIL_TOKEN) {
-  targets.push({ target: __dirname + "/logtail", options: {}, level: "debug" });
+  targets.push({
+    target: __dirname + "/logtail_adapter",
+    options: {},
+    level: "debug",
+  });
 }
 
 console.log({ targets });
