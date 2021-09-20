@@ -1,4 +1,8 @@
+import { readdirSync } from "fs";
 import pino, { P } from "pino";
+import logtail from "./logtail";
+
+console.log("loading", logtail.name, readdirSync(__dirname));
 
 const targets: P.TransportTargetOptions[] = [
   {
