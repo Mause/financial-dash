@@ -6,10 +6,10 @@ console.log("loading", logtail.name, readdirSync(__dirname));
 
 const files = readdirSync(__dirname);
 
-const hasAdapter = files.indexOf("logtail_adapter.js");
-const name = hasAdapter ? "logtail_adapter" : "logtail";
+const hasDirect = files.indexOf("logtail.js");
+const name = hasDirect ? "logtail" : "logtail_adapter";
 
-console.log(readFileSync(__dirname + "/" + name + ".js"));
+console.log(readFileSync(__dirname + "/" + name + ".js").toString());
 
 const targets: P.TransportTargetOptions[] = [
   {
