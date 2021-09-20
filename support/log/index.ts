@@ -1,4 +1,5 @@
 import pino, { P } from "pino";
+import './logtail'; // force inclusion in bundle?
 
 const targets: P.TransportTargetOptions[] = [
   {
