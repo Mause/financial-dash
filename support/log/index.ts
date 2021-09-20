@@ -8,8 +8,8 @@ const targets: P.TransportTargetOptions[] = [
   },
 ];
 
-if (process.env.LOGTAIL_TOKEN) {
-  targets.push({ target: "./logtail.js", options: {}, level: "debug" });
-}
+// if (process.env.LOGTAIL_TOKEN) {
+//   targets.push({ target: "./logtail.js", options: {}, level: "debug" });
+// }
 
 export const log = pino(pino.transport({ targets, worker: {} }));
