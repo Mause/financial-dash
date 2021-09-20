@@ -58,7 +58,7 @@ export default authenticate(async function (req, res) {
     invoices: [
       {
         invoice_id: clientRequest.invoice_id,
-        amount: String(clientRequest.amount / 100)
+        amount: String(clientRequest.amount / 100),
       },
     ],
   };
