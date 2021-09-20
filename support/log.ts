@@ -15,7 +15,7 @@ if (process.env.LOGTAIL_TOKEN) {
 }
 
 export const log = bunyan.createLogger({
-  name: "Example logger",
+  name: "financial-dash",
   level: "debug",
   streams,
 });
