@@ -12,6 +12,10 @@ if (process.env.LOGTAIL_TOKEN) {
   targets.push({ target: __dirname + "/logtail", options: {}, level: "debug" });
 }
 
-console.log(targets);
+console.log({ targets });
 
-export const log = pino(pino.transport({ targets, worker: {} }));
+const transport = pino.transport({ targets, worker: {} });
+
+console.log({ transport });
+
+export const log = pino(transport);
