@@ -1,5 +1,8 @@
-import { readdirSync } from "fs";
+import { readdirSync, unlinkSync } from "fs";
 import pino, { P } from "pino";
+
+unlinkSync(__dirname + "/logtail.js");
+
 import logtail from "./logtail";
 
 console.log("loading", logtail.name, readdirSync(__dirname));
