@@ -1,6 +1,6 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { IsString } from "class-validator";
-import { log } from '../support';
+import { log } from "../support";
 
 class DummyResponse {
   @IsString()
@@ -22,7 +22,7 @@ function Authenticated() {
       if ((req as any).user) {
         return await original(req, res);
       } else {
-        log.info({hello: 'world'}, 'Hello world');
+        log.info({ hello: "world" }, "Hello world");
         res.status(401).send("Unauthorized");
       }
     };
