@@ -4,6 +4,8 @@ import { LogLevel } from "@logtail/types";
 import _ from "lodash";
 import * as Pino from "pino";
 
+console.log("Loading ts logtail backend");
+
 type Levels = Pino.P.Level;
 
 const logtail = new Logtail(process.env.LOGTAIL_TOKEN!, {
