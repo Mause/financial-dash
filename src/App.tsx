@@ -247,10 +247,13 @@ function AppHeader() {
   pipe(
     user,
     O.fold(
-      () => Sentry.setUser(null),
+      () => {
+        log.info("No user logged in");
+        Sentry.setUser(null);
+      },
       (u) => {
         const user = { email: u.email, id: u.id };
-        log.info(user, "User logged in");
+        log.info({ user }, "User logged in");
         Sentry.setUser(user);
       }
     )
