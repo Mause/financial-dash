@@ -28,7 +28,6 @@ import { CreatePaymentModal } from "./modals/CreatePaymentModal";
 import { EnterPaymentModal } from "./modals/EnterPaymentModal";
 import { ImportBillModal } from "./modals/ImportBillModal";
 import log from "./log";
-import { isSome } from "fp-ts/Option";
 import { isSuccess } from "@devexperts/remote-data-ts";
 
 export type Payment = definitions["Payment"];
