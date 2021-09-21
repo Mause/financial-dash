@@ -248,7 +248,11 @@ function AppHeader() {
     user,
     O.fold(
       () => Sentry.setUser(null),
-      (u) => Sentry.setUser({ email: u.email, id: u.id })
+      (u) => {
+        const user = { email: u.email, id: u.id };
+        log.info(user, "User logged in");
+        Sentry.setUser(user);
+      }
     )
   );
 
