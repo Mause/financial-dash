@@ -1500,6 +1500,15 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@logtail/browser@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@logtail/browser/-/browser-0.1.10.tgz#88c1cc4292d0a2f7593f6b55b40d51e682d46d1a"
+  integrity sha512-OtL7rpXaQtLC/tFAleBRF+YNoy8VZU1zikZ7VzmgDxp4ySBhL42GQCa8NBNwinyk6B82KMk20m0aOmixD1mQ8A==
+  dependencies:
+    "@logtail/core" "^0.1.10"
+    "@logtail/tools" "^0.1.8"
+    cross-fetch "^3.0.4"
+
 "@logtail/bunyan@^0.1.10":
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/@logtail/bunyan/-/bunyan-0.1.10.tgz#cc8d56722261ccf25c2d596748ce49773ecfeaee"
