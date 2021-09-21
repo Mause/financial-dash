@@ -38,7 +38,7 @@ export function EnterPaymentModal(props: {
 
   const paymentClient = useApi(PaymentApi);
 
-  log.info({ data });
+  log.info({ data }, "Up transactions");
 
   return (
     <Modal.Card
