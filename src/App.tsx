@@ -65,7 +65,7 @@ function App() {
       name
     )`
   );
-  log.info({ result });
+  log.info({ result }, "result");
 
   useEffect(() => {
     log.info("App is booting");
