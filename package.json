@@ -8,7 +8,7 @@
     "@logtail/bunyan": "^0.1.10",
     "@logtail/node": "^0.1.0",
     "@sentry/node": "^6.12.0",
-    "@sentry/react": "^6.12.0",
+    "@sentry/react": "^6.13.1",
     "@sentry/tracing": "^6.12.0",
     "@supabase/supabase-js": "^1.22.6",
     "@testing-library/jest-dom": "^5.14.1",
