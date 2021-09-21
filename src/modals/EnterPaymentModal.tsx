@@ -9,6 +9,7 @@ import { components } from "../types/up";
 import { PaymentApi } from "../financial-dash";
 import useApi from "../use_api";
 import _ from "lodash";
+import log from "../log";
 
 function getKey(
   pageIndex: number,
@@ -37,7 +38,7 @@ export function EnterPaymentModal(props: {
 
   const paymentClient = useApi(PaymentApi);
 
-  console.log(data);
+  log.info({ data }, "Up transactions");
 
   return (
     <Modal.Card
