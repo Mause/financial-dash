@@ -28,6 +28,8 @@ import { CreatePaymentModal } from "./modals/CreatePaymentModal";
 import { EnterPaymentModal } from "./modals/EnterPaymentModal";
 import { ImportBillModal } from "./modals/ImportBillModal";
 import log from "./log";
+import { isSome } from "fp-ts/Option";
+import { isSuccess } from "@devexperts/remote-data-ts";
 
 export type Payment = definitions["Payment"];
 export type Bill = definitions["Bill"];
@@ -65,7 +67,7 @@ function App() {
       name
     )`
   );
-  log.info({ result }, "result");
+  log.info({ results: isSuccess(result) ? result.value.length : -1 }, "result");
 
   useEffect(() => {
     log.info("App is booting");
