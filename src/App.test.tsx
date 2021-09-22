@@ -1,22 +1,23 @@
 import "@testing-library/jest-dom";
 
 import { render, RenderResult, screen } from "@testing-library/react";
-import App, { Payment, PaymentWithPayer } from "./App";
+import App, { PaymentWithPayer } from "./App";
 import { Provider } from "react-supabase-fp";
 import { BillCard } from "./App";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { act } from "@testing-library/react";
 import { EnterPaymentModal } from "./modals/EnterPaymentModal";
+import _ from "lodash";
 
 test("renders learn react link", async () => {
   await act(async () => {
     const expected = new ExpectPromises([[]]);
     const supa = {
       auth: {
-        onAuthStateChange(callback: () => {}) {
+        onAuthStateChange(_callback: () => void) {
           return {
             data: {
-              unsubscribe: () => {},
+              unsubscribe: NOOP,
             },
           };
         },
@@ -24,9 +25,9 @@ test("renders learn react link", async () => {
           return {};
         },
       },
-      from(name: string) {
+      from(_name: string) {
         return {
-          select(query: string) {
+          select(_query: string) {
             return expected;
           },
         };
@@ -104,9 +105,9 @@ test("Bill", async () => {
             ],
             Vendor: { id: 0, name: "Synergy" },
           }}
-          setSelectedPayment={(a) => {}}
-          refresh={() => {}}
-          setShowModal={(a) => {}}
+          setSelectedPayment={NOOP}
+          refresh={NOOP}
+          setShowModal={NOOP}
         />
       </Provider>
     );
@@ -133,10 +134,12 @@ test("EnterPaymentModal", () => {
   };
   const el = render(
     <EnterPaymentModal
-      refresh={() => {}}
-      setShowModal={(b) => {}}
+      refresh={NOOP}
+      setShowModal={NOOP}
       selectedPayment={payment}
     />
   );
   expect(el.container).toMatchSnapshot();
 });
+
+const NOOP = _.identity;
