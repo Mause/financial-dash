@@ -9,24 +9,16 @@ import { log } from "../support";
 
 class PostPayment {
   @IsNotEmpty()
-  client_id: string;
+  client_id!: string;
   @IsNotEmpty()
-  amount: number;
+  amount!: number;
   @IsNotEmpty()
-  transaction_reference: string;
+  transaction_reference!: string;
   @IsNotEmpty()
-  invoice_id: string;
+  invoice_id!: string;
 
-  constructor(body: {
-    client_id?: string;
-    amount?: number;
-    transaction_reference?: string;
-    invoice_id?: string;
-  }) {
-    this.client_id = body.client_id!;
-    this.amount = body.amount!;
-    this.transaction_reference = body.transaction_reference!;
-    this.invoice_id = body.invoice_id!;
+  constructor(body: unknown) {
+    Object.assign(this, body);
   }
 }
 class PaymentResponse {
@@ -46,7 +38,10 @@ export default authenticate(async function (req, res) {
     return res.status(422).json("Bad request");
   }
 
-  const clientRequest = await validate(req, (t) => new PostPayment(t));
+  const clientRequest = await validate<unknown, PostPayment>(
+    req,
+    (t) => new PostPayment(t)
+  );
 
   const path = "/api/v1/payments";
   type op = paths[typeof path]["post"];
@@ -69,7 +64,8 @@ export default authenticate(async function (req, res) {
       op["responses"]["200"]["content"]["application/json"]
     >(path, requestBody);
   } catch (e) {
-    if ((e as any).isAxiosError) log.error((e as AxiosError).response!.data);
+    if ((e as { isAxiosError: boolean }).isAxiosError)
+      log.error((e as AxiosError).response!.data);
     throw e;
   }
   log.info({ payment }, "Created payment");

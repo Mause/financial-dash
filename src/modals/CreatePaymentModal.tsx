@@ -11,7 +11,7 @@ export function CreatePaymentModal(props: {
   setShow: SetB;
   bill: Pick<Bill, "id" | "amount">;
   refresh: () => void;
-}) {
+}): JSX.Element {
   const [createPaymentResult, createPayment] = useInsert<Payment>("Payment");
   const [payers] = useTable<Payer>("Payer");
   const [payer, setPayer] = useState<number>();
@@ -27,7 +27,7 @@ export function CreatePaymentModal(props: {
   return (
     <Modal.Card
       renderAs="form"
-      onSubmit={async (e: FormEvent<any>) => {
+      onSubmit={async (e: FormEvent<unknown>) => {
         e.preventDefault();
 
         if (!RD.isSuccess(payers)) return;
@@ -43,7 +43,7 @@ export function CreatePaymentModal(props: {
           if (e && AxiosStatic.isAxiosError(e) && e.response) {
             setError(JSON.stringify(e.response.data));
           } else {
-            setError((e as object).toString());
+            setError((e as Record<string, unknown>).toString());
           }
           return;
         }

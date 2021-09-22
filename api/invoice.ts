@@ -8,13 +8,14 @@ import { IsNotEmpty, ValidateNested } from "class-validator";
 
 import { validate } from "../support/validation";
 import { Type } from "class-transformer";
+import { log } from "../support";
 
 class PostInvoice {
   @IsNotEmpty()
   clientId!: string;
   @IsNotEmpty()
   amount!: number;
-  constructor(body: any) {
+  constructor(body: unknown) {
     Object.assign(this, body);
   }
 }
@@ -32,7 +33,7 @@ class InvoiceResponseData extends PostInvoice {
   @IsNotEmpty()
   id!: string;
 
-  constructor(body: any) {
+  constructor(body: unknown) {
     super(body);
   }
 }
@@ -52,7 +53,7 @@ export default authenticate(async function (
   const path = "/api/v1/invoices/create";
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
-  let { data } = await invoiceninja.get<op>(path);
+  const { data } = await invoiceninja.get<op>(path);
 
   data.client_id = request.clientId;
   const cost = request.amount / 100;
@@ -68,11 +69,11 @@ export default authenticate(async function (
     } as unknown,
   };
 
-  console.log("pre", JSON.stringify(data, undefined, 2));
+  log.info(data, "pre");
 
   const response = await invoiceninja.post("/api/v1/invoices", data);
 
-  console.log("post", JSON.stringify(response.data, undefined, 2));
+  log.info(response.data, "post");
 
   res.json(response.data);
 });

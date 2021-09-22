@@ -5,7 +5,6 @@ import bunyan from "bunyan";
 const streams: bunyan.Stream[] = [{ stream: process.stdout }];
 
 if (process.env.LOGTAIL_TOKEN) {
-  console.log("adding logtail stream");
   const logtail = new Logtail(process.env.LOGTAIL_TOKEN, {
     batchInterval: 1,
     ignoreExceptions: false,
