@@ -1,14 +1,14 @@
 import { useInsert } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, ReactNode } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Bill } from "../App";
 
 export function ImportBillModal(props: {
   setOpenImportBill: SetB;
   refresh: () => void;
-}) {
+}): ReactNode {
   const [createBillResult, createBill] = useInsert<Bill>("Bill");
   const [month, setMonth] = useState<string>();
   const { data, error, isValidating } = useSWR<{
@@ -23,12 +23,18 @@ export function ImportBillModal(props: {
   return (
     <Modal.Card
       renderAs="form"
-      onSubmit={async (e: FormEvent<any>) => {
+      onSubmit={async (e: FormEvent<unknown>) => {
         e.preventDefault();
+
+        if (!(month && data)) return;
+
+        const amount = data.perMonth[month]?.discounted;
+        if (amount == null) return;
+
         await createBill({
           vendor: 1,
           billDate: month + "-01",
-          amount: Math.floor(data?.perMonth[month!]?.discounted! * 100),
+          amount: Math.floor(amount * 100),
         });
       }}
     >
