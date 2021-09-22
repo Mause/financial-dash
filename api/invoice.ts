@@ -8,6 +8,7 @@ import { IsNotEmpty, ValidateNested } from "class-validator";
 
 import { validate } from "../support/validation";
 import { Type } from "class-transformer";
+import { log } from "../support";
 
 class PostInvoice {
   @IsNotEmpty()
@@ -68,11 +69,11 @@ export default authenticate(async function (
     } as unknown,
   };
 
-  console.log("pre", JSON.stringify(data, undefined, 2));
+  log.info(data, "pre");
 
   const response = await invoiceninja.post("/api/v1/invoices", data);
 
-  console.log("post", JSON.stringify(response.data, undefined, 2));
+  log.info(response.data, "post");
 
   res.json(response.data);
 });
