@@ -52,7 +52,7 @@ export default authenticate(async function (
   const path = "/api/v1/invoices/create";
   type op =
     paths[typeof path]["get"]["responses"][200]["content"]["application/json"];
-  let { data } = await invoiceninja.get<op>(path);
+  const { data } = await invoiceninja.get<op>(path);
 
   data.client_id = request.clientId;
   const cost = request.amount / 100;

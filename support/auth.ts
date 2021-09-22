@@ -14,7 +14,7 @@ type Trans = (handler: VercelApiHandler) => VercelApiHandler;
 function compose(handler: VercelApiHandler, layers: Trans[]): VercelApiHandler {
   let root = handler;
 
-  for (let layer of layers) {
+  for (const layer of layers) {
     root = layer(root);
   }
 

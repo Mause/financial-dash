@@ -50,7 +50,7 @@ class ExpectPromises<T> {
   constructor(responses: any[]) {
     this.promises = [];
     this.resolvers = [];
-    for (let response of responses) {
+    for (const response of responses) {
       let resolve: ((v: T) => void) | undefined;
       const promise = new Promise<T>((_resolve) => {
         resolve = _resolve;
@@ -61,7 +61,7 @@ class ExpectPromises<T> {
   }
 
   then() {
-    let resolve = this.resolvers.pop();
+    const resolve = this.resolvers.pop();
     if (resolve) resolve();
   }
 
@@ -71,7 +71,7 @@ class ExpectPromises<T> {
 }
 
 test("Bill", async () => {
-  let expected = new ExpectPromises([2]);
+  const expected = new ExpectPromises([2]);
 
   const supa = {
     from() {
