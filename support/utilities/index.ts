@@ -15,7 +15,7 @@ export function makeDecorator(wrapper: Trans) {
       };
     };
   };
-  func.name = wrapper.name;
+  Object.defineProperty(func, "name", { value: wrapper.name });
   return func;
 }
 
