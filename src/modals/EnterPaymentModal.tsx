@@ -25,7 +25,7 @@ export function EnterPaymentModal(props: {
   setShowModal: SetB;
   selectedPayment: PaymentWithPayer;
   refresh: () => void;
-}) {
+}): JSX.Element {
   const [bankId, setBankId] = useState<string>();
   const [result, updatePayment] = useUpdate<Payment>("Payment");
   const { data, size, setSize, error, isValidating } =
@@ -43,7 +43,7 @@ export function EnterPaymentModal(props: {
   return (
     <Modal.Card
       renderAs="form"
-      onSubmit={async (e: FormEvent<any>) => {
+      onSubmit={async (e: FormEvent<unknown>) => {
         e.preventDefault();
         await paymentClient.postPayment({
           client_id: props.selectedPayment.Payer.invoice_ninja_id,

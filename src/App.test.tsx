@@ -1,22 +1,23 @@
 import "@testing-library/jest-dom";
 
 import { render, RenderResult, screen } from "@testing-library/react";
-import App, { Payment, PaymentWithPayer } from "./App";
+import App, { PaymentWithPayer } from "./App";
 import { Provider } from "react-supabase-fp";
 import { BillCard } from "./App";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { act } from "@testing-library/react";
 import { EnterPaymentModal } from "./modals/EnterPaymentModal";
+import _ from "lodash";
 
 test("renders learn react link", async () => {
   await act(async () => {
     const expected = new ExpectPromises([[]]);
     const supa = {
       auth: {
-        onAuthStateChange(callback: () => {}) {
+        onAuthStateChange() {
           return {
             data: {
-              unsubscribe: () => {},
+              unsubscribe: NOOP,
             },
           };
         },
@@ -24,9 +25,9 @@ test("renders learn react link", async () => {
           return {};
         },
       },
-      from(name: string) {
+      from() {
         return {
-          select(query: string) {
+          select() {
             return expected;
           },
         };
@@ -44,15 +45,15 @@ test("renders learn react link", async () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-class ExpectPromises<T> {
-  promises: Promise<T>[];
+class ExpectPromises {
+  promises: Promise<unknown>[];
   resolvers: (() => void)[];
-  constructor(responses: any[]) {
+  constructor(responses: unknown[]) {
     this.promises = [];
     this.resolvers = [];
-    for (let response of responses) {
-      let resolve: ((v: T) => void) | undefined;
-      const promise = new Promise<T>((_resolve) => {
+    for (const response of responses) {
+      let resolve: ((v: unknown) => void) | undefined;
+      const promise = new Promise<unknown>((_resolve) => {
         resolve = _resolve;
       });
       this.promises.push(promise);
@@ -61,7 +62,7 @@ class ExpectPromises<T> {
   }
 
   then() {
-    let resolve = this.resolvers.pop();
+    const resolve = this.resolvers.pop();
     if (resolve) resolve();
   }
 
@@ -71,7 +72,7 @@ class ExpectPromises<T> {
 }
 
 test("Bill", async () => {
-  let expected = new ExpectPromises([2]);
+  const expected = new ExpectPromises([2]);
 
   const supa = {
     from() {
@@ -104,9 +105,9 @@ test("Bill", async () => {
             ],
             Vendor: { id: 0, name: "Synergy" },
           }}
-          setSelectedPayment={(a) => {}}
-          refresh={() => {}}
-          setShowModal={(a) => {}}
+          setSelectedPayment={NOOP}
+          refresh={NOOP}
+          setShowModal={NOOP}
         />
       </Provider>
     );
@@ -133,10 +134,12 @@ test("EnterPaymentModal", () => {
   };
   const el = render(
     <EnterPaymentModal
-      refresh={() => {}}
-      setShowModal={(b) => {}}
+      refresh={NOOP}
+      setShowModal={NOOP}
       selectedPayment={payment}
     />
   );
   expect(el.container).toMatchSnapshot();
 });
+
+const NOOP = _.identity;

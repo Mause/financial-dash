@@ -2,6 +2,9 @@ import "../../support/sentry";
 import { paths } from "../../src/types/invoice-ninja";
 import { IsNotEmpty, IsEnum } from "class-validator";
 import { authenticate, invoiceninja, validate } from "../../support";
+import { log as _log } from "../../support";
+
+const log = _log.child({ endpoint: "invoice/[invoice]" });
 
 enum Status {
   PAID,
@@ -11,13 +14,13 @@ class PutInvoice {
   @IsNotEmpty()
   @IsEnum(Status)
   status!: Status;
-  constructor(body: any) {
+  constructor(body: unknown) {
     Object.assign(this, body);
   }
 }
 
 export default authenticate(async function (req, res) {
-  console.log(req?.query);
+  log.info(req?.query, "query");
   const invoice_id = req?.query?.invoice as string | undefined;
   if (!invoice_id) return res.status(422);
 

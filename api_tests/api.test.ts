@@ -113,6 +113,7 @@ function testApi(
 
     beforeAll(async () => {
       moxios.install(invoiceninja);
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const routeUnderTest = require(apiFunction);
       server = createServer(routeUnderTest.default);
       url = await listen(server);

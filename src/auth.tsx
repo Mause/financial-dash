@@ -2,7 +2,7 @@ import { fold, fromNullable, some, Option, chain } from "fp-ts/Option";
 import { constant, pipe } from "fp-ts/function";
 import { useSupabase } from "react-supabase-fp";
 import { SWRConfig } from "swr";
-import React from "react";
+import React, { ReactNode, ReactPortal } from "react";
 
 export function useToken(): Option<string> {
   const supabase = useSupabase();
@@ -24,8 +24,10 @@ function useFetcher() {
     }).then((res) => res.json());
 }
 
-export const AuthProvider: React.VFC<{ children: any }> = (props) => {
+export function AuthProvider(props: {
+  children: ReactNode | ReactPortal;
+}): JSX.Element {
   const fetcher = useFetcher();
 
   return <SWRConfig value={{ fetcher }}>{props.children}</SWRConfig>;
-};
+}

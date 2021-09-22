@@ -26,5 +26,5 @@ class ClassTest {
 
 export const responseShape = DummyResponse.name;
 
-export default (req: VercelRequest, res: VercelResponse) =>
+export default (req: VercelRequest, res: VercelResponse): void =>
   new ClassTest().invoke(req, res);
