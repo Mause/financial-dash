@@ -2,9 +2,9 @@ import { validateOrReject } from "class-validator";
 import { VercelRequest } from "@vercel/node";
 import { log } from ".";
 
-export async function validate<T>(
+export async function validate<Input, T>(
   req: VercelRequest,
-  build: (o: unknown) => T
+  build: (o: Input) => T
 ): Promise<T> {
   const request = build(
     typeof req.body === "string" ? JSON.parse(req.body) : req.body

@@ -11,7 +11,7 @@ import {
 import { pipe, constant } from "fp-ts/function";
 import * as O from "fp-ts/Option";
 import * as RD from "@devexperts/remote-data-ts";
-import { useState, MouseEvent, Fragment, useEffect } from "react";
+import { useState, MouseEvent, Fragment, useEffect, FormEvent } from "react";
 import {
   Modal,
   Button,
@@ -281,7 +281,7 @@ function AppHeader() {
             O.fold(
               () => (
                 <form
-                  onSubmit={(e: MouseEvent<unknown>) => {
+                  onSubmit={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     signIn({ email }, { redirectTo: window.location.href });
                   }}
