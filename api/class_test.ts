@@ -13,7 +13,7 @@ class DummyResponse {
 
 function Authenticated() {
   return function (
-    _target: any,
+    _target: unknown,
     _propertyKey: string,
     descriptor: PropertyDescriptor
   ) {
