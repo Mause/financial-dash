@@ -43,7 +43,7 @@ export function CreatePaymentModal(props: {
           if (e && AxiosStatic.isAxiosError(e) && e.response) {
             setError(JSON.stringify(e.response.data));
           } else {
-            setError((e as object).toString());
+            setError((e as any).toString());
           }
           return;
         }
