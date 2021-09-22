@@ -1,11 +1,22 @@
 ---
 root: true
 parser: "@typescript-eslint/parser"
-plugins: ["@typescript-eslint"]
-extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"]
+plugins: ["@typescript-eslint", "jest"]
+extends:
+  - "eslint:recommended"
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:jest/recommended"
+  - "plugin:react/recommended"
+  - "plugin:eslint-comments/recommended"
+  - "plugin:import/recommended"
+  - "plugin:react/jsx-runtime"
+  - "plugin:node/recommended"
 rules:
   no-console: error
   "@typescript-eslint/no-non-null-assertion": off
 ignorePatterns:
   - src/types
   - src/financial-dash
+settings:
+  react:
+    version: detect
