@@ -1,6 +1,6 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { IsString } from "class-validator";
-import { log } from "../support";
+import { log, authenticate } from "../support";
 
 class DummyResponse {
   @IsString()
@@ -13,25 +13,21 @@ class DummyResponse {
 
 function Authenticated() {
   return function (
-    target: any,
-    propertyKey: string,
+    _target: any,
+    _propertyKey: string,
     descriptor: PropertyDescriptor
   ) {
     const original = descriptor.value;
     descriptor.value = async (req: VercelRequest, res: VercelResponse) => {
-      if ((req as any).user) {
-        return await original(req, res);
-      } else {
-        log.info({ hello: "world" }, "Hello world");
-        res.status(401).send("Unauthorized");
-      }
+      log.info({ hello: "world" }, "Hello world");
+      await authenticate(original)(req, res);
     };
   };
 }
 
 class ClassTest {
   @Authenticated()
-  invoke(req: VercelRequest, res: VercelResponse) {
+  invoke(_req: VercelRequest, res: VercelResponse) {
     res.status(200).send(new DummyResponse("hello"));
   }
 }
