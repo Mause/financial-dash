@@ -25,7 +25,7 @@ export function compose(
 ): VercelApiHandler {
   let root = handler;
 
-  for (let layer of layers) {
+  for (const layer of layers) {
     root = layer(root);
   }
 
