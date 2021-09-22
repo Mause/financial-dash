@@ -27,7 +27,7 @@ export function CreatePaymentModal(props: {
   return (
     <Modal.Card
       renderAs="form"
-      onSubmit={async (e: FormEvent<any>) => {
+      onSubmit={async (e: FormEvent<unknown>) => {
         e.preventDefault();
 
         if (!RD.isSuccess(payers)) return;
