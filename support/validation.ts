@@ -4,7 +4,7 @@ import { log } from ".";
 
 export async function validate<T>(
   req: VercelRequest,
-  build: (o: any) => T
+  build: (o: unknown) => T
 ): Promise<T> {
   const request = build(
     typeof req.body === "string" ? JSON.parse(req.body) : req.body

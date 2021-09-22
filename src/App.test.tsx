@@ -14,7 +14,7 @@ test("renders learn react link", async () => {
     const expected = new ExpectPromises([[]]);
     const supa = {
       auth: {
-        onAuthStateChange(_callback: () => void) {
+        onAuthStateChange() {
           return {
             data: {
               unsubscribe: NOOP,
@@ -25,9 +25,9 @@ test("renders learn react link", async () => {
           return {};
         },
       },
-      from(_name: string) {
+      from() {
         return {
-          select(_query: string) {
+          select() {
             return expected;
           },
         };
@@ -45,15 +45,15 @@ test("renders learn react link", async () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-class ExpectPromises<T> {
-  promises: Promise<T>[];
+class ExpectPromises {
+  promises: Promise<unknown>[];
   resolvers: (() => void)[];
-  constructor(responses: any[]) {
+  constructor(responses: unknown[]) {
     this.promises = [];
     this.resolvers = [];
     for (const response of responses) {
-      let resolve: ((v: T) => void) | undefined;
-      const promise = new Promise<T>((_resolve) => {
+      let resolve: ((v: unknown) => void) | undefined;
+      const promise = new Promise<unknown>((_resolve) => {
         resolve = _resolve;
       });
       this.promises.push(promise);

@@ -14,7 +14,7 @@ class PutInvoice {
   @IsNotEmpty()
   @IsEnum(Status)
   status!: Status;
-  constructor(body: any) {
+  constructor(body: unknown) {
     Object.assign(this, body);
   }
 }

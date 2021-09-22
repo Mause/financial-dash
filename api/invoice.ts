@@ -15,7 +15,7 @@ class PostInvoice {
   clientId!: string;
   @IsNotEmpty()
   amount!: number;
-  constructor(body: any) {
+  constructor(body: unknown) {
     Object.assign(this, body);
   }
 }
@@ -33,7 +33,7 @@ class InvoiceResponseData extends PostInvoice {
   @IsNotEmpty()
   id!: string;
 
-  constructor(body: any) {
+  constructor(body: unknown) {
     super(body);
   }
 }

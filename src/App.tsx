@@ -44,7 +44,7 @@ function money(obj: { amount: number }) {
   return "$" + obj.amount / 100;
 }
 
-function App() {
+function App(): JSX.Element {
   const [result, refresh] = useTable<BillRow>(
     "Bill",
     `
@@ -99,7 +99,7 @@ function App() {
       <Heading size={1}>
         Bills
         <Button
-          onClick={(e: MouseEvent<any>) => {
+          onClick={(e: MouseEvent<unknown>) => {
             e.preventDefault();
             setOpenImportBill(true);
           }}
@@ -150,7 +150,7 @@ export function BillCard({
   setSelectedPayment: (payment: PaymentWithPayer) => void;
   setShowModal: SetB;
   refresh: () => void;
-}) {
+}): JSX.Element {
   const filter = useFilter<Bill>((query) => query.eq("id", row.id));
   const [result, deleteBill] = useDelete<Bill>("Bill");
   const paymentsFilter = useFilter<Payment>((query) =>
@@ -185,7 +185,7 @@ export function BillCard({
           {row.Vendor.id})
           <Button.Group>
             <Button
-              onClick={async (e: MouseEvent<any>) => {
+              onClick={async (e: MouseEvent<unknown>) => {
                 e.preventDefault();
                 await deletePayments(paymentsFilter);
                 await deleteBill(filter);
@@ -196,7 +196,7 @@ export function BillCard({
             </Button>
             <Button
               size="small"
-              onClick={(e: MouseEvent<any>) => {
+              onClick={(e: MouseEvent<unknown>) => {
                 e.preventDefault();
                 setCreatePaymentModal(true);
               }}
@@ -220,7 +220,7 @@ export function BillCard({
               ) : (
                 <Button
                   size="small"
-                  onClick={(e: MouseEvent<any>) => {
+                  onClick={(e: MouseEvent<unknown>) => {
                     e.preventDefault();
                     setSelectedPayment(payment);
                     setShowModal(true);
@@ -262,7 +262,7 @@ function AppHeader() {
   const logoutButton = (
     <Button
       size="small"
-      onClick={(e: MouseEvent<any>) => {
+      onClick={(e: MouseEvent<unknown>) => {
         e.preventDefault();
         signOut();
       }}
@@ -281,7 +281,7 @@ function AppHeader() {
             O.fold(
               () => (
                 <form
-                  onSubmit={(e: MouseEvent<any>) => {
+                  onSubmit={(e: MouseEvent<unknown>) => {
                     e.preventDefault();
                     signIn({ email }, { redirectTo: window.location.href });
                   }}

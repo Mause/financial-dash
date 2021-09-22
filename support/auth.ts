@@ -49,6 +49,6 @@ const catchErrors: Trans =
 
 const LAYERS: Trans[] = [catchValidationErrors, authenticate, catchErrors];
 
-export default (handler: VercelApiHandler) => {
+export default (handler: VercelApiHandler): VercelApiHandler => {
   return compose(handler, LAYERS);
 };

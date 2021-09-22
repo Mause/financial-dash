@@ -11,7 +11,11 @@ class DummyResponse {
   }
 }
 
-function Authenticated() {
+function Authenticated(): (
+  _target: unknown,
+  _propertyKey: string,
+  descriptor: PropertyDescriptor
+) => void {
   return function (
     _target: unknown,
     _propertyKey: string,
@@ -27,12 +31,12 @@ function Authenticated() {
 
 class ClassTest {
   @Authenticated()
-  invoke(_req: VercelRequest, res: VercelResponse) {
+  invoke(_req: VercelRequest, res: VercelResponse): void {
     res.status(200).send(new DummyResponse("hello"));
   }
 }
 
 export const responseShape = DummyResponse.name;
 
-export default (req: VercelRequest, res: VercelResponse) =>
+export default (req: VercelRequest, res: VercelResponse): void =>
   new ClassTest().invoke(req, res);

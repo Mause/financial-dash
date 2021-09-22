@@ -8,7 +8,7 @@ import { SetB, Bill } from "../App";
 export function ImportBillModal(props: {
   setOpenImportBill: SetB;
   refresh: () => void;
-}) {
+}): JSX.Element {
   const [createBillResult, createBill] = useInsert<Bill>("Bill");
   const [month, setMonth] = useState<string>();
   const { data, error, isValidating } = useSWR<{

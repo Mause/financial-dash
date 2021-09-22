@@ -69,7 +69,8 @@ export default authenticate(async function (req, res) {
       op["responses"]["200"]["content"]["application/json"]
     >(path, requestBody);
   } catch (e) {
-    if ((e as any).isAxiosError) log.error((e as AxiosError).response!.data);
+    if ((e as { isAxiosError: boolean }).isAxiosError)
+      log.error((e as AxiosError).response!.data);
     throw e;
   }
   log.info({ payment }, "Created payment");

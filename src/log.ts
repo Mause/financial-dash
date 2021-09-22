@@ -15,6 +15,7 @@ class XLogtailStream extends LogtailStream {
   constructor(logtail: Logtail) {
     super(logtail as unknown as Node);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   write(chunk: any): boolean {
     return super.write(JSON.stringify(chunk));
   }
