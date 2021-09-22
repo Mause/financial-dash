@@ -4,7 +4,7 @@ import { IsNotEmpty, IsEnum } from "class-validator";
 import { authenticate, invoiceninja, validate } from "../../support";
 import { log as _log } from "../../support";
 
-const log = _log.child({ name: "invoice/[invoice]" });
+const log = _log.child({ endpoint: "invoice/[invoice]" });
 
 enum Status {
   PAID,
