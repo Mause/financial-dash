@@ -1,14 +1,14 @@
 import { useInsert } from "react-supabase-fp";
 import * as RD from "@devexperts/remote-data-ts";
 import useSWR from "swr";
-import { useState, FormEvent, ReactNode } from "react";
+import { useState, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Bill } from "../App";
 
 export function ImportBillModal(props: {
   setOpenImportBill: SetB;
   refresh: () => void;
-}): ReactNode {
+}) {
   const [createBillResult, createBill] = useInsert<Bill>("Bill");
   const [month, setMonth] = useState<string>();
   const { data, error, isValidating } = useSWR<{
