@@ -27,7 +27,7 @@
     "bunyan": ">=2.0.0",
     "class-validator": "^0.13.1",
     "date-fns": "^2.24.0",
-    "fp-ts": "^2.11.3",
+    "fp-ts": "^2.11.4",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-bulma-components": "^4.0.7",
