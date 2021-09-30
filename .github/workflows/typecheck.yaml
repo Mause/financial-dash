@@ -13,7 +13,7 @@ jobs:
           cache: yarn
       - run: yarn install --immutable
       - name: TypeScript Error Reporter
-        uses: andoshin11/typescript-error-reporter-action@v1.0.2
+        uses: computerjazz/typescript-error-reporter-action@v1.0.11
       - run: yarn build
       - run: yarn test
       - run: ../node_modules/.bin/jest
