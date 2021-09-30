@@ -2031,7 +2031,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/types@npm:^26.6.0, @jest/types@npm:^26.6.2":
+"@jest/types@npm:26, @jest/types@npm:^26.6.0, @jest/types@npm:^26.6.2":
   version: 26.6.2
   resolution: "@jest/types@npm:26.6.2"
   dependencies:
@@ -7991,6 +7991,7 @@ __metadata:
   resolution: "financial-dash@workspace:."
   dependencies:
     "@devexperts/remote-data-ts": ^2.0.5
+    "@jest/types": 26
     "@logtail/browser": ^0.1.10
     "@logtail/bunyan": ^0.1.10
     "@logtail/node": ^0.1.0
@@ -8023,6 +8024,8 @@ __metadata:
     date-fns: ^2.24.0
     eslint: ^7.32.0
     fp-ts: ^2.11.3
+    jest: 26
+    jsonwebtoken: ^8.1.0
     lodash: ^4.17.21
     moxios: ^0.4.0
     prop-types: ^15.7.2
@@ -8035,6 +8038,7 @@ __metadata:
     swr: ^1.0.1
     test-listen: ^1.1.0
     ts-jest: 26
+    ts-node: ^10
     typescript: ^4.4.3
     vercel: ^23.1.2
     vercel-jwt-auth: ^1.1.9
@@ -9983,7 +9987,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jest-cli@npm:^26.6.0":
+"jest-cli@npm:^26.6.0, jest-cli@npm:^26.6.3":
   version: 26.6.3
   resolution: "jest-cli@npm:26.6.3"
   dependencies:
@@ -10465,6 +10469,19 @@ fsevents@^1.2.7:
     merge-stream: ^2.0.0
     supports-color: ^7.0.0
   checksum: 5eb349833b5e9750ce8700388961dfd5d5e207c913122221e418e48b9cda3c17b0fb418f6a90f1614cfdc3ca836158b720c5dc1de82cb1e708266b4d76e31a38
+  languageName: node
+  linkType: hard
+
+"jest@npm:26":
+  version: 26.6.3
+  resolution: "jest@npm:26.6.3"
+  dependencies:
+    "@jest/core": ^26.6.3
+    import-local: ^3.0.2
+    jest-cli: ^26.6.3
+  bin:
+    jest: bin/jest.js
+  checksum: 4ffcfefa2b30999a71c205e1aacf2b3d7af10f36c17ba1baf45677684116ad5aa6a5bb162ad2dd418f9ea99d18f24b70d8c83fb317b765a3acac361a50e9db9f
   languageName: node
   linkType: hard
 

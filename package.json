@@ -30,6 +30,7 @@
     "class-validator": "^0.13.1",
     "date-fns": "^2.24.0",
     "fp-ts": "^2.11.3",
+    "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -48,6 +49,7 @@
     "build": "react-scripts build && yarn generateOpenapi",
     "generateOpenapi": "vercel-openapi generate . --outputFile build/openapi.yaml --envVar JWT_SECRET=secret --moduleSystem CommonJS --debug",
     "test": "react-scripts test",
+    "api_tests": "yarn jest api_tests --config api_tests/jest.config.ts",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -69,15 +71,18 @@
     ]
   },
   "devDependencies": {
+    "@jest/types": "26",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/moxios": "^0.4.12",
     "@types/test-listen": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "eslint": "^7.32.0",
+    "jest": "26",
     "moxios": "^0.4.0",
     "test-listen": "^1.1.0",
     "ts-jest": "26",
+    "ts-node": "^10",
     "vercel": "^23.1.2",
     "vercel-node-server": "^2.2.1",
     "vercel-openapi": "^0.1.7-0"
