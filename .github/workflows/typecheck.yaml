@@ -12,8 +12,8 @@ jobs:
           node-version: 14
           cache: yarn
       - run: yarn install --immutable
-      - name: TypeScript Error Reporter
-        uses: computerjazz/typescript-error-reporter-action@v1.0.11
+      # - name: TypeScript Error Reporter
+      #   uses: computerjazz/typescript-error-reporter-action@v1.0.11
       - run: yarn build
       - run: yarn test
       - run: ../node_modules/.bin/jest
