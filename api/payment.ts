@@ -60,9 +60,11 @@ export default authenticate(async function (req, res) {
 
   let payment;
   try {
-    payment = await invoiceninja.post<
-      op["responses"]["200"]["content"]["application/json"]
-    >(path, requestBody);
+    payment = (
+      await invoiceninja.post<{
+        data: op["responses"]["200"]["content"]["application/json"];
+      }>(path, requestBody)
+    ).data;
   } catch (e) {
     if ((e as { isAxiosError: boolean }).isAxiosError)
       log.error((e as AxiosError).response!.data);
