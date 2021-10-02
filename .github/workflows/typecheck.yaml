@@ -11,11 +11,10 @@ jobs:
         with:
           node-version: 14
           cache: yarn
-      - run: yarn --frozen
-      - name: TypeScript Error Reporter
-        uses: andoshin11/typescript-error-reporter-action@v1.0.2
+      - run: yarn install --immutable
+      # - name: TypeScript Error Reporter
+      #   uses: computerjazz/typescript-error-reporter-action@v1.0.11
       - run: yarn build
       - run: yarn test
-      - run: ../node_modules/.bin/jest
-        working-directory: api_tests/
+      - run: yarn api_tests
         timeout-minutes: 2
