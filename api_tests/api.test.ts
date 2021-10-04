@@ -50,6 +50,7 @@ testApi("../api/invoice/[invoice]", "PUT /invoice/hello", (url) =>
 
 testApi("../api/payment", "POST /payment", (url) =>
   it("works", async () => {
+    moxios.stubOnce("GET", /.*/, { response: {} });
     moxios.stubOnce("POST", /.*/, {
       response: {
         id: "payment_id",
@@ -82,7 +83,7 @@ testApi("../api/payment", "POST /payment (error case)", (url) =>
 
 testApi("../api/payment", "POST /payment (failed downstream call)", (url) =>
   it("works", async () => {
-    moxios.stubOnce("POST", /.*/, {
+    moxios.stubOnce("GET", /.*/, {
       status: 500,
       response: { error: "Server down" },
     });
