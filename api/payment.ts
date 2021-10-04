@@ -4,7 +4,7 @@ import invoiceninja from "../support/invoiceninja";
 import { paths, components } from "../src/types/invoice-ninja";
 import { IsNotEmpty, IsString, validateOrReject } from "class-validator";
 import { validate } from "../support/validation";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { log } from "../support";
 
 class PostPayment {
@@ -66,9 +66,12 @@ export default authenticate(async function (req, res) {
   let payment;
   try {
     payment = (
-      await invoiceninja.post<{
-        data: op["responses"]["200"]["content"]["application/json"];
-      }>(path, requestBody)
+      await invoiceninja.post<
+        op["requestBody"]["content"]["application/json"],
+        AxiosResponse<{
+          data: op["responses"]["200"]["content"]["application/json"];
+        }>
+      >(path, requestBody)
     ).data;
   } catch (e) {
     if ((e as { isAxiosError: boolean }).isAxiosError)
