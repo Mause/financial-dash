@@ -45,6 +45,7 @@
     "build": "react-scripts build && yarn generateOpenapi",
     "generateOpenapi": "vercel-openapi generate . --outputFile build/openapi.yaml --envVar JWT_SECRET=secret --moduleSystem CommonJS --debug",
     "test": "react-scripts test",
+    "api_tests": "yarn jest api_tests --config api_tests/jest.config.ts",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
