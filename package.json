@@ -22,7 +22,7 @@
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "@types/readable-stream": "^2.3.11",
-    "axios": "^0.21.4",
+    "axios": "^0.22.0",
     "browser-bunyan": "^1.6.3",
     "bulma": "^0.9.3",
     "bunyan": ">=2.0.0",
