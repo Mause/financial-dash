@@ -50,13 +50,16 @@ testApi("../api/invoice/[invoice]", "PUT /invoice/hello", (url) =>
 
 testApi("../api/payment", "POST /payment", (url) =>
   it("works", async () => {
+    moxios.stubOnce("GET", /.*/, { response: {} });
     moxios.stubOnce("POST", /.*/, {
       response: {
-        id: "payment_id",
-        client_id: "client_id",
-        invoices: [{ invoice_id: "invoice_id" }],
-        amount: "1500",
-        transaction_reference: "transaction_reference",
+        data: {
+          id: "payment_id",
+          client_id: "client_id",
+          invoices: [{ invoice_id: "invoice_id" }],
+          amount: "1500",
+          transaction_reference: "transaction_reference",
+        },
       },
     });
     const response = await axios.post(url(), {
@@ -82,7 +85,7 @@ testApi("../api/payment", "POST /payment (error case)", (url) =>
 
 testApi("../api/payment", "POST /payment (failed downstream call)", (url) =>
   it("works", async () => {
-    moxios.stubOnce("POST", /.*/, {
+    moxios.stubOnce("GET", /.*/, {
       status: 500,
       response: { error: "Server down" },
     });

@@ -1,8 +1,10 @@
 import { LogtailStream } from "@logtail/bunyan";
 import { Logtail } from "@logtail/node";
 import bunyan from "bunyan";
+// eslint-disable-next-line
+const pretty = require("@mechanicalhuman/bunyan-pretty");
 
-const streams: bunyan.Stream[] = [{ stream: process.stdout }];
+const streams: bunyan.Stream[] = [{ stream: pretty(process.stdout) }];
 
 if (process.env.LOGTAIL_TOKEN) {
   const logtail = new Logtail(process.env.LOGTAIL_TOKEN, {
