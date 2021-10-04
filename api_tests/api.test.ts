@@ -52,11 +52,13 @@ testApi("../api/payment", "POST /payment", (url) =>
   it("works", async () => {
     moxios.stubOnce("POST", /.*/, {
       response: {
-        id: "payment_id",
-        client_id: "client_id",
-        invoices: [{ invoice_id: "invoice_id" }],
-        amount: "1500",
-        transaction_reference: "transaction_reference",
+        data: {
+          id: "payment_id",
+          client_id: "client_id",
+          invoices: [{ invoice_id: "invoice_id" }],
+          amount: "1500",
+          transaction_reference: "transaction_reference",
+        },
       },
     });
     const response = await axios.post(url(), {
