@@ -61,7 +61,7 @@ export default authenticate(async function (req, res) {
       amount: String(clientRequest.amount / 100),
     },
   ];
-  log.info({ requestBody }, 'Payment request body');
+  log.info({ requestBody }, "Payment request body");
 
   let payment;
   try {
