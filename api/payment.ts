@@ -1,7 +1,7 @@
 import "../support/sentry";
 import authenticate from "../support/auth";
 import invoiceninja from "../support/invoiceninja";
-import { paths } from "../src/types/invoice-ninja";
+import { paths, components } from "../src/types/invoice-ninja";
 import { IsNotEmpty, IsString, validateOrReject } from "class-validator";
 import { validate } from "../support/validation";
 import { AxiosError } from "axios";
@@ -33,6 +33,11 @@ class PaymentResponse {
   }
 }
 
+async function getTemplate() {
+  const path = "/api/v1/payments/create";
+  return (await invoiceninja.get<components["schemas"]["Payment"]>(path)).data;
+}
+
 export default authenticate(async function (req, res) {
   if (req.method !== "POST") {
     return res.status(422).json("Bad request");
@@ -46,17 +51,17 @@ export default authenticate(async function (req, res) {
   const path = "/api/v1/payments";
   type op = paths[typeof path]["post"];
 
-  const requestBody: op["requestBody"]["content"]["application/json"] = {
-    transaction_reference: clientRequest.transaction_reference,
-    client_id: clientRequest.client_id,
-    amount: clientRequest.amount / 100,
-    invoices: [
-      {
-        invoice_id: clientRequest.invoice_id,
-        amount: String(clientRequest.amount / 100),
-      },
-    ],
-  };
+  const requestBody = await getTemplate();
+  requestBody.transaction_reference = clientRequest.transaction_reference;
+  requestBody.client_id = clientRequest.client_id;
+  //requestBody.amount = clientRequest.amount / 100,
+  requestBody.invoices = [
+    {
+      invoice_id: clientRequest.invoice_id,
+      amount: String(clientRequest.amount / 100),
+    },
+  ];
+  log.info({ requestBody }, "Payment request body");
 
   let payment;
   try {
