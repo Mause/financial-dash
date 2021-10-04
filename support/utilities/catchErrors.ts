@@ -1,7 +1,8 @@
 import Sentry from "@sentry/react";
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { makeDecorator, Trans } from ".";
+import type { Trans } from "./types";
 import { log } from "..";
+import { makeDecorator } from "./makeDecorator";
 
 export const catchErrors: Trans =
   (handler) => async (req: VercelRequest, res: VercelResponse) => {

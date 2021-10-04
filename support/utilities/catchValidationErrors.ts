@@ -1,6 +1,7 @@
-import { makeDecorator, Trans } from ".";
+import type { Trans } from "./types";
 import { log } from "..";
 import { VercelRequest, VercelResponse } from "@vercel/node";
+import { makeDecorator } from "./makeDecorator";
 
 export const catchValidationErrors: Trans =
   (handler) => async (req: VercelRequest, res: VercelResponse) => {
