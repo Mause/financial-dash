@@ -1,11 +1,26 @@
 import "../support/sentry";
 import authenticate from "../support/auth";
 import invoiceninja from "../support/invoiceninja";
-import { paths, components } from "../src/types/invoice-ninja";
+import { components, paths } from "../src/types/invoice-ninja";
 import { IsNotEmpty, IsString, validateOrReject } from "class-validator";
 import { validate } from "../support/validation";
 import { AxiosError, AxiosResponse } from "axios";
 import { log } from "../support";
+
+type ValidationError = components["schemas"]["ValidationError"];
+type GenericError = components["schemas"]["Error"];
+
+function isAxiosError(e: unknown): e is AxiosError {
+  return (e as { isAxiosError: boolean }).isAxiosError;
+}
+function isValidationError(
+  e: AxiosError<any>
+): e is AxiosError<ValidationError> {
+  return e.response?.status == 422;
+}
+function isGenericError(e: AxiosError<any>): e is AxiosError<GenericError> {
+  return e.response?.status !== 200 && e.response?.status !== 422;
+}
 
 class PostPayment {
   @IsNotEmpty()
@@ -74,9 +89,17 @@ export default authenticate(async function (req, res) {
       >(path, requestBody)
     ).data;
   } catch (e) {
-    if ((e as { isAxiosError: boolean }).isAxiosError)
-      log.error((e as AxiosError).response!.data);
-    throw e;
+    if (isAxiosError(e)) {
+      const errorBody = e.response!.data;
+      if (isValidationError(e)) {
+        log.error("Validation error occured", errorBody);
+      } else {
+        log.error("Unknown error occurred", errorBody);
+      }
+      return res.status(502).json({ invoiceNinjaError: errorBody });
+    } else {
+      throw e;
+    }
   }
   log.info({ payment }, "Created payment");
 
