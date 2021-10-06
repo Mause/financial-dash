@@ -13,10 +13,12 @@ type GenericError = components["schemas"]["Error"];
 function isAxiosError(e: unknown): e is AxiosError {
   return (e as { isAxiosError: boolean }).isAxiosError;
 }
-function isValidationError(e: AxiosError): e is AxiosError<ValidationError> {
+function isValidationError(
+  e: AxiosError<any>
+): e is AxiosError<ValidationError> {
   return e.response?.status == 422;
 }
-function isGenericError(e: AxiosError): e is AxiosError<GenericError> {
+function isGenericError(e: AxiosError<any>): e is AxiosError<GenericError> {
   return e.response?.status !== 200 && e.response?.status !== 422;
 }
 
