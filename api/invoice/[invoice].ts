@@ -3,6 +3,7 @@ import { paths } from "../../src/types/invoice-ninja";
 import { IsNotEmpty, IsEnum } from "class-validator";
 import { authenticate, invoiceninja, validate } from "../../support";
 import { log as _log } from "../../support";
+import { AxiosResponse } from "axios";
 
 const log = _log.child({ endpoint: "invoice/[invoice]" });
 
@@ -46,7 +47,10 @@ export default authenticate(async function (req, res) {
       .json(
         (
           await invoiceninja.put<
-            paths[typeof path]["put"]["responses"][200]["content"]["application/json"]
+            PutInvoice,
+            AxiosResponse<
+              paths[typeof path]["put"]["responses"][200]["content"]["application/json"]
+            >
           >(path.replace("{id}", invoice_id), clientRequest)
         ).data
       );
