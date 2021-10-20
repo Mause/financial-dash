@@ -26,7 +26,7 @@ jobs:
         uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            npx @openapitools/openapi-generator-cli generate -i ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} -o src/${{ matrix.name }} -g typescript-axios --additional-properties=npmName=@mause/${{ matrix.name }}
+            npx @openapitools/openapi-generator-cli generate -i ${{ matrix.url }}?apikey=${{ secrets.SUPABASE_KEY }} -o packages/${{ matrix.name }} -g typescript-axios --additional-properties=npmName=@mause/${{ matrix.name }}
             npx prettier . --write
           COMMIT_MESSAGE: "chore: update ${{ matrix.name }} client"
           COMMIT_NAME: "GitHub Actions"
