@@ -117,6 +117,10 @@ export interface paths {
     /** Handles the uploading of a document to a company */
     put: operations["uploadCompanies"];
   };
+  "/api/v1/companies/{company}/default": {
+    /** Sets the company as the default company. */
+    post: operations["setDefaultCompany"];
+  };
   "/api/v1/company_gateways": {
     /**
      * Lists company_gateways, search and filters allow fine grained lists to be generated.
@@ -316,6 +320,10 @@ export interface paths {
   };
   "/api/v1/group_settings/bulk": {
     post: operations["bulkGroupSettings"];
+  };
+  "/api/v1/group_settings/{id}/upload": {
+    /** Handles the uploading of a document to a group setting */
+    put: operations["uploadGroupSetting"];
   };
   "/api/v1/preimport": {
     /** Pre Import checks - returns a reference to the job and the headers of the CSV */
@@ -614,6 +622,39 @@ export interface paths {
   "/api/v1/quotes/{id}/upload": {
     /** Handles the uploading of a document to a quote */
     put: operations["uploadQuote"];
+  };
+  "/api/v1/recurring_expenses": {
+    /**
+     * Lists recurring_expenses, search and filters allow fine grained lists to be generated.
+     *
+     *     Query parameters can be added to performed more fine grained filtering of the recurring_expenses, these are handled by the RecurringExpenseFilters class which defines the methods available
+     */
+    get: operations["getRecurringExpenses"];
+    /** Adds an client to a company */
+    post: operations["storeRecurringExpense"];
+  };
+  "/api/v1/recurring_expenses/{id}": {
+    /** Displays a client by id */
+    get: operations["showRecurringExpense"];
+    /** Handles the updating of a client by id */
+    put: operations["updateRecurringExpense"];
+    /** Handles the deletion of a client by id */
+    delete: operations["deleteRecurringExpense"];
+  };
+  "/api/v1/recurring_expenses/{id}/edit": {
+    /** Displays a client by id */
+    get: operations["editRecurringExpense"];
+  };
+  "/api/v1/recurring_expenses/create": {
+    /** Returns a blank object with default values */
+    get: operations["getRecurringExpensesCreate"];
+  };
+  "/api/v1/recurring_expenses/bulk": {
+    post: operations["bulkRecurringExpenses"];
+  };
+  "/api/v1/recurring_expenses/{id}/upload": {
+    /** Handles the uploading of a document to a recurring_expense */
+    put: operations["uploadRecurringExpense"];
   };
   "/api/v1/recurring_invoices": {
     /**
@@ -1907,6 +1948,68 @@ export interface components {
       /** ______ */
       adjust_fee_percent?: boolean;
     };
+    FillableInvoice: {
+      /** __________ */
+      assigned_user_id?: string;
+      /** ________ */
+      client_id?: string;
+      /** The invoice number - is a unique alpha numeric number per invoice per company */
+      number?: string;
+      /** ________ */
+      po_number?: string;
+      /** ________ */
+      terms?: string;
+      /** ________ */
+      public_notes?: string;
+      /** ________ */
+      private_notes?: string;
+      /** ________ */
+      footer?: string;
+      /** ________ */
+      custom_value1?: string;
+      /** ________ */
+      custom_value2?: string;
+      /** ________ */
+      custom_value3?: string;
+      /** ________ */
+      custom_value4?: string;
+      /** ________ */
+      tax_name1?: string;
+      /** ________ */
+      tax_name2?: string;
+      /** _________ */
+      tax_rate1?: number;
+      /** _________ */
+      tax_rate2?: number;
+      /** ________ */
+      tax_name3?: string;
+      /** _________ */
+      tax_rate3?: number;
+      /** _________ */
+      line_items?: { [key: string]: unknown };
+      /** _________ */
+      discount?: number;
+      /** _________ */
+      partial?: number;
+      /** _________ */
+      is_amount_discount?: boolean;
+      /** Defines the type of taxes used as either inclusive or exclusive */
+      uses_inclusive_taxes?: boolean;
+      /** The Invoice Date */
+      date?: string;
+      /** _________ */
+      partial_due_date?: string;
+      /** _________ */
+      due_date?: string;
+      /** First Custom Surcharge */
+      custom_surcharge1?: number;
+      /** Second Custom Surcharge */
+      custom_surcharge2?: number;
+      /** Third Custom Surcharge */
+      custom_surcharge3?: number;
+      /** Fourth Custom Surcharge */
+      custom_surcharge4?: number;
+    };
     GroupSetting: {
       /** _________ */
       id?: string;
@@ -2199,6 +2302,87 @@ export interface components {
       custom_surcharge_tax3?: boolean;
       /** Toggles charging taxes on custom surcharge amounts */
       custom_surcharge_tax4?: boolean;
+    };
+    RecurringExpense: {
+      /** _________ */
+      id?: string;
+      /** __________ */
+      user_id?: string;
+      /** __________ */
+      assigned_user_id?: string;
+      /** ________ */
+      company_id?: string;
+      /** ________ */
+      client_id?: string;
+      /** ________ */
+      invoice_id?: string;
+      /** ________ */
+      bank_id?: string;
+      /** ________ */
+      invoice_currency_id?: string;
+      /** ________ */
+      expense_currency_id?: string;
+      /** ________ */
+      invoice_category_id?: string;
+      /** ________ */
+      payment_type_id?: string;
+      /** ________ */
+      recurring_expense_id?: string;
+      /** ________ */
+      private_notes?: string;
+      /** ________ */
+      public_notes?: string;
+      /** ________ */
+      transaction_reference?: string;
+      /** ________ */
+      transcation_id?: string;
+      /** ________ */
+      custom_value1?: string;
+      /** ________ */
+      custom_value2?: string;
+      /** ________ */
+      custom_value3?: string;
+      /** ________ */
+      custom_value4?: string;
+      /** ________ */
+      tax_name1?: string;
+      /** ________ */
+      tax_name2?: string;
+      /** _________ */
+      tax_rate1?: number;
+      /** _________ */
+      tax_rate2?: number;
+      /** ________ */
+      tax_name3?: string;
+      /** _________ */
+      tax_rate3?: number;
+      /** _________ */
+      amount?: number;
+      /** _________ */
+      frequency_id?: number;
+      /** _________ */
+      remaining_cycles?: number;
+      /** _________ */
+      foreign_amount?: number;
+      /** _________ */
+      exchange_rate?: number;
+      /** ________ */
+      date?: string;
+      /** ________ */
+      payment_date?: string;
+      /** _________ */
+      should_be_invoiced?: boolean;
+      /** _________ */
+      is_deleted?: boolean;
+      /** The Date it was sent last */
+      last_sent_date?: string;
+      /** The next send date */
+      next_send_date?: string;
+      invoice_documents?: boolean;
+      /** Timestamp */
+      updated_at?: number;
+      /** Timestamp */
+      archived_at?: number;
     };
     RecurringInvoice: {
       /** ______ */
@@ -3699,6 +3883,48 @@ export interface operations {
     };
     responses: {
       /** Returns the client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["Company"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Sets the company as the default company. */
+  setDefaultCompany: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The Company Hashed ID */
+        company: string;
+      };
+    };
+    responses: {
+      /** Returns the company object */
       200: {
         headers: {};
         content: {
@@ -5899,6 +6125,48 @@ export interface operations {
       };
     };
   };
+  /** Handles the uploading of a document to a group setting */
+  uploadGroupSetting: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The Group Setting Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the Group Setting object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["Invoice"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
   /** Pre Import checks - returns a reference to the job and the headers of the CSV */
   preimport: {
     parameters: {
@@ -6042,6 +6310,11 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["FillableInvoice"];
       };
     };
   };
@@ -8687,6 +8960,374 @@ export interface operations {
         headers: {};
         content: {
           "application/json": components["schemas"]["Quote"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /**
+   * Lists recurring_expenses, search and filters allow fine grained lists to be generated.
+   *
+   *     Query parameters can be added to performed more fine grained filtering of the recurring_expenses, these are handled by the RecurringExpenseFilters class which defines the methods available
+   */
+  getRecurringExpenses: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+        /** Replaces the default response index from data to a user specific string */
+        index?: components["parameters"]["index"];
+      };
+    };
+    responses: {
+      /** A list of recurring_expenses */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Adds an client to a company */
+  storeRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+    };
+    responses: {
+      /** Returns the saved client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Displays a client by id */
+  showRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the recurring_expense object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Handles the updating of a client by id */
+  updateRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Handles the deletion of a client by id */
+  deleteRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns a HTTP status */
+      200: unknown;
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Displays a client by id */
+  editRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Returns a blank object with default values */
+  getRecurringExpensesCreate: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+    };
+    responses: {
+      /** A blank client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  bulkRecurringExpenses: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Replaces the default response index from data to a user specific string */
+        index?: components["parameters"]["index"];
+      };
+    };
+    responses: {
+      /** The RecurringExpense User response */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    /** User credentials */
+    requestBody: {
+      content: {
+        "application/json": number[];
+      };
+    };
+  };
+  /** Handles the uploading of a document to a recurring_expense */
+  uploadRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the RecurringExpense object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
         };
       };
       /** Validation error */
