@@ -1577,6 +1577,11 @@
   dependencies:
     js "^0.1.0"
 
+"@mause/financial-dash@./packages/financial-dash":
+  version "0.0.1"
+  dependencies:
+    axios "^0.21.1"
+
 "@mechanicalhuman/bunyan-pretty@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@mechanicalhuman/bunyan-pretty/-/bunyan-pretty-3.0.1.tgz#8d52533ef7f45b7d25907a8926385e620447fba3"

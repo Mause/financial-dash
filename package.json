@@ -7,6 +7,7 @@
     "@logtail/browser": "^0.1.10",
     "@logtail/bunyan": "^0.1.10",
     "@logtail/node": "^0.1.0",
+    "@mause/financial-dash": "./packages/financial-dash",
     "@mechanicalhuman/bunyan-pretty": "^3.0.1",
     "@sentry/node": "^6.12.0",
     "@sentry/react": "^6.13.2",
