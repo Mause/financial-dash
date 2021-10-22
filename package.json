@@ -41,8 +41,8 @@
     "web-vitals": "^2.1.0"
   },
   "workspaces": [
-    ".",
-    "./packages/financial-dash"
+    "./packages/financial-dash",
+    "."
   ],
   "scripts": {
     "start": "react-scripts start",
