@@ -3,7 +3,7 @@ import * as RD from "@devexperts/remote-data-ts";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { SetB, Bill, Payment, Payer } from "../App";
-import { InvoiceApi } from "../financial-dash";
+import { InvoiceApi } from "@mause/financial-dash";
 import AxiosStatic from "axios";
 import useApi from "../use_api";
 

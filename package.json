@@ -40,6 +40,10 @@
     "vercel-jwt-auth": "^1.1.9",
     "web-vitals": "^2.1.0"
   },
+  "workspaces": [
+    "./packages/financial-dash",
+    "."
+  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && yarn generateOpenapi",

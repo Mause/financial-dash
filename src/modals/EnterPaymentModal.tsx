@@ -6,7 +6,7 @@ import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { SetB, Payment, PaymentWithPayer } from "../App";
 import { components } from "../types/up";
-import { PaymentApi } from "../financial-dash";
+import { PaymentApi } from "@mause/financial-dash";
 import useApi from "../use_api";
 import _ from "lodash";
 import log from "../log";

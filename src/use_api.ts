@@ -1,6 +1,6 @@
 import * as O from "fp-ts/Option";
 import { useToken } from "./auth";
-import { Configuration } from "./financial-dash";
+import { Configuration } from "@mause/financial-dash";
 import { useMemo } from "react";
 
 export default function useApi<T>(clazz: { new (c: Configuration): T }): T {
