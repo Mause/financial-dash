@@ -13,7 +13,11 @@
  */
 
 import { Configuration } from "./configuration";
-import globalAxios, { AxiosPromise, AxiosInstance } from "axios";
+import globalAxios, {
+  AxiosPromise,
+  AxiosInstance,
+  AxiosRequestConfig,
+} from "axios";
 // Some imports not used depending on template conditions
 // @ts-ignore
 import {
@@ -193,7 +197,9 @@ export const DefaultApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getClassTest: async (options: any = {}): Promise<RequestArgs> => {
+    getClassTest: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
       const localVarPath = `/api/class_test`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -214,7 +220,7 @@ export const DefaultApiAxiosParamCreator = function (
       // http bearer authentication required
       await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -244,7 +250,7 @@ export const DefaultApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async getClassTest(
-      options?: any
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<DummyResponse>
     > {
@@ -298,7 +304,7 @@ export class DefaultApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public getClassTest(options?: any) {
+  public getClassTest(options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .getClassTest(options)
       .then((request) => request(this.axios, this.basePath));
@@ -321,7 +327,7 @@ export const InvoiceApiAxiosParamCreator = function (
      */
     getInvoiceInvoice: async (
       invoice: string,
-      options: any = {}
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'invoice' is not null or undefined
       assertParamExists("getInvoiceInvoice", "invoice", invoice);
@@ -348,7 +354,7 @@ export const InvoiceApiAxiosParamCreator = function (
       // http bearer authentication required
       await setBearerAuthToObject(localVarHeaderParameter, configuration);
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -370,7 +376,7 @@ export const InvoiceApiAxiosParamCreator = function (
      */
     postInvoice: async (
       postInvoice: PostInvoice,
-      options: any = {}
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'postInvoice' is not null or undefined
       assertParamExists("postInvoice", "postInvoice", postInvoice);
@@ -396,7 +402,7 @@ export const InvoiceApiAxiosParamCreator = function (
 
       localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -425,7 +431,7 @@ export const InvoiceApiAxiosParamCreator = function (
     putInvoiceInvoice: async (
       invoice: string,
       putInvoice: PutInvoice,
-      options: any = {}
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'invoice' is not null or undefined
       assertParamExists("putInvoiceInvoice", "invoice", invoice);
@@ -456,7 +462,7 @@ export const InvoiceApiAxiosParamCreator = function (
 
       localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -493,7 +499,7 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
      */
     async getInvoiceInvoice(
       invoice: string,
-      options?: any
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutInvoice>
     > {
@@ -514,7 +520,7 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
      */
     async postInvoice(
       postInvoice: PostInvoice,
-      options?: any
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
@@ -542,7 +548,7 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
     async putInvoiceInvoice(
       invoice: string,
       putInvoice: PutInvoice,
-      options?: any
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutInvoice>
     > {
@@ -634,7 +640,7 @@ export class InvoiceApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof InvoiceApi
    */
-  public getInvoiceInvoice(invoice: string, options?: any) {
+  public getInvoiceInvoice(invoice: string, options?: AxiosRequestConfig) {
     return InvoiceApiFp(this.configuration)
       .getInvoiceInvoice(invoice, options)
       .then((request) => request(this.axios, this.basePath));
@@ -647,7 +653,7 @@ export class InvoiceApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof InvoiceApi
    */
-  public postInvoice(postInvoice: PostInvoice, options?: any) {
+  public postInvoice(postInvoice: PostInvoice, options?: AxiosRequestConfig) {
     return InvoiceApiFp(this.configuration)
       .postInvoice(postInvoice, options)
       .then((request) => request(this.axios, this.basePath));
@@ -664,7 +670,7 @@ export class InvoiceApi extends BaseAPI {
   public putInvoiceInvoice(
     invoice: string,
     putInvoice: PutInvoice,
-    options?: any
+    options?: AxiosRequestConfig
   ) {
     return InvoiceApiFp(this.configuration)
       .putInvoiceInvoice(invoice, putInvoice, options)
@@ -688,7 +694,7 @@ export const PaymentApiAxiosParamCreator = function (
      */
     postPayment: async (
       postPayment: PostPayment,
-      options: any = {}
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'postPayment' is not null or undefined
       assertParamExists("postPayment", "postPayment", postPayment);
@@ -714,7 +720,7 @@ export const PaymentApiAxiosParamCreator = function (
 
       localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -751,7 +757,7 @@ export const PaymentApiFp = function (configuration?: Configuration) {
      */
     async postPayment(
       postPayment: PostPayment,
-      options?: any
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
@@ -814,7 +820,7 @@ export class PaymentApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof PaymentApi
    */
-  public postPayment(postPayment: PostPayment, options?: any) {
+  public postPayment(postPayment: PostPayment, options?: AxiosRequestConfig) {
     return PaymentApiFp(this.configuration)
       .postPayment(postPayment, options)
       .then((request) => request(this.axios, this.basePath));
