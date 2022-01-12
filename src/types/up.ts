@@ -16,17 +16,18 @@ export interface components {
       description: string;
       message: string;
       createdAt: string | string;
-      amount: components["schemas"]["Amount"];
+      amount: unknown;
     };
     UpTransaction: {
       id: string;
       attributes: components["schemas"]["UpAttributes"];
     };
     UpLinks: {
+      /** Format: url */
       next?: string;
     };
     UpTransactionResponse: {
-      items: components["schemas"]["UpTransaction"][];
+      items: components["schemas"]["Array"][];
       links: components["schemas"]["UpLinks"];
     };
     Amount: {
