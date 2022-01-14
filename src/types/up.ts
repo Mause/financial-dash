@@ -16,7 +16,7 @@ export interface components {
       description: string;
       message: string;
       createdAt: string | string;
-      amount: unknown;
+      amount: components["schemas"]["Amount"];
     };
     UpTransaction: {
       id: string;
@@ -27,7 +27,7 @@ export interface components {
       next?: string;
     };
     UpTransactionResponse: {
-      items: components["schemas"]["Array"][];
+      items: components["schemas"]["UpTransaction"][];
       links: components["schemas"]["UpLinks"];
     };
     Amount: {
