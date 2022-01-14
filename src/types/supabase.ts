@@ -398,100 +398,145 @@ export interface paths {
 export interface definitions {
   Bill: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
+    /**
+     * Format: date
+     * @default now()
+     */
     billDate: string;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `Vendor.id`.<fk table='Vendor' column='id'/>
      */
     vendor: number;
+    /** Format: bigint */
     amount: number;
   };
   Payer: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
+    /** Format: text */
     name: string;
+    /** Format: text */
     invoice_ninja_id: string;
   };
   Payment: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `Bill.id`.<fk table='Bill' column='id'/>
      */
     paidFor: number;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `Payer.id`.<fk table='Payer' column='id'/>
      */
     paidBy: number;
+    /** Format: bigint */
     amount: number;
+    /** Format: uuid */
     bankId?: string;
+    /** Format: text */
     invoice_ninja_id: string;
   };
   Vendor: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
+    /** Format: text */
     name: string;
   };
 }
 
 export interface parameters {
-  /** Preference */
+  /**
+   * @description Preference
+   * @enum {string}
+   */
   preferParams: "params=single-object";
-  /** Preference */
+  /**
+   * @description Preference
+   * @enum {string}
+   */
   preferReturn: "return=representation" | "return=minimal" | "return=none";
-  /** Preference */
+  /**
+   * @description Preference
+   * @enum {string}
+   */
   preferCount: "count=none";
-  /** Filtering Columns */
+  /** @description Filtering Columns */
   select: string;
-  /** On Conflict */
+  /** @description On Conflict */
   on_conflict: string;
-  /** Ordering */
+  /** @description Ordering */
   order: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   range: string;
-  /** Limiting and Pagination */
+  /**
+   * @description Limiting and Pagination
+   * @default items
+   */
   rangeUnit: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   offset: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   limit: string;
-  /** Bill */
+  /** @description Bill */
   "body.Bill": definitions["Bill"];
+  /** Format: bigint */
   "rowFilter.Bill.id": string;
+  /** Format: date */
   "rowFilter.Bill.billDate": string;
+  /** Format: bigint */
   "rowFilter.Bill.vendor": string;
+  /** Format: bigint */
   "rowFilter.Bill.amount": string;
-  /** Payer */
+  /** @description Payer */
   "body.Payer": definitions["Payer"];
+  /** Format: bigint */
   "rowFilter.Payer.id": string;
+  /** Format: text */
   "rowFilter.Payer.name": string;
+  /** Format: text */
   "rowFilter.Payer.invoice_ninja_id": string;
-  /** Payment */
+  /** @description Payment */
   "body.Payment": definitions["Payment"];
+  /** Format: bigint */
   "rowFilter.Payment.id": string;
+  /** Format: bigint */
   "rowFilter.Payment.paidFor": string;
+  /** Format: bigint */
   "rowFilter.Payment.paidBy": string;
+  /** Format: bigint */
   "rowFilter.Payment.amount": string;
+  /** Format: uuid */
   "rowFilter.Payment.bankId": string;
+  /** Format: text */
   "rowFilter.Payment.invoice_ninja_id": string;
-  /** Vendor */
+  /** @description Vendor */
   "body.Vendor": definitions["Vendor"];
+  /** Format: bigint */
   "rowFilter.Vendor.id": string;
+  /** Format: text */
   "rowFilter.Vendor.name": string;
 }
 
