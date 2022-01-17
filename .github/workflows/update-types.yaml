@@ -14,7 +14,7 @@ jobs:
           - name: supabase
             url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
           - name: invoice-ninja
-            url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3.25
+            url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3.26
           - name: launtel
             url: https://launtel.vercel.app/openapi.yaml
           - name: up

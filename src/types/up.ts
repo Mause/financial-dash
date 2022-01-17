@@ -23,6 +23,7 @@ export interface components {
       attributes: components["schemas"]["UpAttributes"];
     };
     UpLinks: {
+      /** Format: url */
       next?: string;
     };
     UpTransactionResponse: {
