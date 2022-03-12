@@ -5641,6 +5641,11 @@ electron-to-chromium@^1.4.76:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.82.tgz#51e123ca434b1eba8c434ece2b54f095b304a651"
   integrity sha512-Ks+ANzLoIrFDUOJdjxYMH6CMKB8UQo5modAwvSZTxgF+vEs/U7G5IbWFUp6dS4klPkTDVdxbORuk8xAXXhMsWw==
 
+emitter-component@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/emitter-component/-/emitter-component-1.1.1.tgz#065e2dbed6959bf470679edabeaf7981d1003ab6"
+  integrity sha1-Bl4tvtaVm/RwZ57avq95gdEAOrY=
+
 emittery@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/emittery/-/emittery-0.8.1.tgz#bb23cc86d03b30aa75a7f734819dee2e1ba70860"
@@ -10926,6 +10931,13 @@ stackframe@^1.1.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
+
+stream@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/stream/-/stream-0.0.2.tgz#7f5363f057f6592c5595f00bc80a27f5cec1f0ef"
+  integrity sha1-f1Nj8Ff2WSxVlfALyAon9c7B8O8=
+  dependencies:
+    emitter-component "^1.1.1"
 
 string-length@^4.0.1, string-length@^4.0.2:
   version "4.0.2"
