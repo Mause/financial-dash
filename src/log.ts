@@ -14,6 +14,7 @@ const streams: { stream: LogStream }[] = [
 export class LogtailStream {
   constructor(private _logtail: Logtail) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   write(log: any) {
     // Log should have string `msg` key, > 0 length
     if (typeof log.msg !== "string" || !log.msg.length) {
