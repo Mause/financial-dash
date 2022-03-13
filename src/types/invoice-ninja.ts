@@ -117,6 +117,10 @@ export interface paths {
     /** Handles the uploading of a document to a company */
     put: operations["uploadCompanies"];
   };
+  "/api/v1/companies/{company}/default": {
+    /** Sets the company as the default company. */
+    post: operations["setDefaultCompany"];
+  };
   "/api/v1/company_gateways": {
     /**
      * Lists company_gateways, search and filters allow fine grained lists to be generated.
@@ -316,6 +320,10 @@ export interface paths {
   };
   "/api/v1/group_settings/bulk": {
     post: operations["bulkGroupSettings"];
+  };
+  "/api/v1/group_settings/{id}/upload": {
+    /** Handles the uploading of a document to a group setting */
+    put: operations["uploadGroupSetting"];
   };
   "/api/v1/preimport": {
     /** Pre Import checks - returns a reference to the job and the headers of the CSV */
@@ -615,6 +623,39 @@ export interface paths {
     /** Handles the uploading of a document to a quote */
     put: operations["uploadQuote"];
   };
+  "/api/v1/recurring_expenses": {
+    /**
+     * Lists recurring_expenses, search and filters allow fine grained lists to be generated.
+     *
+     *     Query parameters can be added to performed more fine grained filtering of the recurring_expenses, these are handled by the RecurringExpenseFilters class which defines the methods available
+     */
+    get: operations["getRecurringExpenses"];
+    /** Adds an client to a company */
+    post: operations["storeRecurringExpense"];
+  };
+  "/api/v1/recurring_expenses/{id}": {
+    /** Displays a client by id */
+    get: operations["showRecurringExpense"];
+    /** Handles the updating of a client by id */
+    put: operations["updateRecurringExpense"];
+    /** Handles the deletion of a client by id */
+    delete: operations["deleteRecurringExpense"];
+  };
+  "/api/v1/recurring_expenses/{id}/edit": {
+    /** Displays a client by id */
+    get: operations["editRecurringExpense"];
+  };
+  "/api/v1/recurring_expenses/create": {
+    /** Returns a blank object with default values */
+    get: operations["getRecurringExpensesCreate"];
+  };
+  "/api/v1/recurring_expenses/bulk": {
+    post: operations["bulkRecurringExpenses"];
+  };
+  "/api/v1/recurring_expenses/{id}/upload": {
+    /** Handles the uploading of a document to a recurring_expense */
+    put: operations["uploadRecurringExpense"];
+  };
   "/api/v1/recurring_invoices": {
     /**
      * Lists recurring_invoices, search and filters allow fine grained lists to be generated.
@@ -718,6 +759,10 @@ export interface paths {
   "/api/v1/self-update": {
     /** Performs a system update */
     post: operations["selfUpdate"];
+  };
+  "/api/v1/statics": {
+    /** Lists all statics */
+    get: operations["getStatics"];
   };
   "/api/v1/subscriptions": {
     /** Lists subscriptions. */
@@ -990,637 +1035,1385 @@ export interface paths {
 export interface components {
   schemas: {
     Account: {
-      /** The account hashed id */
+      /**
+       * @description The account hashed id
+       * @example AS3df3A
+       */
       id?: string;
     };
     Activity: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       activity_type_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       client_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       company_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       user_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       invoice_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       payment_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       credit_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       updated_at?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       expense_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_system?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       contact_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       task_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       notes?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       ip?: string;
     };
     Subscription: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       user_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       product_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       company_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       recurring_invoice_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_recurring?: boolean;
-      /** integer const representation of the frequency */
+      /**
+       * @description integer const representation of the frequency
+       * @example 1
+       */
       frequency_id?: string;
-      /** enum setting */
+      /**
+       * @description enum setting
+       * @example always
+       */
       auto_bill?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example PROMOCODE4U
+       */
       promo_code?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 10
+       */
       promo_discount?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_amount_discount?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       allow_cancellation?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       per_seat_enabled?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 1
+       */
       currency_id?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 100
+       */
       max_seats_limit?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       trial_enabled?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       trial_duration?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       allow_query_overrides?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       allow_plan_changes?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       refund_period?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       webhook_configuration?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_deleted?: boolean;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       archived_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
     };
     BulkAction: number[];
     ClientContact: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       client_id?: string;
-      /** ________ */
+      /** @description ________ */
       first_name?: string;
-      /** ________ */
+      /** @description ________ */
       last_name?: string;
-      /** ________ */
+      /** @description ________ */
       phone?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** ________ */
+      /** @description ________ */
       email?: string;
-      /** ________ */
+      /** @description ________ */
       accepted_terms_version?: string;
-      /** ________ */
+      /** @description ________ */
       password?: string;
-      /** ________ */
+      /** @description ________ */
       "confirmation-code"?: string;
-      /** ________ */
+      /** @description ________ */
       token?: string;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       is_primary?: boolean;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       confirmed?: boolean;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       is_locked?: boolean;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       send_email?: boolean;
-      /** ________ */
+      /**
+       * Format: integer
+       * @description ________
+       * @example 3
+       */
       failed_logins?: number;
-      /** ________ */
+      /**
+       * Format: integer
+       * @description ________
+       * @example 134341234234
+       */
       email_verified_at?: number;
-      /** ________ */
+      /**
+       * Format: float
+       * @description ________
+       * @example 10.00
+       */
       paid_to_date?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       last_login?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       deleted_at?: number;
     };
     ClientGatewayToken: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       company_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       client_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       token?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       routing_number?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       company_gateway_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_default?: boolean;
     };
     Client: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
       contacts?: components["schemas"]["ClientContact"][];
-      /** ________ */
+      /** @description ________ */
       name?: string;
-      /** ________ */
+      /** @description ________ */
       website?: string;
-      /** ________ */
+      /** @description ________ */
       private_notes?: string;
-      /** ________ */
+      /** @description ________ */
       client_hash?: string;
-      /** ________ */
+      /** @description ________ */
       industry_id?: string;
-      /** ________ */
+      /** @description ________ */
       size_id?: string;
-      /** ________ */
+      /** @description ________ */
       address1?: string;
-      /** ________ */
+      /** @description ________ */
       address2?: string;
-      /** ________ */
+      /** @description ________ */
       city?: string;
-      /** ________ */
+      /** @description ________ */
       state?: string;
-      /** ________ */
+      /** @description ________ */
       postal_code?: string;
-      /** The client phone number */
+      /**
+       * @description The client phone number
+       * @example 555-3434-3434
+       */
       phone?: string;
-      /** ________ */
+      /** @description ________ */
       country_id?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** ________ */
+      /** @description ________ */
       vat_number?: string;
-      /** ________ */
+      /** @description ________ */
       id_number?: string;
-      /** ________ */
+      /** @description ________ */
       number?: string;
-      /** ________ */
+      /** @description ________ */
       shipping_address1?: string;
-      /** ________ */
+      /** @description ________ */
       shipping_address2?: string;
-      /** ________ */
+      /** @description ________ */
       shipping_city?: string;
-      /** ________ */
+      /** @description ________ */
       shipping_state?: string;
-      /** ________ */
+      /** @description ________ */
       shipping_postal_code?: string;
-      /** ________ */
+      /** @description ________ */
       shipping_country_id?: string;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       is_deleted?: boolean;
-      /** ________ */
+      /**
+       * Format: float
+       * @description ________
+       * @example 10.00
+       */
       balance?: number;
-      /** ________ */
+      /**
+       * Format: float
+       * @description ________
+       * @example 10.00
+       */
       paid_to_date?: number;
-      /** An amount which is available to the client for future use. */
+      /**
+       * Format: float
+       * @description An amount which is available to the client for future use.
+       * @example 10.00
+       */
       credit_balance?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       last_login?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
       settings?: components["schemas"]["CompanySettings"];
     };
     CompanyGateway: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       company_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       gateway_key?: string;
-      /** Bitmask representation of cards */
+      /**
+       * @description Bitmask representation of cards
+       * @example 32
+       */
       accepted_credit_cards?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       require_billing_address?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       require_shipping_address?: boolean;
-      /** The configuration map for the gateway */
+      /**
+       * @description The configuration map for the gateway
+       * @example dfadsfdsafsafd
+       */
       config?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       update_details?: boolean;
-      /** A mapped collection of the fees and limits for the configured gateway */
+      /** @description A mapped collection of the fees and limits for the configured gateway */
       fees_and_limits?: components["schemas"]["FeesAndLimits"][];
     };
     CompanyLedger: {
-      /** This field will reference one of the following entity hashed ID payment_id, invoice_id or credit_id */
+      /**
+       * @description This field will reference one of the following entity hashed ID payment_id, invoice_id or credit_id
+       * @example AS3df3A
+       */
       entity_id?: string;
-      /** The notes which reference this entry of the ledger */
+      /**
+       * @description The notes which reference this entry of the ledger
+       * @example Credit note for invoice #3212
+       */
       notes?: string;
-      /** The client balance */
+      /**
+       * Format: float
+       * @description The client balance
+       * @example 10.00
+       */
       balance?: number;
-      /** The amount the client balance is adjusted by */
+      /**
+       * Format: float
+       * @description The amount the client balance is adjusted by
+       * @example 10.00
+       */
       adjustment?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       created_at?: number;
     };
     Company: {
-      /** The company hash id */
+      /**
+       * @description The company hash id
+       * @example WJxbojagwO
+       */
       id?: string;
-      /** The company size ID */
+      /**
+       * @description The company size ID
+       * @example 1
+       */
       size_id?: string;
-      /** The company industry ID */
+      /**
+       * @description The company industry ID
+       * @example 1
+       */
       industry_id?: string;
-      /** The slack webhook notification URL */
+      /**
+       * @description The slack webhook notification URL
+       * @example https://slack.com/sh328sj
+       */
       slack_webhook_url?: string;
-      /** The google analytics key */
+      /**
+       * @description The google analytics key
+       * @example 1
+       */
       google_analytics_key?: string;
-      /** Determines the client facing urls ie: subdomain,domain,iframe */
+      /**
+       * @description Determines the client facing urls ie: subdomain,domain,iframe
+       * @example subdomain
+       */
       portal_mode?: string;
-      /** Specifies the first part of the company domain ie acme in acme.domain.com */
+      /**
+       * @description Specifies the first part of the company domain ie acme in acme.domain.com
+       * @example aceme
+       */
       subdomain?: string;
-      /** The fully qualified domain for client facing URLS */
+      /**
+       * @description The fully qualified domain for client facing URLS
+       * @example https://subdomain.invoicing.co
+       */
       portal_domain?: string;
-      /** Number of taxes rates used per entity */
+      /**
+       * @description Number of taxes rates used per entity
+       * @example 1
+       */
       enabled_tax_rates?: number;
-      /** Toggles filling a product description based on product key */
+      /**
+       * @description Toggles filling a product description based on product key
+       * @example true
+       */
       fill_products?: boolean;
-      /** ___________ */
+      /**
+       * @description ___________
+       * @example true
+       */
       convert_products?: boolean;
-      /** Toggles updating a product description which description changes */
+      /**
+       * @description Toggles updating a product description which description changes
+       * @example true
+       */
       update_products?: boolean;
-      /** Toggles showing a product description which description changes */
+      /**
+       * @description Toggles showing a product description which description changes
+       * @example true
+       */
       show_product_details?: boolean;
-      /** Custom fields map */
+      /** @description Custom fields map */
       custom_fields?: { [key: string]: unknown };
-      /** ______________ */
+      /**
+       * @description ______________
+       * @example true
+       */
       enable_product_cost?: boolean;
-      /** ______________ */
+      /**
+       * @description ______________
+       * @example true
+       */
       enable_product_quantity?: boolean;
-      /** ______________ */
+      /**
+       * @description ______________
+       * @example true
+       */
       default_quantity?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_taxes1?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_taxes2?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_taxes3?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_taxes4?: boolean;
-      /** The company logo - binary */
+      /**
+       * @description The company logo - binary
+       * @example logo.png
+       */
       logo?: { [key: string]: unknown };
       settings?: components["schemas"]["CompanySettings"];
     };
     CompanySettings: {
-      /** The timezone id */
+      /**
+       * @description The timezone id
+       * @example 15
+       */
       timezone_id?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 15
+       */
       date_format_id?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       military_time?: boolean;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       language_id?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       show_currency_code?: boolean;
-      /** The default currency id */
+      /**
+       * @description The default currency id
+       * @example true
+       */
       currency_id?: string;
-      /** -1 sets no payment term, 0 sets payment due immediately, positive integers indicates payment terms in days */
+      /**
+       * @description -1 sets no payment term, 0 sets payment due immediately, positive integers indicates payment terms in days
+       * @example 1
+       */
       payment_terms?: number;
-      /** A commad separate list of available gateways */
+      /**
+       * @description A commad separate list of available gateways
+       * @example 1,2,3,4
+       */
       company_gateway_ids?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Custom Label
+       */
       custom_value1?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Custom Label
+       */
       custom_value2?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Custom Label
+       */
       custom_value3?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Custom Label
+       */
       custom_value4?: string;
-      /** ____________ */
+      /**
+       * Format: float
+       * @description ____________
+       * @example 10.00
+       */
       default_task_rate?: number;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       send_reminders?: boolean;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       enable_client_portal_tasks?: boolean;
-      /** options include plain,light,dark,custom */
+      /**
+       * @description options include plain,light,dark,custom
+       * @example light
+       */
       email_style?: string;
-      /** The reply to email address */
+      /**
+       * @description The reply to email address
+       * @example email@gmail.com
+       */
       reply_to_email?: string;
-      /** A comma separate list of BCC emails */
+      /**
+       * @description A comma separate list of BCC emails
+       * @example email@gmail.com, contact@gmail.com
+       */
       bcc_email?: string;
-      /** Toggles whether to attach PDF as attachment */
+      /**
+       * @description Toggles whether to attach PDF as attachment
+       * @example true
+       */
       pdf_email_attachment?: boolean;
-      /** Toggles whether to attach UBL as attachment */
+      /**
+       * @description Toggles whether to attach UBL as attachment
+       * @example true
+       */
       ubl_email_attachment?: boolean;
-      /** The custom template */
+      /**
+       * @description The custom template
+       * @example <HTML></HTML>
+       */
       email_style_custom?: string;
-      /** enum when the invoice number counter is set, ie when_saved, when_sent, when_paid */
+      /**
+       * @description enum when the invoice number counter is set, ie when_saved, when_sent, when_paid
+       * @example when_sent
+       */
       counter_number_applied?: string;
-      /** enum when the quote number counter is set, ie when_saved, when_sent */
+      /**
+       * @description enum when the quote number counter is set, ie when_saved, when_sent
+       * @example when_sent
+       */
       quote_number_applied?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Please pay invoices immediately
+       */
       custom_message_dashboard?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Please pay invoices immediately
+       */
       custom_message_unpaid_invoice?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Thanks for paying this invoice!
+       */
       custom_message_paid_invoice?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Please approve quote
+       */
       custom_message_unapproved_quote?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       lock_invoices?: boolean;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       auto_archive_invoice?: boolean;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       auto_archive_quote?: boolean;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       auto_convert_quote?: boolean;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example true
+       */
       inclusive_taxes?: boolean;
-      /** JSON payload of customized translations */
+      /** @description JSON payload of customized translations */
       translations?: { [key: string]: unknown };
-      /** Allows customisation of the task number pattern */
+      /**
+       * @description Allows customisation of the task number pattern
+       * @example {$year}-{$counter}
+       */
       task_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       task_number_counter?: number;
-      /** Time from UTC +0 when the email will be sent to the client */
+      /**
+       * @description Time from UTC +0 when the email will be sent to the client
+       * @example 32400
+       */
       reminder_send_time?: number;
-      /** Allows customisation of the expense number pattern */
+      /**
+       * @description Allows customisation of the expense number pattern
+       * @example {$year}-{$counter}
+       */
       expense_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       expense_number_counter?: number;
-      /** Allows customisation of the vendor number pattern */
+      /**
+       * @description Allows customisation of the vendor number pattern
+       * @example {$year}-{$counter}
+       */
       vendor_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       vendor_number_counter?: number;
-      /** Allows customisation of the ticket number pattern */
+      /**
+       * @description Allows customisation of the ticket number pattern
+       * @example {$year}-{$counter}
+       */
       ticket_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       ticket_number_counter?: number;
-      /** Allows customisation of the payment number pattern */
+      /**
+       * @description Allows customisation of the payment number pattern
+       * @example {$year}-{$counter}
+       */
       payment_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       payment_number_counter?: number;
-      /** Allows customisation of the invoice number pattern */
+      /**
+       * @description Allows customisation of the invoice number pattern
+       * @example {$year}-{$counter}
+       */
       invoice_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       invoice_number_counter?: number;
-      /** Allows customisation of the quote number pattern */
+      /**
+       * @description Allows customisation of the quote number pattern
+       * @example {$year}-{$counter}
+       */
       quote_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       quote_number_counter?: number;
-      /** Allows customisation of the client number pattern */
+      /**
+       * @description Allows customisation of the client number pattern
+       * @example {$year}-{$counter}
+       */
       client_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       client_number_counter?: number;
-      /** Allows customisation of the credit number pattern */
+      /**
+       * @description Allows customisation of the credit number pattern
+       * @example {$year}-{$counter}
+       */
       credit_number_pattern?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       credit_number_counter?: number;
-      /** This string is prepended to the recurring invoice number */
+      /**
+       * @description This string is prepended to the recurring invoice number
+       * @example R
+       */
       recurring_invoice_number_prefix?: string;
-      /** CONSTANT which is used to apply the frequency which the counters are reset */
+      /**
+       * @description CONSTANT which is used to apply the frequency which the counters are reset
+       * @example 1
+       */
       reset_counter_frequency_id?: number;
-      /** The explicit date which is used to reset counters */
+      /**
+       * @description The explicit date which is used to reset counters
+       * @example 2019-01-01
+       */
       reset_counter_date?: string;
-      /** Pads the counter with leading zeros */
+      /**
+       * @description Pads the counter with leading zeros
+       * @example 1
+       */
       counter_padding?: number;
-      /** Flags whether to share the counter for invoices and quotes */
+      /**
+       * @description Flags whether to share the counter for invoices and quotes
+       * @example true
+       */
       shared_invoice_quote_counter?: boolean;
-      /** Determines if client fields are updated from third party APIs */
+      /**
+       * @description Determines if client fields are updated from third party APIs
+       * @example true
+       */
       update_products?: boolean;
+      /** @example true */
       convert_products?: boolean;
-      /** Automatically fill products based on product_key */
+      /**
+       * @description Automatically fill products based on product_key
+       * @example true
+       */
       fill_products?: boolean;
-      /** The default invoice terms */
+      /**
+       * @description The default invoice terms
+       * @example Invoice Terms are...
+       */
       invoice_terms?: string;
-      /** The default quote terms */
+      /**
+       * @description The default quote terms
+       * @example Quote Terms are...
+       */
       quote_terms?: string;
-      /** Taxes can be applied to the invoice */
+      /**
+       * @description Taxes can be applied to the invoice
+       * @example 1
+       */
       invoice_taxes?: number;
-      /** The default design id (invoice, quote etc) */
+      /**
+       * @description The default design id (invoice, quote etc)
+       * @example 1
+       */
       invoice_design_id?: string;
-      /** The default design id (invoice, quote etc) */
+      /**
+       * @description The default design id (invoice, quote etc)
+       * @example 1
+       */
       quote_design_id?: string;
-      /** The default invoice footer */
+      /**
+       * @description The default invoice footer
+       * @example 1
+       */
       invoice_footer?: string;
-      /** JSON string of invoice labels */
+      /**
+       * @description JSON string of invoice labels
+       * @example 1
+       */
       invoice_labels?: string;
-      /** The tax rate (float) */
+      /**
+       * @description The tax rate (float)
+       * @example 10
+       */
       tax_rate1?: number;
-      /** The tax name */
+      /**
+       * @description The tax name
+       * @example GST
+       */
       tax_name1?: string;
-      /** The tax rate (float) */
+      /**
+       * @description The tax rate (float)
+       * @example 10
+       */
       tax_rate2?: number;
-      /** The tax name */
+      /**
+       * @description The tax name
+       * @example GST
+       */
       tax_name2?: string;
-      /** The tax rate (float) */
+      /**
+       * @description The tax rate (float)
+       * @example 10
+       */
       tax_rate3?: number;
-      /** The tax name */
+      /**
+       * @description The tax name
+       * @example GST
+       */
       tax_name3?: string;
-      /** The default payment type id */
+      /**
+       * @description The default payment type id
+       * @example 1
+       */
       payment_type_id?: string;
-      /** JSON string of custom fields */
+      /**
+       * @description JSON string of custom fields
+       * @example {}
+       */
       custom_fields?: string;
-      /** The default email footer */
+      /**
+       * @description The default email footer
+       * @example A default email footer
+       */
       email_footer?: string;
-      /** The email driver to use to send email, options include default, gmail */
+      /**
+       * @description The email driver to use to send email, options include default, gmail
+       * @example default
+       */
       email_sending_method?: string;
-      /** The hashed_id of the user account to send email from */
+      /**
+       * @description The hashed_id of the user account to send email from
+       * @example F76sd34D
+       */
       gmail_sending_user_id?: string;
+      /** @example Your Invoice Subject */
       email_subject_invoice?: string;
+      /** @example Your Quote Subject */
       email_subject_quote?: string;
+      /** @example Your Payment Subject */
       email_subject_payment?: string;
-      /** The full template for invoice emails */
+      /**
+       * @description The full template for invoice emails
+       * @example <HTML></HTML>
+       */
       email_template_invoice?: string;
-      /** The full template for quote emails */
+      /**
+       * @description The full template for quote emails
+       * @example <HTML></HTML>
+       */
       email_template_quote?: string;
-      /** The full template for payment emails */
+      /**
+       * @description The full template for payment emails
+       * @example <HTML></HTML>
+       */
       email_template_payment?: string;
-      /** Email subject for Reminder */
+      /**
+       * @description Email subject for Reminder
+       * @example <HTML></HTML>
+       */
       email_subject_reminder1?: string;
-      /** Email subject for Reminder */
+      /**
+       * @description Email subject for Reminder
+       * @example <HTML></HTML>
+       */
       email_subject_reminder2?: string;
-      /** Email subject for Reminder */
+      /**
+       * @description Email subject for Reminder
+       * @example <HTML></HTML>
+       */
       email_subject_reminder3?: string;
-      /** Email subject for endless reminders */
+      /**
+       * @description Email subject for endless reminders
+       * @example <HTML></HTML>
+       */
       email_subject_reminder_endless?: string;
-      /** The full template for Reminder 1 */
+      /**
+       * @description The full template for Reminder 1
+       * @example <HTML></HTML>
+       */
       email_template_reminder1?: string;
-      /** The full template for Reminder 2 */
+      /**
+       * @description The full template for Reminder 2
+       * @example <HTML></HTML>
+       */
       email_template_reminder2?: string;
-      /** The full template for Reminder 3 */
+      /**
+       * @description The full template for Reminder 3
+       * @example <HTML></HTML>
+       */
       email_template_reminder3?: string;
-      /** The full template for enless reminders */
+      /**
+       * @description The full template for enless reminders
+       * @example <HTML></HTML>
+       */
       email_template_reminder_endless?: string;
-      /** Toggles whether a password is required to log into the client portal */
+      /**
+       * @description Toggles whether a password is required to log into the client portal
+       * @example true
+       */
       enable_portal_password?: boolean;
-      /** Toggles whether the terms dialogue is shown to the client */
+      /**
+       * @description Toggles whether the terms dialogue is shown to the client
+       * @example true
+       */
       show_accept_invoice_terms?: boolean;
-      /** Toggles whether the terms dialogue is shown to the client */
+      /**
+       * @description Toggles whether the terms dialogue is shown to the client
+       * @example true
+       */
       show_accept_quote_terms?: boolean;
-      /** Toggles whether a invoice signature is required */
+      /**
+       * @description Toggles whether a invoice signature is required
+       * @example true
+       */
       require_invoice_signature?: boolean;
-      /** Toggles whether a quote signature is required */
+      /**
+       * @description Toggles whether a quote signature is required
+       * @example true
+       */
       require_quote_signature?: boolean;
-      /** The company name */
+      /**
+       * @description The company name
+       * @example Acme Co
+       */
       name?: string;
-      /** The company logo file */
+      /**
+       * @description The company logo file
+       * @example logo.png
+       */
       company_logo?: { [key: string]: unknown };
-      /** The company website URL */
+      /**
+       * @description The company website URL
+       * @example www.acme.com
+       */
       website?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Suite 888
+       */
       address1?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 5 Jimbo Way
+       */
       address2?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Sydney
+       */
       city?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Florisa
+       */
       state?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 90210
+       */
       postal_code?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 555-213-3948
+       */
       phone?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example joe@acme.co
+       */
       email?: string;
-      /** The country ID */
+      /**
+       * @description The country ID
+       * @example 1
+       */
       country_id?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 32 120 377 720
+       */
       vat_number?: string;
-      /** The default page size */
+      /**
+       * @description The default page size
+       * @example A4
+       */
       page_size?: string;
-      /** The font size */
+      /**
+       * @description The font size
+       * @example 9
+       */
       font_size?: number;
-      /** The primary font */
+      /**
+       * @description The primary font
+       * @example roboto
+       */
       primary_font?: string;
-      /** The secondary font */
+      /**
+       * @description The secondary font
+       * @example roboto
+       */
       secondary_font?: string;
-      /** ____________ */
+      /** @description ____________ */
       hide_paid_to_date?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       embed_documents?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       all_pages_header?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       all_pages_footer?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       document_email_attachment?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       enable_client_portal_password?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       enable_email_markup?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       enable_client_portal_dashboard?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       enable_client_portal?: boolean;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example template matter
+       */
       email_template_statement?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example subject matter
+       */
       email_subject_statement?: string;
-      /** ____________ */
+      /** @description ____________ */
       signature_on_pdf?: boolean;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example the quote footer
+       */
       quote_footer?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Custom Subject 1
+       */
       email_subject_custom1?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Custom Subject 2
+       */
       email_subject_custom2?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example Custom Subject 3
+       */
       email_subject_custom3?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example <HTML>
+       */
       email_template_custom1?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example <HTML>
+       */
       email_template_custom2?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example <HTML>
+       */
       email_template_custom3?: string;
-      /** ____________ */
+      /** @description ____________ */
       enable_reminder1?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       enable_reminder2?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       enable_reminder3?: boolean;
-      /** The Reminder interval */
+      /**
+       * @description The Reminder interval
+       * @example 9
+       */
       num_days_reminder1?: number;
-      /** The Reminder interval */
+      /**
+       * @description The Reminder interval
+       * @example 9
+       */
       num_days_reminder2?: number;
-      /** The Reminder interval */
+      /**
+       * @description The Reminder interval
+       * @example 9
+       */
       num_days_reminder3?: number;
-      /** (enum: after_invoice_date, before_due_date, after_due_date) */
+      /**
+       * @description (enum: after_invoice_date, before_due_date, after_due_date)
+       * @example after_invoice_date
+       */
       schedule_reminder1?: string;
-      /** (enum: after_invoice_date, before_due_date, after_due_date) */
+      /**
+       * @description (enum: after_invoice_date, before_due_date, after_due_date)
+       * @example after_invoice_date
+       */
       schedule_reminder2?: string;
-      /** (enum: after_invoice_date, before_due_date, after_due_date) */
+      /**
+       * @description (enum: after_invoice_date, before_due_date, after_due_date)
+       * @example after_invoice_date
+       */
       schedule_reminder3?: string;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 10
+       */
       late_fee_amount1?: number;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 20
+       */
       late_fee_amount2?: number;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 100
+       */
       late_fee_amount3?: number;
-      /** ____________ */
+      /**
+       * @description ____________
+       * @example 1
+       */
       endless_reminder_frequency_id?: string;
-      /** ____________ */
+      /** @description ____________ */
       client_online_payment_notification?: boolean;
-      /** ____________ */
+      /** @description ____________ */
       client_manual_payment_notification?: boolean;
     };
     CompanyToken: {
-      /** The token name */
+      /**
+       * @description The token name
+       * @example Token Name
+       */
       name?: string;
-      /** The token value */
+      /**
+       * @description The token value
+       * @example AS3df3jUUH765fhfd9KJuidj3JShjA
+       */
       token?: string;
-      /** Determines whether the token is created by the system rather than a user */
+      /**
+       * @description Determines whether the token is created by the system rather than a user
+       * @example true
+       */
       is_system?: boolean;
     };
     CompanyUser: {
-      /** The company user permissions */
+      /**
+       * @description The company user permissions
+       * @example [create_invoice]
+       */
       permissions?: string;
-      /** The company name */
+      /**
+       * @description The company name
+       * @example The local shop
+       */
       settings?: { [key: string]: unknown };
-      /** Determines whether the user owns this company */
+      /**
+       * @description Determines whether the user owns this company
+       * @example true
+       */
       is_owner?: boolean;
-      /** Determines whether the user is the admin of this company */
+      /**
+       * @description Determines whether the user is the admin of this company
+       * @example true
+       */
       is_admin?: boolean;
-      /** Determines whether the users access to this company has been locked */
+      /**
+       * @description Determines whether the users access to this company has been locked
+       * @example true
+       */
       is_locked?: boolean;
-      /** The last time the record was modified */
+      /**
+       * @description The last time the record was modified
+       * @example 1231232312321
+       */
       updated_at?: number;
-      /** Timestamp when the user was archived */
+      /**
+       * @description Timestamp when the user was archived
+       * @example 12312312321
+       */
       deleted_at?: number;
       account?: components["schemas"]["Account"];
       company?: components["schemas"]["Company"];
@@ -1628,834 +2421,1884 @@ export interface components {
       token?: components["schemas"]["CompanyToken"];
     };
     CreditPaymentable: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       credit_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       amount?: string;
     };
     Credit: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** __________ */
+      /** @description __________ */
       assigned_user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       client_id?: string;
-      /** ________ */
+      /** @description ________ */
       status_id?: string;
-      /** The linked invoice this credit is applied to */
+      /** @description The linked invoice this credit is applied to */
       invoice_id?: string;
-      /** The credit number - is a unique alpha numeric number per credit per company */
+      /**
+       * @description The credit number - is a unique alpha numeric number per credit per company
+       * @example QUOTE_101
+       */
       number?: string;
-      /** ________ */
+      /** @description ________ */
       po_number?: string;
-      /** ________ */
+      /** @description ________ */
       terms?: string;
-      /** ________ */
+      /** @description ________ */
       public_notes?: string;
-      /** ________ */
+      /** @description ________ */
       private_notes?: string;
-      /** ________ */
+      /** @description ________ */
       footer?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** ________ */
+      /** @description ________ */
       tax_name1?: string;
-      /** ________ */
+      /** @description ________ */
       tax_name2?: string;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate1?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate2?: number;
-      /** ________ */
+      /** @description ________ */
       tax_name3?: string;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate3?: number;
-      /** The total taxes for the credit */
+      /**
+       * Format: float
+       * @description The total taxes for the credit
+       * @example 10.00
+       */
       total_taxes?: number;
-      /** _________ */
+      /** @description _________ */
       line_items?: { [key: string]: unknown };
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       amount?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       balance?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       paid_to_date?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       discount?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       partial?: number;
-      /** _________ */
+      /**
+       * @description _________
+       * @example true
+       */
       is_amount_discount?: boolean;
-      /** _________ */
+      /**
+       * @description _________
+       * @example true
+       */
       is_deleted?: boolean;
-      /** Defines the type of taxes used as either inclusive or exclusive */
+      /**
+       * @description Defines the type of taxes used as either inclusive or exclusive
+       * @example true
+       */
       uses_inclusive_taxes?: boolean;
-      /** The Credit Date */
+      /**
+       * Format: date
+       * @description The Credit Date
+       * @example 1994-07-30
+       */
       date?: string;
-      /** The last date the credit was sent out */
+      /**
+       * Format: date
+       * @description The last date the credit was sent out
+       * @example 1994-07-30
+       */
       last_sent_date?: string;
-      /** The Next date for a reminder to be sent */
+      /**
+       * Format: date
+       * @description The Next date for a reminder to be sent
+       * @example 1994-07-30
+       */
       next_send_date?: string;
-      /** _________ */
+      /**
+       * Format: date
+       * @description _________
+       * @example 1994-07-30
+       */
       partial_due_date?: string;
-      /** _________ */
+      /**
+       * Format: date
+       * @description _________
+       * @example 1994-07-30
+       */
       due_date?: string;
       settings?: components["schemas"]["CompanySettings"];
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       last_viewed?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       archived_at?: number;
-      /** First Custom Surcharge */
+      /**
+       * Format: float
+       * @description First Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge1?: number;
-      /** Second Custom Surcharge */
+      /**
+       * Format: float
+       * @description Second Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge2?: number;
-      /** Third Custom Surcharge */
+      /**
+       * Format: float
+       * @description Third Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge3?: number;
-      /** Fourth Custom Surcharge */
+      /**
+       * Format: float
+       * @description Fourth Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge4?: number;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax1?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax2?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax3?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax4?: boolean;
     };
     Design: {
-      /** The design hashed id */
+      /**
+       * @description The design hashed id
+       * @example AS3df3A
+       */
       id?: string;
-      /** The design name */
+      /**
+       * @description The design name
+       * @example Beauty
+       */
       name?: string;
-      /** The design HTML */
+      /**
+       * @description The design HTML
+       * @example <html></html>
+       */
       design?: string;
-      /** Flag to determine if the design is a custom user design */
+      /**
+       * @description Flag to determine if the design is a custom user design
+       * @example true
+       */
       is_custom?: boolean;
-      /** Flag to determine if the design is available for use */
+      /**
+       * @description Flag to determine if the design is available for use
+       * @example true
+       */
       is_active?: boolean;
-      /** Flag to determine if the design is deleted */
+      /**
+       * @description Flag to determine if the design is deleted
+       * @example true
+       */
       is_deleted?: boolean;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       deleted_at?: number;
     };
     Document: {
-      /** The design hashed id */
+      /**
+       * @description The design hashed id
+       * @example AS3df3A
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** __________ */
+      /** @description __________ */
       assigned_user_id?: string;
-      /** __________ */
+      /** @description __________ */
       project_id?: string;
-      /** __________ */
+      /** @description __________ */
       vendor_id?: string;
-      /** The design name */
+      /**
+       * @description The design name
+       * @example Beauty
+       */
       name?: string;
-      /** The design name */
+      /**
+       * @description The design name
+       * @example Beauty
+       */
       url?: string;
-      /** The design name */
+      /**
+       * @description The design name
+       * @example Beauty
+       */
       preview?: string;
-      /** The design name */
+      /**
+       * @description The design name
+       * @example Beauty
+       */
       type?: string;
-      /** The design name */
+      /**
+       * @description The design name
+       * @example Beauty
+       */
       disk?: string;
-      /** The design name */
+      /**
+       * @description The design name
+       * @example Beauty
+       */
       hash?: string;
-      /** Flag to determine if the design is deleted */
+      /**
+       * @description Flag to determine if the design is deleted
+       * @example true
+       */
       is_deleted?: boolean;
-      /** Flag to determine if the document is a default doc */
+      /**
+       * @description Flag to determine if the document is a default doc
+       * @example true
+       */
       is_default?: boolean;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       deleted_at?: number;
     };
     Error: {
-      /** The company name */
+      /**
+       * @description The company name
+       * @example Unexpected error
+       */
       message?: string;
-      /** The HTTP error code */
+      /**
+       * @description The HTTP error code
+       * @example 500
+       */
       code?: number;
     };
     ExpenseCategory: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Accounting
+       */
       name?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example XS987sD
+       */
       user_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_deleted?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       updated_at?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       created_at?: string;
     };
     Expense: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** __________ */
+      /** @description __________ */
       assigned_user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       client_id?: string;
-      /** ________ */
+      /** @description ________ */
       invoice_id?: string;
-      /** ________ */
+      /** @description ________ */
       bank_id?: string;
-      /** ________ */
+      /** @description ________ */
       invoice_currency_id?: string;
-      /** ________ */
+      /** @description ________ */
       expense_currency_id?: string;
-      /** ________ */
+      /** @description ________ */
       invoice_category_id?: string;
-      /** ________ */
+      /** @description ________ */
       payment_type_id?: string;
-      /** ________ */
+      /** @description ________ */
       recurring_expense_id?: string;
-      /** ________ */
+      /** @description ________ */
       private_notes?: string;
-      /** ________ */
+      /** @description ________ */
       public_notes?: string;
-      /** ________ */
+      /** @description ________ */
       transaction_reference?: string;
-      /** ________ */
+      /** @description ________ */
       transcation_id?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** ________ */
+      /** @description ________ */
       tax_name1?: string;
-      /** ________ */
+      /** @description ________ */
       tax_name2?: string;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate1?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate2?: number;
-      /** ________ */
+      /** @description ________ */
       tax_name3?: string;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate3?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       amount?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       foreign_amount?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 0.80
+       */
       exchange_rate?: number;
-      /** ________ */
+      /** @description ________ */
       date?: string;
-      /** ________ */
+      /** @description ________ */
       payment_date?: string;
-      /** _________ */
+      /**
+       * @description _________
+       * @example true
+       */
       should_be_invoiced?: boolean;
-      /** _________ */
+      /**
+       * @description _________
+       * @example true
+       */
       is_deleted?: boolean;
+      /** @example true */
       invoice_documents?: boolean;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       archived_at?: number;
     };
     FeesAndLimits: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       min_limit?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       max_limit?: string;
-      /** ______ */
+      /**
+       * Format: float
+       * @description ______
+       * @example 2.0
+       */
       fee_amount?: number;
-      /** ______ */
+      /**
+       * Format: float
+       * @description ______
+       * @example 2.0
+       */
       fee_percent?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       fee_tax_name1?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       fee_tax_name2?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       fee_tax_name3?: string;
-      /** ______ */
+      /**
+       * Format: float
+       * @description ______
+       * @example 2.0
+       */
       fee_tax_rate1?: number;
-      /** ______ */
+      /**
+       * Format: float
+       * @description ______
+       * @example 2.0
+       */
       fee_tax_rate2?: number;
-      /** ______ */
+      /**
+       * Format: float
+       * @description ______
+       * @example 2.0
+       */
       fee_tax_rate3?: number;
-      /** ______ */
+      /**
+       * Format: float
+       * @description ______
+       * @example 2.0
+       */
       fee_cap?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       adjust_fee_percent?: boolean;
     };
+    FillableInvoice: {
+      /** @description __________ */
+      assigned_user_id?: string;
+      /** @description ________ */
+      client_id?: string;
+      /**
+       * @description The invoice number - is a unique alpha numeric number per invoice per company
+       * @example INV_101
+       */
+      number?: string;
+      /** @description ________ */
+      po_number?: string;
+      /** @description ________ */
+      terms?: string;
+      /** @description ________ */
+      public_notes?: string;
+      /** @description ________ */
+      private_notes?: string;
+      /** @description ________ */
+      footer?: string;
+      /** @description ________ */
+      custom_value1?: string;
+      /** @description ________ */
+      custom_value2?: string;
+      /** @description ________ */
+      custom_value3?: string;
+      /** @description ________ */
+      custom_value4?: string;
+      /** @description ________ */
+      tax_name1?: string;
+      /** @description ________ */
+      tax_name2?: string;
+      /**
+       * @description _________
+       * @example 10.00
+       */
+      tax_rate1?: number;
+      /**
+       * @description _________
+       * @example 10.00
+       */
+      tax_rate2?: number;
+      /** @description ________ */
+      tax_name3?: string;
+      /**
+       * @description _________
+       * @example 10.00
+       */
+      tax_rate3?: number;
+      /** @description _________ */
+      line_items?: { [key: string]: unknown };
+      /**
+       * @description _________
+       * @example 10.00
+       */
+      discount?: number;
+      /**
+       * @description _________
+       * @example 10.00
+       */
+      partial?: number;
+      /**
+       * @description _________
+       * @example 1
+       */
+      is_amount_discount?: boolean;
+      /**
+       * @description Defines the type of taxes used as either inclusive or exclusive
+       * @example 1
+       */
+      uses_inclusive_taxes?: boolean;
+      /**
+       * @description The Invoice Date
+       * @example 1994-07-30
+       */
+      date?: string;
+      /**
+       * @description _________
+       * @example 1994-07-30
+       */
+      partial_due_date?: string;
+      /**
+       * @description _________
+       * @example 1994-07-30
+       */
+      due_date?: string;
+      /**
+       * @description First Custom Surcharge
+       * @example 10.00
+       */
+      custom_surcharge1?: number;
+      /**
+       * @description Second Custom Surcharge
+       * @example 10.00
+       */
+      custom_surcharge2?: number;
+      /**
+       * @description Third Custom Surcharge
+       * @example 10.00
+       */
+      custom_surcharge3?: number;
+      /**
+       * @description Fourth Custom Surcharge
+       * @example 10.00
+       */
+      custom_surcharge4?: number;
+    };
     GroupSetting: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       name?: string;
-      /** ________ */
+      /** @description ________ */
       settings?: { [key: string]: unknown };
     };
     InvoicePaymentable: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       invoice_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       amount?: string;
     };
     Invoice: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** __________ */
+      /** @description __________ */
       assigned_user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       client_id?: string;
-      /** ________ */
+      /** @description ________ */
       status_id?: string;
-      /** The invoice number - is a unique alpha numeric number per invoice per company */
+      /**
+       * @description The invoice number - is a unique alpha numeric number per invoice per company
+       * @example INV_101
+       */
       number?: string;
-      /** ________ */
+      /** @description ________ */
       po_number?: string;
-      /** ________ */
+      /** @description ________ */
       terms?: string;
-      /** ________ */
+      /** @description ________ */
       public_notes?: string;
-      /** ________ */
+      /** @description ________ */
       private_notes?: string;
-      /** ________ */
+      /** @description ________ */
       footer?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** ________ */
+      /** @description ________ */
       tax_name1?: string;
-      /** ________ */
+      /** @description ________ */
       tax_name2?: string;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate1?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate2?: number;
-      /** ________ */
+      /** @description ________ */
       tax_name3?: string;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate3?: number;
-      /** The total taxes for the invoice */
+      /**
+       * Format: float
+       * @description The total taxes for the invoice
+       * @example 10.00
+       */
       total_taxes?: number;
-      /** _________ */
+      /** @description _________ */
       line_items?: { [key: string]: unknown };
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       amount?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       balance?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       paid_to_date?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       discount?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       partial?: number;
-      /** _________ */
+      /**
+       * @description _________
+       * @example true
+       */
       is_amount_discount?: boolean;
-      /** _________ */
+      /**
+       * @description _________
+       * @example true
+       */
       is_deleted?: boolean;
-      /** Defines the type of taxes used as either inclusive or exclusive */
+      /**
+       * @description Defines the type of taxes used as either inclusive or exclusive
+       * @example true
+       */
       uses_inclusive_taxes?: boolean;
-      /** The Invoice Date */
+      /**
+       * Format: date
+       * @description The Invoice Date
+       * @example 1994-07-30
+       */
       date?: string;
-      /** The last date the invoice was sent out */
+      /**
+       * Format: date
+       * @description The last date the invoice was sent out
+       * @example 1994-07-30
+       */
       last_sent_date?: string;
-      /** The Next date for a reminder to be sent */
+      /**
+       * Format: date
+       * @description The Next date for a reminder to be sent
+       * @example 1994-07-30
+       */
       next_send_date?: string;
-      /** _________ */
+      /**
+       * Format: date
+       * @description _________
+       * @example 1994-07-30
+       */
       partial_due_date?: string;
-      /** _________ */
+      /**
+       * Format: date
+       * @description _________
+       * @example 1994-07-30
+       */
       due_date?: string;
       settings?: components["schemas"]["CompanySettings"];
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       last_viewed?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       archived_at?: number;
-      /** First Custom Surcharge */
+      /**
+       * Format: float
+       * @description First Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge1?: number;
-      /** Second Custom Surcharge */
+      /**
+       * Format: float
+       * @description Second Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge2?: number;
-      /** Third Custom Surcharge */
+      /**
+       * Format: float
+       * @description Third Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge3?: number;
-      /** Fourth Custom Surcharge */
+      /**
+       * Format: float
+       * @description Fourth Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge4?: number;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax1?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax2?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax3?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax4?: boolean;
     };
     Payment: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       client_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       invitation_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       client_contact_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       user_id?: string;
-      /** The Payment Type ID */
+      /**
+       * @description The Payment Type ID
+       * @example 1
+       */
       type_id?: string;
-      /** The Payment date */
+      /**
+       * @description The Payment date
+       * @example 1-1-2014
+       */
       date?: string;
-      /** The transaction reference as defined by the payment gateway */
+      /**
+       * @description The transaction reference as defined by the payment gateway
+       * @example xcsSxcs124asd
+       */
       transaction_reference?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       assigned_user_id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example The payment was refunded due to error
+       */
       private_notes?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_manual?: boolean;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_deleted?: boolean;
-      /** The amount of this payment */
+      /**
+       * @description The amount of this payment
+       * @example 10
+       */
       amount?: number;
-      /** The refunded amount of this payment */
+      /**
+       * @description The refunded amount of this payment
+       * @example 10
+       */
       refunded?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       archived_at?: number;
-      /** The company gateway id */
+      /**
+       * @description The company gateway id
+       * @example 3
+       */
       company_gateway_id?: string;
       paymentables?: components["schemas"]["Paymentable"];
       invoices?: components["schemas"]["InvoicePaymentable"][];
       credits?: components["schemas"]["CreditPaymentable"][];
     };
     PaymentTerm: {
-      /** The payment term length in days */
+      /**
+       * @description The payment term length in days
+       * @example 1
+       */
       num_days?: number;
-      /** The payment term length in string format */
+      /**
+       * @description The payment term length in string format
+       * @example NET 1
+       */
       name?: string;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       archived_at?: number;
     };
     Paymentable: {
-      /** The paymentable hashed id */
+      /**
+       * @description The paymentable hashed id
+       * @example AS3df3A
+       */
       id?: string;
-      /** The invoice hashed id */
+      /**
+       * @description The invoice hashed id
+       * @example AS3df3A
+       */
       invoice_id?: string;
-      /** The credit hashed id */
+      /**
+       * @description The credit hashed id
+       * @example AS3df3A
+       */
       credit_id?: string;
-      /** ______ */
+      /**
+       * Format: float
+       * @description ______
+       * @example 10.00
+       */
       refunded?: number;
-      /** ______ */
+      /**
+       * Format: float
+       * @description ______
+       * @example 10.00
+       */
       amount?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       created_at?: number;
     };
     Product: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
     };
     Project: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example New Project
+       */
       name?: string;
     };
     Quote: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** __________ */
+      /** @description __________ */
       assigned_user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       client_id?: string;
-      /** ________ */
+      /** @description ________ */
       status_id?: string;
-      /** The quote number - is a unique alpha numeric number per quote per company */
+      /**
+       * @description The quote number - is a unique alpha numeric number per quote per company
+       * @example QUOTE_101
+       */
       number?: string;
-      /** ________ */
+      /** @description ________ */
       po_number?: string;
-      /** ________ */
+      /** @description ________ */
       terms?: string;
-      /** ________ */
+      /** @description ________ */
       public_notes?: string;
-      /** ________ */
+      /** @description ________ */
       private_notes?: string;
-      /** ________ */
+      /** @description ________ */
       footer?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** ________ */
+      /** @description ________ */
       tax_name1?: string;
-      /** ________ */
+      /** @description ________ */
       tax_name2?: string;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate1?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate2?: number;
-      /** ________ */
+      /** @description ________ */
       tax_name3?: string;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       tax_rate3?: number;
-      /** The total taxes for the quote */
+      /**
+       * Format: float
+       * @description The total taxes for the quote
+       * @example 10.00
+       */
       total_taxes?: number;
-      /** _________ */
+      /** @description _________ */
       line_items?: { [key: string]: unknown };
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       amount?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       balance?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       paid_to_date?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       discount?: number;
-      /** _________ */
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
       partial?: number;
-      /** _________ */
+      /**
+       * @description _________
+       * @example true
+       */
       is_amount_discount?: boolean;
-      /** _________ */
+      /**
+       * @description _________
+       * @example true
+       */
       is_deleted?: boolean;
-      /** Defines the type of taxes used as either inclusive or exclusive */
+      /**
+       * @description Defines the type of taxes used as either inclusive or exclusive
+       * @example true
+       */
       uses_inclusive_taxes?: boolean;
-      /** The Quote Date */
+      /**
+       * Format: date
+       * @description The Quote Date
+       * @example 1994-07-30
+       */
       date?: string;
-      /** The last date the quote was sent out */
+      /**
+       * Format: date
+       * @description The last date the quote was sent out
+       * @example 1994-07-30
+       */
       last_sent_date?: string;
-      /** The Next date for a reminder to be sent */
+      /**
+       * Format: date
+       * @description The Next date for a reminder to be sent
+       * @example 1994-07-30
+       */
       next_send_date?: string;
-      /** _________ */
+      /**
+       * Format: date
+       * @description _________
+       * @example 1994-07-30
+       */
       partial_due_date?: string;
-      /** _________ */
+      /**
+       * Format: date
+       * @description _________
+       * @example 1994-07-30
+       */
       due_date?: string;
       settings?: components["schemas"]["CompanySettings"];
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       last_viewed?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       archived_at?: number;
-      /** First Custom Surcharge */
+      /**
+       * Format: float
+       * @description First Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge1?: number;
-      /** Second Custom Surcharge */
+      /**
+       * Format: float
+       * @description Second Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge2?: number;
-      /** Third Custom Surcharge */
+      /**
+       * Format: float
+       * @description Third Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge3?: number;
-      /** Fourth Custom Surcharge */
+      /**
+       * Format: float
+       * @description Fourth Custom Surcharge
+       * @example 10.00
+       */
       custom_surcharge4?: number;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax1?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax2?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax3?: boolean;
-      /** Toggles charging taxes on custom surcharge amounts */
+      /**
+       * @description Toggles charging taxes on custom surcharge amounts
+       * @example true
+       */
       custom_surcharge_tax4?: boolean;
     };
+    RecurringExpense: {
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
+      id?: string;
+      /** @description __________ */
+      user_id?: string;
+      /** @description __________ */
+      assigned_user_id?: string;
+      /** @description ________ */
+      company_id?: string;
+      /** @description ________ */
+      client_id?: string;
+      /** @description ________ */
+      invoice_id?: string;
+      /** @description ________ */
+      bank_id?: string;
+      /** @description ________ */
+      invoice_currency_id?: string;
+      /** @description ________ */
+      expense_currency_id?: string;
+      /** @description ________ */
+      invoice_category_id?: string;
+      /** @description ________ */
+      payment_type_id?: string;
+      /** @description ________ */
+      recurring_expense_id?: string;
+      /** @description ________ */
+      private_notes?: string;
+      /** @description ________ */
+      public_notes?: string;
+      /** @description ________ */
+      transaction_reference?: string;
+      /** @description ________ */
+      transcation_id?: string;
+      /** @description ________ */
+      custom_value1?: string;
+      /** @description ________ */
+      custom_value2?: string;
+      /** @description ________ */
+      custom_value3?: string;
+      /** @description ________ */
+      custom_value4?: string;
+      /** @description ________ */
+      tax_name1?: string;
+      /** @description ________ */
+      tax_name2?: string;
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
+      tax_rate1?: number;
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
+      tax_rate2?: number;
+      /** @description ________ */
+      tax_name3?: string;
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
+      tax_rate3?: number;
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
+      amount?: number;
+      /**
+       * Format: int
+       * @description _________
+       * @example 1
+       */
+      frequency_id?: number;
+      /**
+       * Format: int
+       * @description _________
+       * @example 1
+       */
+      remaining_cycles?: number;
+      /**
+       * Format: float
+       * @description _________
+       * @example 10.00
+       */
+      foreign_amount?: number;
+      /**
+       * Format: float
+       * @description _________
+       * @example 0.80
+       */
+      exchange_rate?: number;
+      /** @description ________ */
+      date?: string;
+      /** @description ________ */
+      payment_date?: string;
+      /**
+       * @description _________
+       * @example true
+       */
+      should_be_invoiced?: boolean;
+      /**
+       * @description _________
+       * @example true
+       */
+      is_deleted?: boolean;
+      /**
+       * Format: date
+       * @description The Date it was sent last
+       * @example 1994-07-30
+       */
+      last_sent_date?: string;
+      /**
+       * Format: date
+       * @description The next send date
+       * @example 1994-07-30
+       */
+      next_send_date?: string;
+      /** @example true */
+      invoice_documents?: boolean;
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
+      updated_at?: number;
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
+      archived_at?: number;
+    };
     RecurringInvoice: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
     };
     RecurringQuote: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
     };
     SystemLog: {
-      /** The account hashed id */
+      /**
+       * @description The account hashed id
+       * @example AS3df3A
+       */
       id?: string;
-      /** The company hashed id */
+      /**
+       * @description The company hashed id
+       * @example AS3df3A
+       */
       company_id?: string;
-      /** The user_id hashed id */
+      /**
+       * @description The user_id hashed id
+       * @example AS3df3A
+       */
       user_id?: string;
-      /** The client_id hashed id */
+      /**
+       * @description The client_id hashed id
+       * @example AS3df3A
+       */
       client_id?: string;
-      /** The Log Type ID */
+      /**
+       * @description The Log Type ID
+       * @example 1
+       */
       event_id?: number;
-      /** The Category Type ID */
+      /**
+       * @description The Category Type ID
+       * @example 1
+       */
       category_id?: number;
-      /** The Type Type ID */
+      /**
+       * @description The Type Type ID
+       * @example 1
+       */
       type_id?: number;
-      /** The json object of the error */
+      /**
+       * @description The json object of the error
+       * @example {'key':'value'}
+       */
       log?: { [key: string]: unknown };
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       updated_at?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 2
+       */
       created_at?: string;
     };
     Task: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** __________ */
+      /** @description __________ */
       assigned_user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       client_id?: string;
-      /** ________ */
+      /** @description ________ */
       invoice_id?: string;
-      /** ________ */
+      /** @description ________ */
       project_id?: string;
-      /** ________ */
+      /** @description ________ */
       number?: string;
-      /** ________ */
+      /** @description ________ */
       time_log?: string;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       is_running?: boolean;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       is_deleted?: boolean;
-      /** ________ */
+      /** @description ________ */
       task_status_id?: string;
-      /** ________ */
+      /** @description ________ */
       description?: string;
-      /** ________ */
+      /** @description ________ */
       duration?: number;
-      /** ________ */
+      /** @description ________ */
       task_status_order?: number;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 1434342123
+       */
       archived_at?: number;
     };
     TaskStatus: {
-      /** The task status name */
+      /**
+       * @description The task status name
+       * @example Backlog
+       */
       name?: string;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_deleted?: boolean;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       archived_at?: number;
     };
     TaxRate: {
-      /** ______ */
+      /**
+       * @description ______
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example GST
+       */
       name?: string;
-      /** ______ */
+      /**
+       * @description ______
+       * @example 10
+       */
       rate?: number;
-      /** ______ */
+      /**
+       * @description ______
+       * @example true
+       */
       is_deleted?: boolean;
     };
     Template: {
-      /** The template HTML */
+      /**
+       * @description The template HTML
+       * @example <HTML></HTML>
+       */
       html?: string;
     };
     User: {
-      /** __________ */
+      /**
+       * @description __________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** ________ */
+      /**
+       * @description ________
+       * @example The users first name
+       */
       first_name?: string;
-      /** _________ */
+      /**
+       * @description _________
+       * @example The users last name
+       */
       last_name?: string;
-      /** _________ */
+      /** @description _________ */
       email?: string;
-      /** _________ */
+      /**
+       * @description _________
+       * @example 555-1233-23232
+       */
       phone?: string;
-      /** _________ */
+      /**
+       * @description _________
+       * @example A users text signature
+       */
       signature?: string;
-      /** _________ */
+      /**
+       * @description _________
+       * @example https://url.to.your/avatar.png
+       */
       avatar?: string;
-      /** _________ */
+      /**
+       * @description _________
+       * @example 1.0.1
+       */
       accepted_terms_version?: string;
-      /** _________ */
+      /**
+       * @description _________
+       * @example jkhasdf789as6f675sdf768sdfs
+       */
       oauth_user_id?: string;
-      /** _________ */
+      /**
+       * @description _________
+       * @example google
+       */
       oauth_provider_id?: string;
     };
     ValidationError: {
-      /** The error message */
+      /**
+       * @description The error message
+       * @example The given data was invalid.
+       */
       message?: string;
       errors?: {
         value?: string[];
       };
     };
     VendorContact: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       vendor_id?: string;
-      /** ________ */
+      /** @description ________ */
       first_name?: string;
-      /** ________ */
+      /** @description ________ */
       last_name?: string;
-      /** ________ */
+      /** @description ________ */
       phone?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** ________ */
+      /** @description ________ */
       email?: string;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       is_primary?: boolean;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       deleted_at?: number;
     };
     Vendor: {
-      /** _________ */
+      /**
+       * @description _________
+       * @example Opnel5aKBz
+       */
       id?: string;
-      /** __________ */
+      /** @description __________ */
       user_id?: string;
-      /** __________ */
+      /** @description __________ */
       assigned_user_id?: string;
-      /** ________ */
+      /** @description ________ */
       company_id?: string;
-      /** ________ */
+      /** @description ________ */
       client_id?: string;
       contacts?: components["schemas"]["VendorContact"][];
-      /** ________ */
+      /** @description ________ */
       name?: string;
-      /** ________ */
+      /** @description ________ */
       website?: string;
-      /** ________ */
+      /** @description ________ */
       private_notes?: string;
-      /** ________ */
+      /** @description ________ */
       industry_id?: string;
-      /** ________ */
+      /** @description ________ */
       size_id?: string;
-      /** ________ */
+      /** @description ________ */
       address1?: string;
-      /** ________ */
+      /** @description ________ */
       address2?: string;
-      /** ________ */
+      /** @description ________ */
       city?: string;
-      /** ________ */
+      /** @description ________ */
       state?: string;
-      /** ________ */
+      /** @description ________ */
       postal_code?: string;
-      /** The client phone number */
+      /**
+       * @description The client phone number
+       * @example 555-3434-3434
+       */
       work_phone?: string;
-      /** ________ */
+      /** @description ________ */
       country_id?: string;
-      /** ________ */
+      /**
+       * @description ________
+       * @example 4
+       */
       currency_id?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value1?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value2?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value3?: string;
-      /** ________ */
+      /** @description ________ */
       custom_value4?: string;
-      /** ________ */
+      /** @description ________ */
       vat_number?: string;
-      /** ________ */
+      /** @description ________ */
       id_number?: string;
-      /** ________ */
+      /** @description ________ */
       number?: string;
-      /** ________ */
+      /**
+       * @description ________
+       * @example true
+       */
       is_deleted?: boolean;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       last_login?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       created_at?: number;
-      /** Timestamp */
+      /**
+       * Format: integer
+       * @description Timestamp
+       * @example 134341234234
+       */
       updated_at?: number;
       settings?: components["schemas"]["CompanySettings"];
     };
     Webhook: {
-      /** The subscription hashed id */
+      /**
+       * @description The subscription hashed id
+       * @example AS3df3A
+       */
       id?: string;
-      /** The subscription event id */
+      /**
+       * @description The subscription event id
+       * @example AS3df3A
+       */
       event_id?: string;
-      /** The api endpoint */
+      /**
+       * @description The api endpoint
+       * @example AS3df3A
+       */
       target_url?: string;
-      /** JSON or UBL */
+      /**
+       * @description JSON or UBL
+       * @example JSON
+       */
       format?: string;
     };
   };
   parameters: {
-    /** The API secret as defined by the .env variable API_SECRET */
+    /** @description The API secret as defined by the .env variable API_SECRET */
     "X-Api-Secret": string;
-    /** Used to send the XMLHttpRequest header */
+    /** @description Used to send the XMLHttpRequest header */
     "X-Requested-With": string;
-    /** The API token to be used for authentication */
+    /** @description The API token to be used for authentication */
     "X-Api-Token": string;
-    /** The login password when challenged */
+    /** @description The login password when challenged */
     "X-Api-Password": string;
-    /** Includes child relationships in the response, format is comma separated */
+    /** @description Includes child relationships in the response, format is comma separated */
     include: string;
-    /** Returns static variables */
+    /** @description Returns static variables */
     include_static: string;
-    /** Clears the static cache */
+    /** @description Clears the static cache */
     clear_cache: string;
-    /** Replaces the default response index from data to a user specific string */
+    /** @description Replaces the default response index from data to a user specific string */
     index: string;
-    /** The API version */
+    /** @description The API version */
     api_version: number;
   };
   headers: {
@@ -2508,17 +4351,20 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** The user email address */
+          /** @description The user email address */
           email?: string;
-          /** The signup users first name */
+          /** @description The signup users first name */
           first_name?: string;
-          /** The signup users last name */
+          /** @description The signup users last name */
           last_name?: string;
-          /** The user accepted the terms of service */
+          /** @description The user accepted the terms of service */
           terms_of_service?: boolean;
-          /** The user accepted the privacy policy */
+          /** @description The user accepted the privacy policy */
           privacy_policy?: boolean;
-          /** The user password must meet minimum criteria ~ >6 characters */
+          /**
+           * @description The user password must meet minimum criteria ~ >6 characters
+           * @example 1234567
+           */
           password?: string;
         };
       };
@@ -2640,9 +4486,12 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** The user email address */
+          /** @description The user email address */
           email?: string;
-          /** The user password must meet minimum criteria ~ >6 characters */
+          /**
+           * @description The user password must meet minimum criteria ~ >6 characters
+           * @example 1234567
+           */
           password?: string;
         };
       };
@@ -3382,15 +5231,15 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** The start date of the statement period - format Y-m-d */
+          /** @description The start date of the statement period - format Y-m-d */
           start_date?: string;
-          /** The start date of the statement period - format Y-m-d */
+          /** @description The start date of the statement period - format Y-m-d */
           end_date?: string;
-          /** The hashed ID of the client */
+          /** @description The hashed ID of the client */
           client_id?: string;
-          /** Flag which determines if the payments table is shown */
+          /** @description Flag which determines if the payments table is shown */
           show_payments_table?: boolean;
-          /** Flag which determines if the aging table is shown */
+          /** @description Flag which determines if the aging table is shown */
           show_aging_table?: boolean;
         };
       };
@@ -3699,6 +5548,48 @@ export interface operations {
     };
     responses: {
       /** Returns the client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["Company"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Sets the company as the default company. */
+  setDefaultCompany: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The Company Hashed ID */
+        company: string;
+      };
+    };
+    responses: {
+      /** Returns the company object */
       200: {
         headers: {};
         content: {
@@ -4917,15 +6808,15 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** The email subject */
+          /** @description The email subject */
           subject?: string;
-          /** The email body */
+          /** @description The email body */
           body?: string;
-          /** The entity name */
+          /** @description The entity name */
           entity?: string;
-          /** The entity_id */
+          /** @description The entity_id */
           entity_id?: string;
-          /** The template required */
+          /** @description The template required */
           template?: string;
         };
       };
@@ -5899,6 +7790,48 @@ export interface operations {
       };
     };
   };
+  /** Handles the uploading of a document to a group setting */
+  uploadGroupSetting: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The Group Setting Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the Group Setting object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["Invoice"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
   /** Pre Import checks - returns a reference to the job and the headers of the CSV */
   preimport: {
     parameters: {
@@ -6042,6 +7975,11 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["FillableInvoice"];
       };
     };
   };
@@ -8704,6 +10642,374 @@ export interface operations {
     };
   };
   /**
+   * Lists recurring_expenses, search and filters allow fine grained lists to be generated.
+   *
+   *     Query parameters can be added to performed more fine grained filtering of the recurring_expenses, these are handled by the RecurringExpenseFilters class which defines the methods available
+   */
+  getRecurringExpenses: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+        /** Replaces the default response index from data to a user specific string */
+        index?: components["parameters"]["index"];
+      };
+    };
+    responses: {
+      /** A list of recurring_expenses */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Adds an client to a company */
+  storeRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+    };
+    responses: {
+      /** Returns the saved client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Displays a client by id */
+  showRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the recurring_expense object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Handles the updating of a client by id */
+  updateRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Handles the deletion of a client by id */
+  deleteRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns a HTTP status */
+      200: unknown;
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Displays a client by id */
+  editRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Returns a blank object with default values */
+  getRecurringExpensesCreate: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+    };
+    responses: {
+      /** A blank client object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  bulkRecurringExpenses: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Replaces the default response index from data to a user specific string */
+        index?: components["parameters"]["index"];
+      };
+    };
+    responses: {
+      /** The RecurringExpense User response */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    /** User credentials */
+    requestBody: {
+      content: {
+        "application/json": number[];
+      };
+    };
+  };
+  /** Handles the uploading of a document to a recurring_expense */
+  uploadRecurringExpense: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+      path: {
+        /** The RecurringExpense Hashed ID */
+        id: string;
+      };
+    };
+    responses: {
+      /** Returns the RecurringExpense object */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["RecurringExpense"];
+        };
+      };
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /**
    * Lists recurring_invoices, search and filters allow fine grained lists to be generated.
    *
    *         Query parameters can be added to performed more fine grained filtering of the recurring_invoices, these are handled by the RecurringInvoiceFilters class which defines the methods available
@@ -9564,6 +11870,39 @@ export interface operations {
     };
     responses: {
       /** Success/failure response */
+      200: unknown;
+      /** Validation error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ValidationError"];
+        };
+      };
+      /** Unexpected Error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  /** Lists all statics */
+  getStatics: {
+    parameters: {
+      header: {
+        /** The API secret as defined by the .env variable API_SECRET */
+        "X-Api-Secret": components["parameters"]["X-Api-Secret"];
+        /** The API token to be used for authentication */
+        "X-Api-Token": components["parameters"]["X-Api-Token"];
+        /** Used to send the XMLHttpRequest header */
+        "X-Requested-With": components["parameters"]["X-Requested-With"];
+      };
+      query: {
+        /** Includes child relationships in the response, format is comma separated */
+        include?: components["parameters"]["include"];
+      };
+    };
+    responses: {
+      /** A list of static data */
       200: unknown;
       /** Validation error */
       422: {
@@ -11035,9 +13374,9 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** The email template subject */
+          /** @description The email template subject */
           subject?: string;
-          /** The email template body */
+          /** @description The email template body */
           body?: string;
         };
       };

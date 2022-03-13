@@ -6,7 +6,7 @@ import { Modal, Button, Form, Notification } from "react-bulma-components";
 import { formatISO, parseISO } from "date-fns";
 import { SetB, Payment, PaymentWithPayer } from "../App";
 import { components } from "../types/up";
-import { PaymentApi } from "../financial-dash";
+import { PaymentApi } from "@mause/financial-dash";
 import useApi from "../use_api";
 import _ from "lodash";
 import log from "../log";
@@ -30,6 +30,7 @@ export function EnterPaymentModal(props: {
   const [result, updatePayment] = useUpdate<Payment>("Payment");
   const { data, size, setSize, error, isValidating } =
     useSWRInfinite<components["schemas"]["UpTransactionResponse"]>(getKey);
+  const [creatingPayment, setCreatingPayment] = useState(false);
 
   if (RD.isSuccess(result)) {
     props.setShowModal(false);
@@ -45,6 +46,7 @@ export function EnterPaymentModal(props: {
       renderAs="form"
       onSubmit={async (e: FormEvent<unknown>) => {
         e.preventDefault();
+        setCreatingPayment(true);
         await paymentClient.postPayment({
           client_id: props.selectedPayment.Payer.invoice_ninja_id,
           amount: String(props.selectedPayment.amount!),
@@ -54,6 +56,7 @@ export function EnterPaymentModal(props: {
         await updatePayment({ bankId }, (query) =>
           query.eq("id", props.selectedPayment.id)
         );
+        setCreatingPayment(false);
       }}
     >
       <Modal.Card.Header>
@@ -104,7 +107,9 @@ export function EnterPaymentModal(props: {
         </Form.Field>
       </Modal.Card.Body>
       <Modal.Card.Footer renderAs={Button.Group}>
-        <Button type="submit">Pay</Button>
+        <Button type="submit" loading={creatingPayment}>
+          Pay
+        </Button>
       </Modal.Card.Footer>
     </Modal.Card>
   );

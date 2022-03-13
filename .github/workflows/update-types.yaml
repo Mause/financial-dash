@@ -14,14 +14,14 @@ jobs:
           - name: supabase
             url: https://jgoewtofthnufcvpvglq.supabase.co/rest/v1/
           - name: invoice-ninja
-            url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3
+            url: https://app.swaggerhub.com/apiproxy/registry/invoiceninja/invoiceninja/5.3.26
           - name: launtel
             url: https://launtel.vercel.app/openapi.yaml
           - name: up
             url: https://up.vc.mause.me/openapi.yaml
 
     steps:
-      - uses: actions/setup-node@v2.4.1
+      - uses: actions/setup-node@v3.0.0
         with:
           node-version: 14
       - name: Update types
