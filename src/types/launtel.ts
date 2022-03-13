@@ -4,6 +4,14 @@
  */
 
 export interface paths {
+  "/api/monthly/{monthly}": {
+    get: operations["getMonthlyMonthly"];
+    parameters: {
+      path: {
+        monthly: string;
+      };
+    };
+  };
   "/api/transactions": {
     get: operations["getTransactions"];
     parameters: {};
@@ -16,8 +24,22 @@ export interface paths {
 
 export interface components {
   schemas: {
+    PerMonth: {
+      discounted: string;
+    };
     LauntelTransactionResponse: {
-      perMonth: string;
+      perMonth: { [key: string]: components["schemas"]["PerMonth"] };
+    };
+    MonthlyResponse: {
+      total: number;
+      totalPerPerson: number;
+      invoiceNumber: string;
+      startDate: string | string;
+      endDate: string | string;
+      daysInMonth: number;
+      dailyCost: number;
+      dailyCostPerPerson: number;
+      issueDate: string | string;
     };
     UsageResponse: {
       usage: { [key: string]: unknown };
@@ -30,6 +52,21 @@ export interface components {
 }
 
 export interface operations {
+  getMonthlyMonthly: {
+    parameters: {
+      path: {
+        monthly: string;
+      };
+    };
+    responses: {
+      /** Ok */
+      default: {
+        content: {
+          "application/json": components["schemas"]["MonthlyResponse"];
+        };
+      };
+    };
+  };
   getTransactions: {
     parameters: {};
     responses: {
