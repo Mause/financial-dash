@@ -71,7 +71,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^8.5.5",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/moxios": "^0.4.12",
     "@types/test-listen": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
