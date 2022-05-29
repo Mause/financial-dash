@@ -20,7 +20,7 @@
     "@types/lodash": "^4.14.175",
     "@types/node": "^16.10.1",
     "@types/react": "^17.0.24",
-    "@types/react-dom": "^17.0.9",
+    "@types/react-dom": "^18.0.0",
     "@types/readable-stream": "^2.3.11",
     "axios": "^0.22.0",
     "browser-bunyan": "^1.6.3",
