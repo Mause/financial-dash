@@ -19,7 +19,7 @@ jobs:
             url: https://financial-dash.vc.mause.me/openapi.yaml
 
     steps:
-      - uses: actions/setup-node@v3.0.0
+      - uses: actions/setup-node@v3.2.0
         with:
           node-version: 14
       - name: Update types
