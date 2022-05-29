@@ -175,14 +175,13 @@ export interface PutInvoice {
   status: PutInvoiceStatusEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum PutInvoiceStatusEnum {
-  Paid = "PAID",
-  _0 = "0",
-}
+export const PutInvoiceStatusEnum = {
+  Paid: "PAID",
+  _0: "0",
+} as const;
+
+export type PutInvoiceStatusEnum =
+  typeof PutInvoiceStatusEnum[keyof typeof PutInvoiceStatusEnum];
 
 /**
  * DefaultApi - axios parameter creator
