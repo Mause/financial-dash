@@ -16,7 +16,7 @@
     "@testing-library/react": "^12.1.1",
     "@testing-library/user-event": "^14.0.0",
     "@types/bunyan": "^1.8.7",
-    "@types/jest": "^27.0.2",
+    "@types/jest": "^27.5.1",
     "@types/lodash": "^4.14.175",
     "@types/node": "^16.10.1",
     "@types/react": "^18.0.0",
