@@ -75,7 +75,7 @@
     "@types/moxios": "^0.4.15",
     "@types/test-listen": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "@typescript-eslint/parser": "^5.0.0",
+    "@typescript-eslint/parser": "^5.26.0",
     "eslint": "^8.16.0",
     "moxios": "^0.4.0",
     "postcss-normalize": "^10.0.1",
