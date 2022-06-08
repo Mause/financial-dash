@@ -2259,13 +2259,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@logtail/browser@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@logtail/browser/-/browser-0.1.10.tgz#88c1cc4292d0a2f7593f6b55b40d51e682d46d1a"
-  integrity sha512-OtL7rpXaQtLC/tFAleBRF+YNoy8VZU1zikZ7VzmgDxp4ySBhL42GQCa8NBNwinyk6B82KMk20m0aOmixD1mQ8A==
+"@logtail/browser@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@logtail/browser/-/browser-0.1.12.tgz#2409acd987619479bf228caf7a69d83224c9b65e"
+  integrity sha512-E4phOU6sLUrPJWpsGovn6EQtOe/EQaTU4m8muZLO+beH+XVi8h2cq2XldX4AgzbtzNFus0WWAreAf5+KZr8F1Q==
   dependencies:
-    "@logtail/core" "^0.1.10"
-    "@logtail/tools" "^0.1.8"
+    "@logtail/core" "^0.1.12"
+    "@logtail/tools" "^0.1.12"
     cross-fetch "^3.0.4"
 
 "@logtail/bunyan@^0.1.10":
@@ -2275,13 +2275,13 @@
   dependencies:
     "@logtail/types" "^0.1.8"
 
-"@logtail/core@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@logtail/core/-/core-0.1.10.tgz#83154b1e1e86f073604c73b340fe1c069ca471d8"
-  integrity sha512-76q951W7EoaF7SwAZbLsnAjD0QUXNHHGXnsBu/tGHd5UT50jlyxI0t27Lev9IQiF08NFy9SlBE1V26RAeMDccQ==
+"@logtail/core@^0.1.10", "@logtail/core@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@logtail/core/-/core-0.1.12.tgz#e5b4ffefbcee82b2a3b60623d23399440a68d61d"
+  integrity sha512-h0OPFfgrZ7pUK11wAHYvPmTXtzT8KYFUeQOC7BQX0mIJG8cgWGEHJTLVtdcp+gce0EqO5/61NczLhjx3T4tacA==
   dependencies:
-    "@logtail/tools" "^0.1.8"
-    "@logtail/types" "^0.1.8"
+    "@logtail/tools" "^0.1.12"
+    "@logtail/types" "^0.1.12"
 
 "@logtail/node@^0.1.0":
   version "0.1.10"
@@ -2296,12 +2296,19 @@
     minimatch "^3.0.4"
     stack-trace "^0.0.10"
 
-"@logtail/tools@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@logtail/tools/-/tools-0.1.8.tgz#9598c37c830de27bc676fc1f33f720d3a76aaafe"
-  integrity sha512-Q2lQBrTRzLCFYJXxhQFfigSpU5Vanhi/EAwOULfNZQn4vV68PKKfqTWK3IRSqOVJ4YpjPusu+BpNGasZfyWACQ==
+"@logtail/tools@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@logtail/tools/-/tools-0.1.12.tgz#5484313ff1d2409dc8afbc9f5a499c510fed6063"
+  integrity sha512-lKXq1gaW63rGsCbSOhLOPeBovvc2RyNaMRHanWJcOC/nTIHj46JNIh+TbINre13PKn473JigZ7yXys35V8K3Vw==
   dependencies:
-    "@logtail/types" "^0.1.8"
+    "@logtail/types" "^0.1.12"
+
+"@logtail/types@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@logtail/types/-/types-0.1.12.tgz#af12897c4710ebac76c2e2a5a72af5c6d5d9220b"
+  integrity sha512-PnMweu6oyfBCn3/iLfQBf+tTaOIle4gRUFuRnqze72kR5CKFlBAq3h4Yur3KRiDtYJcT8H+x1kZWZtC/xdAYAg==
+  dependencies:
+    js "^0.1.0"
 
 "@logtail/types@^0.1.8":
   version "0.1.8"
