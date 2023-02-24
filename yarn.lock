@@ -2259,13 +2259,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@logtail/browser@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@logtail/browser/-/browser-0.1.10.tgz#88c1cc4292d0a2f7593f6b55b40d51e682d46d1a"
-  integrity sha512-OtL7rpXaQtLC/tFAleBRF+YNoy8VZU1zikZ7VzmgDxp4ySBhL42GQCa8NBNwinyk6B82KMk20m0aOmixD1mQ8A==
+"@logtail/browser@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@logtail/browser/-/browser-0.2.2.tgz#9231769a74893ab7f4ca89e50f734241af0aeae3"
+  integrity sha512-ok7BAGZ+musoaCaC0YaHXjIRXtoAXIuNFTaLStBO0FNDOSZHK7Pm/iPl+jYEC1wICLEiaqtjB1uB2NuuNjCKQA==
   dependencies:
-    "@logtail/core" "^0.1.10"
-    "@logtail/tools" "^0.1.8"
+    "@logtail/core" "^0.2.2"
+    "@logtail/tools" "^0.2.2"
     cross-fetch "^3.0.4"
 
 "@logtail/bunyan@^0.1.10":
@@ -2282,6 +2282,14 @@
   dependencies:
     "@logtail/tools" "^0.1.8"
     "@logtail/types" "^0.1.8"
+
+"@logtail/core@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@logtail/core/-/core-0.2.2.tgz#d7f1f459fb1cbada98bf4267f4fc7ba64b69faa9"
+  integrity sha512-Jl+HrfN4vikRlUF25cwv6TepNCYciHpCiNhfBjb3w+qJf4YYRfnF11mPB1vI6ttLgjx1rd5C224dWmALrzWhJg==
+  dependencies:
+    "@logtail/tools" "^0.2.2"
+    "@logtail/types" "^0.2.2"
 
 "@logtail/node@^0.1.0":
   version "0.1.10"
@@ -2303,10 +2311,24 @@
   dependencies:
     "@logtail/types" "^0.1.8"
 
+"@logtail/tools@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@logtail/tools/-/tools-0.2.2.tgz#9e11d3e4a06684a8b163ff4d962754ef2b3e8ede"
+  integrity sha512-MZVIHeWzOjZakRKhE+hD9+X3SJOoGM51DNTFArWBRM7aB8DisWK5NBbNvvOCXGt5JCeDOZPFPg0cLsHFa50h1g==
+  dependencies:
+    "@logtail/types" "^0.2.2"
+
 "@logtail/types@^0.1.8":
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/@logtail/types/-/types-0.1.8.tgz#a87489ceba1150453a0fc81eee032f8ddcf3272e"
   integrity sha512-2XsXMGLK675kkJ+Pq0RE4c0hGFUr7hP4kt2/GTf/5FTzKre3VE0M9yRIXubpsQq4pIrnMgzVnH42A+z92QwL/A==
+  dependencies:
+    js "^0.1.0"
+
+"@logtail/types@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@logtail/types/-/types-0.2.2.tgz#3fc87222fef1b0e1d7517286cb070ca043ac0c9c"
+  integrity sha512-R+Sc9+pv0aYVFpc+MjH8hzp5amFyn77LVbb9bo+ZI1Jc8UTqFeBKX9s8XCc8yiPHZ9OzmdmZttwC+bzmueeXYw==
   dependencies:
     js "^0.1.0"
 
