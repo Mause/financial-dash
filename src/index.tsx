@@ -10,6 +10,7 @@ import "bulma/css/bulma.css";
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import { AuthProvider } from "./auth";
+import { Jetbrains } from "./jetbrains";
 
 const dsn = process.env.REACT_APP_SENTRY_DSN;
 if (dsn)
@@ -32,7 +33,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider value={supabase}>
       <AuthProvider>
-        <App />
+        {window.location.pathname.includes("jetbrains") ? <Jetbrains/> : <App/>}
       </AuthProvider>
     </Provider>
   </React.StrictMode>,
