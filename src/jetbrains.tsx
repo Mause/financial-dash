@@ -8,7 +8,7 @@ import { formatISO, parseISO } from "date-fns";
 
 function getKey(
   pageIndex: number,
-  previousPageData: components["schemas"]["UpTransactionResponse"] | null
+  previousPageData: components["schemas"]["UpTransactionResponse"] | null,
 ) {
   if (pageIndex === 0) {
     return "https://up.vc.mause.me/api/up?page[size]=100&includeNegative=true";
@@ -31,7 +31,10 @@ export function Jetbrains(): JSX.Element {
       <Form.Field>
         <Form.Label>Filter out non-Jetbrains</Form.Label>
         <Form.Control>
-          <Form.Checkbox onChange={(e) => setFilter(e.target.checked)} />
+          <Form.Checkbox
+            defaultChecked={filter}
+            onChange={(e) => setFilter(e.target.checked)}
+          />
         </Form.Control>
       </Form.Field>
 
@@ -52,7 +55,9 @@ export function Jetbrains(): JSX.Element {
                 .filter(
                   (transaction) =>
                     !filter ||
-                    transaction.attributes.description.toLowerCase().includes("jetbrains")
+                    transaction.attributes.description
+                      .toLowerCase()
+                      .includes("jetbrains"),
                 )
                 .map((transaction) => (
                   <option key={transaction.id} value={transaction.id}>
@@ -65,7 +70,7 @@ export function Jetbrains(): JSX.Element {
                     {" — "}
                     {transaction.attributes.message}
                   </option>
-                ))
+                )),
             )}
           </Form.Select>
         </Form.Control>
@@ -81,7 +86,7 @@ export function Jetbrains(): JSX.Element {
         </Form.Control>
       </Form.Field>
 
-      <hr/>
+      <hr />
       <dl>
         <dt>Bank ID</dt>
         <dd>{bankId}</dd>

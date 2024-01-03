@@ -87,8 +87,5 @@
     "vercel-node-server": "^2.2.1",
     "vercel-openapi": "^0.1.6"
   },
-  "prettier": {
-    "trailingComma": "none"
-  },
   "packageManager": "yarn@4.0.2"
 }
