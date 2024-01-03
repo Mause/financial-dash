@@ -3369,6 +3369,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mause/financial-dash@file:./packages/financial-dash::locator=financial-dash%40workspace%3A.":
+  version: 0.0.1
+  resolution: "@mause/financial-dash@file:./packages/financial-dash#./packages/financial-dash::hash=bb6c4c&locator=financial-dash%40workspace%3A."
+  dependencies:
+    axios: "npm:^0.27.0"
+  checksum: 07890ec99eafc41c1db011531acaec0637797150e73c1b197d726758a93efe104c21f0fe17f73d8632650b1ba21271a6f5e2cd0e53318353ad59ffcb8fc760e0
+  languageName: node
+  linkType: hard
+
 "@mause/financial-dash@workspace:packages/financial-dash":
   version: 0.0.0-use.local
   resolution: "@mause/financial-dash@workspace:packages/financial-dash"
@@ -9139,6 +9148,7 @@ __metadata:
     "@logtail/bunyan": "npm:^0.1.10"
     "@logtail/node": "npm:^0.1.0"
     "@logtail/types": "npm:0.1.8"
+    "@mause/financial-dash": ./packages/financial-dash
     "@mechanicalhuman/bunyan-pretty": "npm:^3.0.1"
     "@sentry/node": "npm:^7.0.0"
     "@sentry/react": "npm:^7.0.0"
