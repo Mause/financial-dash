@@ -50,7 +50,8 @@
     "generateOpenapi": "vercel-openapi generate . --outputFile build/openapi.yaml --envVar JWT_SECRET=secret --moduleSystem CommonJS --debug",
     "test": "react-scripts test",
     "api_tests": "yarn jest api_tests --config api_tests/jest.config.ts",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -83,6 +84,7 @@
     "ts-jest": "28",
     "vercel": "^25.0.0",
     "vercel-node-server": "^2.2.1",
-    "vercel-openapi": "^0.1.6"
+    "vercel-openapi": "^0.1.6",
+    "husky": "^8.0.0"
   }
 }
