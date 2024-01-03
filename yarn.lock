@@ -4566,6 +4566,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/prop-types@npm:^15":
+  version: 15.7.11
+  resolution: "@types/prop-types@npm:15.7.11"
+  checksum: e53423cf9d510515ef8b47ff42f4f1b65a7b7b37c8704e2dbfcb9a60defe0c0e1f3cb1acfdeb466bad44ca938d7c79bffdd51b48ffb659df2432169d0b27a132
+  languageName: node
+  linkType: hard
+
 "@types/q@npm:^1.5.1":
   version: 1.5.5
   resolution: "@types/q@npm:1.5.5"
@@ -9146,6 +9153,7 @@ __metadata:
     "@types/lodash": "npm:^4.14.182"
     "@types/moxios": "npm:^0.4.15"
     "@types/node": "npm:^16.10.1"
+    "@types/prop-types": "npm:^15"
     "@types/react": "npm:^18.0.0"
     "@types/react-dom": "npm:^18.0.0"
     "@types/readable-stream": "npm:^2.3.13"
@@ -9164,6 +9172,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     moxios: "npm:^0.4.0"
     postcss-normalize: "npm:^10.0.1"
+    prop-types: "npm:^15.8.1"
     react: "npm:^18.0.0"
     react-bulma-components: "npm:^4.0.7"
     react-dom: "npm:^18.0.0"
