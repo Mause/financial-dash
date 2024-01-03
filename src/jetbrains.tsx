@@ -31,7 +31,7 @@ export function Jetbrains(): JSX.Element {
       <Form.Field>
         <Form.Label>Filter out non-Jetbrains</Form.Label>
         <Form.Control>
-          <Form.Checkbox onChange={setFilter}/>
+          <Form.Checkbox onChange={(e) => setFilter(e.target.checked)} />
         </Form.Control>
       </Form.Field>
 
