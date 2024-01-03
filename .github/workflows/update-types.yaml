@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3.3.0
         with:
-          node-version: 14
+          node-version: 18
       - name: Update types
         uses: technote-space/create-pr-action@v2
         with:
