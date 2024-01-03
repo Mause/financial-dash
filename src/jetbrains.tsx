@@ -1,10 +1,10 @@
-import {components} from "./types/up";
-import React, {MouseEvent, useState} from "react";
+import { components } from "./types/up";
+import React, { MouseEvent, useState } from "react";
 import useSWRInfinite from "swr/infinite";
 import log from "./log";
-import {Button, Form, Notification} from "react-bulma-components";
+import { Button, Form, Notification } from "react-bulma-components";
 import _ from "lodash";
-import {formatISO, parseISO} from "date-fns";
+import { formatISO, parseISO } from "date-fns";
 
 function getKey(
   pageIndex: number,
@@ -18,6 +18,7 @@ function getKey(
 
 export function Jetbrains(): JSX.Element {
   const [bankId, setBankId] = useState<string>();
+  const [filter, setFilter] = useState<boolean>(true);
   const { data, size, setSize, error, isValidating } =
     useSWRInfinite<components["schemas"]["UpTransactionResponse"]>(getKey);
 
@@ -26,6 +27,14 @@ export function Jetbrains(): JSX.Element {
   return (
     <form>
       {error && <Notification>{JSON.stringify(error)}</Notification>}
+
+      <Form.Field>
+        <Form.Label>Filter out non-Jetbrains</Form.Label>
+        <Form.Control>
+          <Form.Checkbox onChange={setFilter}/>
+        </Form.Control>
+      </Form.Field>
+
       <Form.Label>Select a transaction</Form.Label>
       <Form.Field kind="addons">
         <Form.Control>
@@ -39,18 +48,24 @@ export function Jetbrains(): JSX.Element {
           >
             <option value="">Select a transaction</option>
             {_.flatMap(data, (page) =>
-              page.items.map((transaction) => (
-                <option key={transaction.id} value={transaction.id}>
-                  {formatISO(parseISO(transaction.attributes.createdAt), {
-                    representation: "date",
-                  })}
-                  {" — "}${transaction.attributes.amount.value}
-                  {" — "}
-                  {transaction.attributes.description}
-                  {" — "}
-                  {transaction.attributes.message}
-                </option>
-              ))
+              page.items
+                .filter(
+                  (transaction) =>
+                    !filter ||
+                    transaction.attributes.description.toLowerCase().includes("jetbrains")
+                )
+                .map((transaction) => (
+                  <option key={transaction.id} value={transaction.id}>
+                    {formatISO(parseISO(transaction.attributes.createdAt), {
+                      representation: "date",
+                    })}
+                    {" — "}${transaction.attributes.amount.value}
+                    {" — "}
+                    {transaction.attributes.description}
+                    {" — "}
+                    {transaction.attributes.message}
+                  </option>
+                ))
             )}
           </Form.Select>
         </Form.Control>
