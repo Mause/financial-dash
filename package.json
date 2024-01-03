@@ -8,7 +8,7 @@
     "@logtail/bunyan": "^0.1.10",
     "@logtail/node": "^0.1.0",
     "@logtail/types": "0.1.8",
-    "@mause/financial-dash": "./packages/financial-dash",
+    "@mause/financial-dash": "workspace:./packages/financial-dash",
     "@mechanicalhuman/bunyan-pretty": "^3.0.1",
     "@sentry/node": "^7.0.0",
     "@sentry/react": "^7.0.0",
