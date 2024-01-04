@@ -52,7 +52,7 @@
     "build": "react-app-rewired build && yarn generateOpenapi",
     "generateOpenapi": "vercel-openapi generate . --outputFile build/openapi.yaml --envVar JWT_SECRET=secret --moduleSystem CommonJS --debug",
     "test": "react-app-rewired test",
-    "api_tests": "jest api_tests --config api_tests/jest.config.ts",
+    "api_tests": "./node_modules/.bin/jest api_tests --config api_tests/jest.config.ts",
     "eject": "react-app-rewired eject",
     "postinstall": "husky install"
   },
