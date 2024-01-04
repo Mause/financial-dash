@@ -48,12 +48,12 @@
     "."
   ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && yarn generateOpenapi",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build && yarn generateOpenapi",
     "generateOpenapi": "vercel-openapi generate . --outputFile build/openapi.yaml --envVar JWT_SECRET=secret --moduleSystem CommonJS --debug",
-    "test": "react-scripts test",
+    "test": "react-app-rewired test",
     "api_tests": "yarn jest api_tests --config api_tests/jest.config.ts",
-    "eject": "react-scripts eject",
+    "eject": "react-app-rewired eject",
     "postinstall": "husky install"
   },
   "eslintConfig": {
@@ -75,16 +75,19 @@
     ]
   },
   "devDependencies": {
+    "@types/customize-cra": "^1",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/moxios": "^0.4.15",
     "@types/prop-types": "^15",
     "@types/test-listen": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.27.1",
+    "customize-cra": "^1.0.0",
     "eslint": "^8.16.0",
     "husky": "^8.0.0",
     "moxios": "^0.4.0",
     "postcss-normalize": "^10.0.1",
+    "react-app-rewired": "^2.2.1",
     "test-listen": "^1.1.0",
     "ts-jest": "28",
     "vercel": "^25.0.0",
