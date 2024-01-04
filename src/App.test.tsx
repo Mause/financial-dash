@@ -85,7 +85,7 @@ test("Bill", async () => {
   };
   let el: RenderResult;
 
-  await act(() => {
+  await act(async () => {
     el = render(
       <Provider value={supa as unknown as SupabaseClient}>
         <BillCard
@@ -122,7 +122,7 @@ test("Bill", async () => {
   expect(el!.container).toMatchSnapshot();
 });
 
-test("EnterPaymentModal", () => {
+test("EnterPaymentModal", async () => {
   const payment: PaymentWithPayer = {
     id: 0,
     paidFor: 0,
@@ -132,8 +132,8 @@ test("EnterPaymentModal", () => {
     invoice_ninja_id: "aaa",
     Payer: { id: 0, name: "Hello", invoice_ninja_id: "" },
   };
-  let el;
-  await act(() => {
+  let el: RenderResult<typeof import("@testing-library/dom/types/queries")>;
+  await act(async () => {
     el = render(
       <EnterPaymentModal
         refresh={NOOP}
@@ -142,7 +142,7 @@ test("EnterPaymentModal", () => {
       />,
     );
   });
-  expect(el.container).toMatchSnapshot();
+  expect(el!.container).toMatchSnapshot();
 });
 
 const NOOP = _.identity;
