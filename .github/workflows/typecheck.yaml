@@ -9,7 +9,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.1
         with:
-          node-version: 14
+          node-version: 18
           cache: yarn
       - run: yarn --frozen
       - name: TypeScript Error Reporter
