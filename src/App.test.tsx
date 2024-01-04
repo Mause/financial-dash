@@ -1,13 +1,13 @@
 import "@testing-library/jest-dom";
 
-import { render, RenderResult, screen } from "@testing-library/react";
-import App, { PaymentWithPayer } from "./App";
+import { act, render, RenderResult, screen } from "@testing-library/react";
+import App, { BillCard, PaymentWithPayer } from "./App";
 import { Provider } from "react-supabase-fp";
-import { BillCard } from "./App";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { act } from "@testing-library/react";
 import { EnterPaymentModal } from "./modals/EnterPaymentModal";
 import _ from "lodash";
+import { SWRConfig } from "swr";
+import { components } from "./types/up";
 
 test("renders learn react link", async () => {
   await act(async () => {
@@ -48,6 +48,7 @@ test("renders learn react link", async () => {
 class ExpectPromises {
   promises: Promise<unknown>[];
   resolvers: (() => void)[];
+
   constructor(responses: unknown[]) {
     this.promises = [];
     this.resolvers = [];
@@ -85,7 +86,7 @@ test("Bill", async () => {
   };
   let el: RenderResult;
 
-  act(() => {
+  await act(async () => {
     el = render(
       <Provider value={supa as unknown as SupabaseClient}>
         <BillCard
@@ -122,7 +123,29 @@ test("Bill", async () => {
   expect(el!.container).toMatchSnapshot();
 });
 
-test("EnterPaymentModal", () => {
+test("EnterPaymentModal", async () => {
+  const fetcher = async function (): Promise<
+    components["schemas"]["UpTransactionResponse"]
+  > {
+    return {
+      items: [
+        {
+          id: "0000",
+          attributes: {
+            amount: {
+              value: "10.00",
+              valueInBaseUnits: 1000,
+            },
+            description: "This is a description",
+            createdAt: "2022-01-12T10:33",
+            message: "This is a message",
+          },
+        },
+      ],
+      links: {},
+    };
+  };
+
   const payment: PaymentWithPayer = {
     id: 0,
     paidFor: 0,
@@ -132,14 +155,19 @@ test("EnterPaymentModal", () => {
     invoice_ninja_id: "aaa",
     Payer: { id: 0, name: "Hello", invoice_ninja_id: "" },
   };
-  const el = render(
-    <EnterPaymentModal
-      refresh={NOOP}
-      setShowModal={NOOP}
-      selectedPayment={payment}
-    />,
-  );
-  expect(el.container).toMatchSnapshot();
+  let el: RenderResult<typeof import("@testing-library/dom/types/queries")>;
+  await act(async () => {
+    el = render(
+      <SWRConfig value={{ fetcher }}>
+        <EnterPaymentModal
+          refresh={NOOP}
+          setShowModal={NOOP}
+          selectedPayment={payment}
+        />
+      </SWRConfig>,
+    );
+  });
+  expect(el!.container).toMatchSnapshot();
 });
 
 const NOOP = _.identity;

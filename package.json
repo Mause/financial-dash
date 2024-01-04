@@ -91,5 +91,14 @@
     "vercel-node-server": "^2.2.1",
     "vercel-openapi": "^0.1.6"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml}": [
+      "prettier --write"
+    ]
+  },
   "packageManager": "yarn@4.0.2"
 }

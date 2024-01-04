@@ -1,9 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-if [ -z "$1" ]; then
-  echo "No files to format"
-else
-  echo "Formatting files: $1"
-  prettier --write $1
-fi
+npx lint-staged
+

@@ -175,7 +175,7 @@ exports[`EnterPaymentModal 1`] = `
           class="control"
         >
           <div
-            class="select is-loading"
+            class="select"
           >
             <select
               required=""
@@ -184,6 +184,18 @@ exports[`EnterPaymentModal 1`] = `
                 value=""
               >
                 Select a transaction
+              </option>
+              <option
+                value="0000"
+              >
+                2022-01-12
+                 — 
+                $
+                10.00
+                 — 
+                This is a description
+                 — 
+                This is a message
               </option>
             </select>
           </div>
