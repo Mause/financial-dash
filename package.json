@@ -36,6 +36,7 @@
     "react": "^18.0.0",
     "react-bulma-components": "^4.0.7",
     "react-dom": "^18.0.0",
+    "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
     "react-supabase-fp": "^2.0.0",
     "swr": "^1.3.0",
