@@ -13,7 +13,7 @@ jobs:
           node-version: 18
           cache: yarn
       - run: yarn
-      - run: yarn workspaces foreach --all run build
+      - run: yarn build
       - run: yarn test
       - run: yarn api_tests
         timeout-minutes: 2
