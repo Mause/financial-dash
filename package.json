@@ -86,5 +86,14 @@
     "vercel": "^25.0.0",
     "vercel-node-server": "^2.2.1",
     "vercel-openapi": "^0.1.6"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml}": [
+      "prettier --write"
+    ]
   }
 }
