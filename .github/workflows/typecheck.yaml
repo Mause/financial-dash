@@ -13,7 +13,7 @@ jobs:
           cache: yarn
       - run: yarn --frozen
       - name: TypeScript Error Reporter
-        uses: andoshin11/typescript-error-reporter-action@v1.0.2
+        uses: andoshin11/typescript-error-reporter-action@v1.0.3
       - run: yarn workspaces run build
       - run: yarn test
       - run: yarn api_tests
