@@ -85,7 +85,7 @@ test("Bill", async () => {
   };
   let el: RenderResult;
 
-  act(() => {
+  await act(() => {
     el = render(
       <Provider value={supa as unknown as SupabaseClient}>
         <BillCard
@@ -132,13 +132,16 @@ test("EnterPaymentModal", () => {
     invoice_ninja_id: "aaa",
     Payer: { id: 0, name: "Hello", invoice_ninja_id: "" },
   };
-  const el = render(
-    <EnterPaymentModal
-      refresh={NOOP}
-      setShowModal={NOOP}
-      selectedPayment={payment}
-    />,
-  );
+  let el;
+  await act(() => {
+    el = render(
+      <EnterPaymentModal
+        refresh={NOOP}
+        setShowModal={NOOP}
+        selectedPayment={payment}
+      />,
+    );
+  });
   expect(el.container).toMatchSnapshot();
 });
 
