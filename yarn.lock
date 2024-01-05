@@ -3446,7 +3446,7 @@ __metadata:
   resolution: "@mause/financial-dash@workspace:packages/financial-dash"
   dependencies:
     "@types/node": "npm:^16.0.0"
-    axios: "npm:^0.27.0"
+    axios: "npm:^1.6.0"
     typescript: "npm:^4.0"
   languageName: unknown
   linkType: soft
@@ -6153,13 +6153,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:>=0.13.0, axios@npm:^0.27.0":
+"axios@npm:>=0.13.0":
   version: 0.27.2
   resolution: "axios@npm:0.27.2"
   dependencies:
     follow-redirects: "npm:^1.14.9"
     form-data: "npm:^4.0.0"
   checksum: 76d673d2a90629944b44d6f345f01e58e9174690f635115d5ffd4aca495d99bcd8f95c590d5ccb473513f5ebc1d1a6e8934580d0c57cdd0498c3a101313ef771
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.6.0":
+  version: 1.6.4
+  resolution: "axios@npm:1.6.4"
+  dependencies:
+    follow-redirects: "npm:^1.15.4"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: daac697fa1ea9865cb48e9edb7eacd99e8a9214997f2d8e886cb61c380a613e5c270078bfc153ac96206680106c223f005f0e4bf2f3b2ddd88e559ecf970521f
   languageName: node
   linkType: hard
 
@@ -9376,7 +9387,7 @@ __metadata:
     "@types/test-listen": "npm:^1.1.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.26.0"
     "@typescript-eslint/parser": "npm:^5.27.1"
-    axios: "npm:^0.27.0"
+    axios: "npm:^1.6.0"
     browser-bunyan: "npm:^1.8.0"
     bulma: "npm:^0.9.4"
     bunyan: "npm:>=2.0.0"
@@ -9499,6 +9510,16 @@ __metadata:
     debug:
       optional: true
   checksum: ea21337fe38eac8d75f5af12c425cc40e0bb44dcc3091fd0bde1c828596251a7a9638b5720fee5a0a5c62524450cbe16c52aae1dce88c6aee68577e441842e7f
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.4":
+  version: 1.15.4
+  resolution: "follow-redirects@npm:1.15.4"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 5f37ed9170c9eb19448c5418fdb0f2b73f644b5364834e70791a76ecc7db215246f9773bbef4852cfae4067764ffc852e047f744b661b0211532155b73556a6a
   languageName: node
   linkType: hard
 
@@ -14797,6 +14818,13 @@ __metadata:
     forwarded: "npm:0.2.0"
     ipaddr.js: "npm:1.9.1"
   checksum: c3eed999781a35f7fd935f398b6d8920b6fb00bbc14287bc6de78128ccc1a02c89b95b56742bf7cf0362cc333c61d138532049c7dedc7a328ef13343eff81210
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: fe7dd8b1bdbbbea18d1459107729c3e4a2243ca870d26d34c2c1bcd3e4425b7bcc5112362df2d93cc7fb9746f6142b5e272fd1cc5c86ddf8580175186f6ad42b
   languageName: node
   linkType: hard
 
