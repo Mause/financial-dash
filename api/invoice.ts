@@ -42,7 +42,7 @@ const authenticate = factory(process.env.JWT_SECRET!);
 
 export default authenticate(async function (
   req: VercelRequest,
-  res: VercelResponse,
+  res: VercelResponse
 ) {
   if (req.method !== "POST") {
     return res.status(405).json("Bad method");
