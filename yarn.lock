@@ -45,7 +45,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:^7.22.13":
+"@babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.23.5":
   version: 7.23.5
   resolution: "@babel/code-frame@npm:7.23.5"
   dependencies:
@@ -148,6 +148,18 @@ __metadata:
     jsesc: "npm:^2.5.1"
     source-map: "npm:^0.5.0"
   checksum: 876a007d769bdb9d2d86556ceb6dac6cae0d8b25cf18a87a3a284454fcaa66aa52e83ebff3f3551bd0e91358bbcc4fd43c5e6e19f86341ba0f0a8734fcde918f
+  languageName: node
+  linkType: hard
+
+"@babel/generator@npm:^7.23.6":
+  version: 7.23.6
+  resolution: "@babel/generator@npm:7.23.6"
+  dependencies:
+    "@babel/types": "npm:^7.23.6"
+    "@jridgewell/gen-mapping": "npm:^0.3.2"
+    "@jridgewell/trace-mapping": "npm:^0.3.17"
+    jsesc: "npm:^2.5.1"
+  checksum: 53540e905cd10db05d9aee0a5304e36927f455ce66f95d1253bb8a179f286b88fa7062ea0db354c566fe27f8bb96567566084ffd259f8feaae1de5eccc8afbda
   languageName: node
   linkType: hard
 
@@ -437,6 +449,15 @@ __metadata:
   dependencies:
     "@babel/types": "npm:^7.16.7"
   checksum: 20e9775db9d37bd8ba76be5fe08c80a916be794a645311a78c38382d415305690194f61337b508c23528479bf2768ab7484c133c75e8194c6ae55ab46c05bde7
+  languageName: node
+  linkType: hard
+
+"@babel/helper-hoist-variables@npm:^7.22.5":
+  version: 7.22.5
+  resolution: "@babel/helper-hoist-variables@npm:7.22.5"
+  dependencies:
+    "@babel/types": "npm:^7.22.5"
+  checksum: 60a3077f756a1cd9f14eb89f0037f487d81ede2b7cfe652ea6869cd4ec4c782b0fb1de01b8494b9a2d2050e3d154d7d5ad3be24806790acfb8cbe2073bf1e208
   languageName: node
   linkType: hard
 
@@ -836,7 +857,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.20.7":
+"@babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.6":
   version: 7.23.6
   resolution: "@babel/parser@npm:7.23.6"
   bin:
@@ -2743,38 +2764,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.13.0, @babel/traverse@npm:^7.14.5, @babel/traverse@npm:^7.14.8, @babel/traverse@npm:^7.15.0":
-  version: 7.15.0
-  resolution: "@babel/traverse@npm:7.15.0"
+"@babel/traverse@npm:^7.13.0, @babel/traverse@npm:^7.14.5, @babel/traverse@npm:^7.14.8, @babel/traverse@npm:^7.15.0, @babel/traverse@npm:^7.16.7, @babel/traverse@npm:^7.16.8, @babel/traverse@npm:^7.17.0, @babel/traverse@npm:^7.17.3, @babel/traverse@npm:^7.7.2":
+  version: 7.23.7
+  resolution: "@babel/traverse@npm:7.23.7"
   dependencies:
-    "@babel/code-frame": "npm:^7.14.5"
-    "@babel/generator": "npm:^7.15.0"
-    "@babel/helper-function-name": "npm:^7.14.5"
-    "@babel/helper-hoist-variables": "npm:^7.14.5"
-    "@babel/helper-split-export-declaration": "npm:^7.14.5"
-    "@babel/parser": "npm:^7.15.0"
-    "@babel/types": "npm:^7.15.0"
-    debug: "npm:^4.1.0"
+    "@babel/code-frame": "npm:^7.23.5"
+    "@babel/generator": "npm:^7.23.6"
+    "@babel/helper-environment-visitor": "npm:^7.22.20"
+    "@babel/helper-function-name": "npm:^7.23.0"
+    "@babel/helper-hoist-variables": "npm:^7.22.5"
+    "@babel/helper-split-export-declaration": "npm:^7.22.6"
+    "@babel/parser": "npm:^7.23.6"
+    "@babel/types": "npm:^7.23.6"
+    debug: "npm:^4.3.1"
     globals: "npm:^11.1.0"
-  checksum: 767c17230ff789e2005cd75e96287331833f933f640da8bfe4beab5321b274322ee20289659b0a13bacd4b5756ea5015e39ec8fb5dfd723beb31e2bc515fef64
-  languageName: node
-  linkType: hard
-
-"@babel/traverse@npm:^7.16.7, @babel/traverse@npm:^7.16.8, @babel/traverse@npm:^7.17.0, @babel/traverse@npm:^7.17.3, @babel/traverse@npm:^7.7.2":
-  version: 7.17.3
-  resolution: "@babel/traverse@npm:7.17.3"
-  dependencies:
-    "@babel/code-frame": "npm:^7.16.7"
-    "@babel/generator": "npm:^7.17.3"
-    "@babel/helper-environment-visitor": "npm:^7.16.7"
-    "@babel/helper-function-name": "npm:^7.16.7"
-    "@babel/helper-hoist-variables": "npm:^7.16.7"
-    "@babel/helper-split-export-declaration": "npm:^7.16.7"
-    "@babel/parser": "npm:^7.17.3"
-    "@babel/types": "npm:^7.17.0"
-    debug: "npm:^4.1.0"
-    globals: "npm:^11.1.0"
-  checksum: 284ee68ec035c1f4f1b7b2f04932fa53490f4fa056f0cd4255e3f782e0e539f7c0d300cab835a4958b546b2b808dd574887079b2654450b35a29d4656af92219
+  checksum: e32fceb4249beec2bde83968ddffe17444221c1ee5cd18c543a2feaf94e3ca83f2a4dfbc2dcca87cf226e0105973e0fe3717063a21e982a9de9945615ab3f3f5
   languageName: node
   linkType: hard
 
@@ -2798,7 +2802,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.20.7":
+"@babel/types@npm:^7.20.7, @babel/types@npm:^7.23.6":
   version: 7.23.6
   resolution: "@babel/types@npm:7.23.6"
   dependencies:
@@ -3280,10 +3284,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jridgewell/gen-mapping@npm:^0.3.2":
+  version: 0.3.3
+  resolution: "@jridgewell/gen-mapping@npm:0.3.3"
+  dependencies:
+    "@jridgewell/set-array": "npm:^1.0.1"
+    "@jridgewell/sourcemap-codec": "npm:^1.4.10"
+    "@jridgewell/trace-mapping": "npm:^0.3.9"
+  checksum: 376fc11cf5a967318ba3ddd9d8e91be528eab6af66810a713c49b0c3f8dc67e9949452c51c38ab1b19aa618fb5e8594da5a249977e26b1e7fea1ee5a1fcacc74
+  languageName: node
+  linkType: hard
+
 "@jridgewell/resolve-uri@npm:^3.0.3":
   version: 3.0.5
   resolution: "@jridgewell/resolve-uri@npm:3.0.5"
   checksum: 00e27376be6dcfccca1666326328ba47c4614002fb20b9c4f7a47d25ecf0b99061f201362109bf4ce547e8f246aaac35db67b3ab6bf07c3e0e3edabccd4bdb31
+  languageName: node
+  linkType: hard
+
+"@jridgewell/resolve-uri@npm:^3.1.0":
+  version: 3.1.1
+  resolution: "@jridgewell/resolve-uri@npm:3.1.1"
+  checksum: 0dbc9e29bc640bbbdc5b9876d2859c69042bfcf1423c1e6421bcca53e826660bff4e41c7d4bcb8dbea696404231a6f902f76ba41835d049e20f2dd6cffb713bf
+  languageName: node
+  linkType: hard
+
+"@jridgewell/set-array@npm:^1.0.1":
+  version: 1.1.2
+  resolution: "@jridgewell/set-array@npm:1.1.2"
+  checksum: bc7ab4c4c00470de4e7562ecac3c0c84f53e7ee8a711e546d67c47da7febe7c45cd67d4d84ee3c9b2c05ae8e872656cdded8a707a283d30bd54fbc65aef821ab
   languageName: node
   linkType: hard
 
@@ -3294,6 +3323,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jridgewell/sourcemap-codec@npm:^1.4.14":
+  version: 1.4.15
+  resolution: "@jridgewell/sourcemap-codec@npm:1.4.15"
+  checksum: 0c6b5ae663087558039052a626d2d7ed5208da36cfd707dcc5cea4a07cfc918248403dcb5989a8f7afaf245ce0573b7cc6fd94c4a30453bd10e44d9363940ba5
+  languageName: node
+  linkType: hard
+
 "@jridgewell/trace-mapping@npm:^0.3.0":
   version: 0.3.4
   resolution: "@jridgewell/trace-mapping@npm:0.3.4"
@@ -3301,6 +3337,16 @@ __metadata:
     "@jridgewell/resolve-uri": "npm:^3.0.3"
     "@jridgewell/sourcemap-codec": "npm:^1.4.10"
   checksum: ee62b4d810e417f81eb27c9385089172b40286329d9a81fcff999fede883ae95ca75bcaf58793cae0a3981d17302f223656d72ed9bbd1d5a96c170b2dfdc5259
+  languageName: node
+  linkType: hard
+
+"@jridgewell/trace-mapping@npm:^0.3.17, @jridgewell/trace-mapping@npm:^0.3.9":
+  version: 0.3.20
+  resolution: "@jridgewell/trace-mapping@npm:0.3.20"
+  dependencies:
+    "@jridgewell/resolve-uri": "npm:^3.1.0"
+    "@jridgewell/sourcemap-codec": "npm:^1.4.14"
+  checksum: 0ea0b2675cf513ec44dc25605616a3c9b808b9832e74b5b63c44260d66b58558bba65764f81928fc1033ead911f8718dca1134049c3e7a93937faf436671df31
   languageName: node
   linkType: hard
 
@@ -7764,7 +7810,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
+"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
