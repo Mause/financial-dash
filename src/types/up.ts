@@ -3,19 +3,21 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
   "/api/up": {
     get: operations["getUp"];
-    parameters: {};
   };
 }
+
+export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
     UpAttributes: {
       description: string;
       message: string;
-      createdAt: string | string;
+      createdAt: string;
       amount: components["schemas"]["Amount"];
     };
     UpTransaction: {
@@ -35,17 +37,26 @@ export interface components {
       value: string;
     };
   };
-  responses: {};
-  parameters: {};
-  requestBodies: {};
-  headers: {};
+  responses: {
+  };
+  parameters: {
+  };
+  requestBodies: {
+  };
+  headers: {
+  };
+  pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
+export type external = Record<string, never>;
+
 export interface operations {
+
   getUp: {
-    parameters: {};
     responses: {
-      /** Ok */
+      /** @description Ok */
       default: {
         content: {
           "application/json": components["schemas"]["UpTransactionResponse"];
@@ -54,5 +65,3 @@ export interface operations {
     };
   };
 }
-
-export interface external {}
