@@ -10,7 +10,7 @@ export function useToken(): Option<string> {
   return pipe(
     supabase,
     chain((thing) => fromNullable(thing.auth.session())),
-    chain((session) => some(session.access_token)),
+    chain((session) => some(session.access_token))
   );
 }
 function useFetcher() {
@@ -19,7 +19,7 @@ function useFetcher() {
     fetch(url, {
       headers: pipe(
         token,
-        fold(constant({}), (token) => ({ Authorization: "Bearer " + token })),
+        fold(constant({}), (token) => ({ Authorization: "Bearer " + token }))
       ),
     }).then((res) => res.json());
 }
