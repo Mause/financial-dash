@@ -91,7 +91,7 @@
     "react-app-rewired": "^2.2.1",
     "test-listen": "^1.1.0",
     "ts-jest": "28",
-    "vercel": "^25.0.0",
+    "vercel": "^33.0.0",
     "vercel-node-server": "^2.2.1",
     "vercel-openapi": "^0.1.6"
   },
