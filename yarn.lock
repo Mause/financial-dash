@@ -4802,6 +4802,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/validator@npm:^13.7.10":
+  version: 13.11.7
+  resolution: "@types/validator@npm:13.11.7"
+  checksum: 9ca2a047d6e7c1d718c6dd28b12d6d893c4ac2acdb8a557b8d448dab17aaa044e92c7a13c8476601078f4c907ed66259e3b20525f7fa849378fbaf53a971d574
+  languageName: node
+  linkType: hard
+
 "@types/webpack-bundle-analyzer@npm:^3":
   version: 3.9.8
   resolution: "@types/webpack-bundle-analyzer@npm:3.9.8"
@@ -6899,13 +6906,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"class-validator@npm:^0.13.1, class-validator@npm:^0.13.2":
+"class-validator@npm:^0.13.1":
   version: 0.13.2
   resolution: "class-validator@npm:0.13.2"
   dependencies:
     libphonenumber-js: "npm:^1.9.43"
     validator: "npm:^13.7.0"
   checksum: e7a1a318967229582b25da9c3b81e316627b014640968824b00bf001f4d79101017b91c59cb3f2c8c0922c4446b5a1114c27ba91aae1c1f109e0ad4d504dfcd5
+  languageName: node
+  linkType: hard
+
+"class-validator@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "class-validator@npm:0.14.0"
+  dependencies:
+    "@types/validator": "npm:^13.7.10"
+    libphonenumber-js: "npm:^1.10.14"
+    validator: "npm:^13.7.0"
+  checksum: 1f7c34052f0c342b1d27c5aec7c42b646bb77a56874acc0d8003e2ad8f0294e7da18b43e9caaac8e8817cbb309cf9f14bcebe4611994390ca4818f3b393783dc
   languageName: node
   linkType: hard
 
@@ -9294,7 +9312,7 @@ __metadata:
     browser-bunyan: "npm:^1.8.0"
     bulma: "npm:^0.9.4"
     bunyan: "npm:>=2.0.0"
-    class-validator: "npm:^0.13.2"
+    class-validator: "npm:^0.14.0"
     customize-cra: "npm:^1.0.0"
     date-fns: "npm:^2.28.0"
     eslint: "npm:^8.16.0"
@@ -11978,6 +11996,13 @@ __metadata:
     prelude-ls: "npm:~1.1.2"
     type-check: "npm:~0.3.2"
   checksum: e440df9de4233da0b389cd55bd61f0f6aaff766400bebbccd1231b81801f6dbc1d816c676ebe8d70566394b749fa624b1ed1c68070e9c94999f0bdecc64cb676
+  languageName: node
+  linkType: hard
+
+"libphonenumber-js@npm:^1.10.14":
+  version: 1.10.53
+  resolution: "libphonenumber-js@npm:1.10.53"
+  checksum: de5630a2c8c3a481fd4e37f2a36b5f199a7079b92f0e802e431124fe437c0401424a793bf3f18bcca151a57a6556d20ff8ccc2deea655a5675e2676ba2775224
   languageName: node
   linkType: hard
 

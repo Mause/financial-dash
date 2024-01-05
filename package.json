@@ -28,7 +28,7 @@
     "browser-bunyan": "^1.8.0",
     "bulma": "^0.9.4",
     "bunyan": ">=2.0.0",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "date-fns": "^2.28.0",
     "fp-ts": "^2.11.3",
     "lodash": "^4.17.21",
