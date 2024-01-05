@@ -18,7 +18,7 @@
     "@testing-library/react": "^12.1.1",
     "@testing-library/user-event": "^14.0.0",
     "@types/bunyan": "^1.8.8",
-    "@types/jest": "^27.5.1",
+    "@types/jest": "^29.0.0",
     "@types/lodash": "^4.14.182",
     "@types/node": "^16.10.1",
     "@types/react": "^18.0.0",
@@ -90,7 +90,7 @@
     "postcss-normalize": "^10.0.1",
     "react-app-rewired": "^2.2.1",
     "test-listen": "^1.1.0",
-    "ts-jest": "28",
+    "ts-jest": "29",
     "vercel": "^25.0.0",
     "vercel-node-server": "^2.2.1",
     "vercel-openapi": "^0.1.6"
