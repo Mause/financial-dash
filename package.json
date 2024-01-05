@@ -77,7 +77,7 @@
   },
   "devDependencies": {
     "@types/customize-cra": "^1",
-    "@types/jsonwebtoken": "^8.5.8",
+    "@types/jsonwebtoken": "^9.0.0",
     "@types/moxios": "^0.4.15",
     "@types/prop-types": "^15",
     "@types/test-listen": "^1.1.0",
