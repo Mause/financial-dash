@@ -15,12 +15,12 @@ export default function useApi<T>(clazz: { new (c: Configuration): T }): T {
               () => {
                 throw new Error("Don't have access token yet");
               },
-              (token) => token,
+              (token) => token
             )(token);
           },
-        }),
+        })
       ),
-    [token, clazz],
+    [token, clazz]
   );
 
   return api;
