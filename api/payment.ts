@@ -14,7 +14,7 @@ function isAxiosError(e: unknown): e is AxiosError {
   return (e as { isAxiosError: boolean }).isAxiosError;
 }
 function isValidationError(
-  e: AxiosError<any>,
+  e: AxiosError<any>
 ): e is AxiosError<ValidationError> {
   return e.response?.status == 422;
 }
@@ -60,7 +60,7 @@ export default authenticate(async function (req, res) {
 
   const clientRequest = await validate<unknown, PostPayment>(
     req,
-    (t) => new PostPayment(t),
+    (t) => new PostPayment(t)
   );
 
   const path = "/api/v1/payments";
