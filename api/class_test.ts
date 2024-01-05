@@ -1,6 +1,10 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { IsString } from "class-validator";
-import { log, authenticate } from "../support";
+import {
+  Authenticate,
+  CatchErrors,
+  CatchValidationErrors,
+} from "../support/utilities";
 
 class DummyResponse {
   @IsString()
@@ -11,27 +15,11 @@ class DummyResponse {
   }
 }
 
-function Authenticated(): (
-  _target: unknown,
-  _propertyKey: string,
-  descriptor: PropertyDescriptor
-) => void {
-  return function (
-    _target: unknown,
-    _propertyKey: string,
-    descriptor: PropertyDescriptor
-  ) {
-    const original = descriptor.value;
-    descriptor.value = async (req: VercelRequest, res: VercelResponse) => {
-      log.info({ hello: "world" }, "Hello world");
-      await authenticate(original)(req, res);
-    };
-  };
-}
-
 class ClassTest {
-  @Authenticated()
-  invoke(_req: VercelRequest, res: VercelResponse): void {
+  @Authenticate()
+  @CatchValidationErrors()
+  @CatchErrors()
+  invoke(_req: VercelRequest, res: VercelResponse) {
     res.status(200).send(new DummyResponse("hello"));
   }
 }
