@@ -3,6 +3,7 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
   "/api/monthly/{monthly}": {
     get: operations["getMonthlyMonthly"];
@@ -14,13 +15,13 @@ export interface paths {
   };
   "/api/transactions": {
     get: operations["getTransactions"];
-    parameters: {};
   };
   "/api/usage": {
     get: operations["getUsage"];
-    parameters: {};
   };
 }
+
+export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
@@ -28,30 +29,42 @@ export interface components {
       discounted: string;
     };
     LauntelTransactionResponse: {
-      perMonth: { [key: string]: components["schemas"]["PerMonth"] };
+      perMonth: {
+        [key: string]: components["schemas"]["PerMonth"];
+      };
     };
     MonthlyResponse: {
       total: number;
       totalPerPerson: number;
       invoiceNumber: string;
-      startDate: string | string;
-      endDate: string | string;
+      startDate: string;
+      endDate: string;
       daysInMonth: number;
       dailyCost: number;
       dailyCostPerPerson: number;
-      issueDate: string | string;
+      issueDate: string;
     };
     UsageResponse: {
-      usage: { [key: string]: unknown };
+      usage: Record<string, never>;
     };
   };
-  responses: {};
-  parameters: {};
-  requestBodies: {};
-  headers: {};
+  responses: {
+  };
+  parameters: {
+  };
+  requestBodies: {
+  };
+  headers: {
+  };
+  pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
+export type external = Record<string, never>;
+
 export interface operations {
+
   getMonthlyMonthly: {
     parameters: {
       path: {
@@ -59,7 +72,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Ok */
+      /** @description Ok */
       default: {
         content: {
           "application/json": components["schemas"]["MonthlyResponse"];
@@ -68,9 +81,8 @@ export interface operations {
     };
   };
   getTransactions: {
-    parameters: {};
     responses: {
-      /** Ok */
+      /** @description Ok */
       default: {
         content: {
           "application/json": components["schemas"]["LauntelTransactionResponse"];
@@ -79,9 +91,8 @@ export interface operations {
     };
   };
   getUsage: {
-    parameters: {};
     responses: {
-      /** Ok */
+      /** @description Ok */
       default: {
         content: {
           "application/json": components["schemas"]["UsageResponse"];
@@ -90,5 +101,3 @@ export interface operations {
     };
   };
 }
-
-export interface external {}
