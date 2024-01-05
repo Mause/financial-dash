@@ -6,7 +6,7 @@
     "@devexperts/remote-data-ts": "^2.0.5",
     "@logtail/browser": "^0.1.10",
     "@logtail/bunyan": "^0.1.10",
-    "@logtail/node": "^0.1.0",
+    "@logtail/node": "^0.4.0",
     "@logtail/types": "0.1.8",
     "@mause/financial-dash": "workspace:./packages/financial-dash",
     "@mechanicalhuman/bunyan-pretty": "^3.0.1",
