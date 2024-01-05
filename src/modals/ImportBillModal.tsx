@@ -61,7 +61,7 @@ export function ImportBillModal(props: {
                     {" — $"}
                     {discounted}
                   </option>
-                ),
+                )
               )}
             </Form.Select>
           </Form.Control>
