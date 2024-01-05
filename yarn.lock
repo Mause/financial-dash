@@ -3361,7 +3361,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@logtail/types@npm:0.1.8, @logtail/types@npm:^0.1.8":
+"@logtail/types@npm:0.4.19":
+  version: 0.4.19
+  resolution: "@logtail/types@npm:0.4.19"
+  dependencies:
+    js: "npm:^0.1.0"
+  checksum: 83bd5baa2475857e069d715620ddb089f641d853d632300027a5a7a407bddbeeb5c40aaf3132bae7dc5be3baadc97cb7b0fb958c495584fd34e2cb65fa14fbf0
+  languageName: node
+  linkType: hard
+
+"@logtail/types@npm:^0.1.8":
   version: 0.1.8
   resolution: "@logtail/types@npm:0.1.8"
   dependencies:
@@ -9291,7 +9300,7 @@ __metadata:
     "@logtail/browser": "npm:^0.1.10"
     "@logtail/bunyan": "npm:^0.1.10"
     "@logtail/node": "npm:^0.1.0"
-    "@logtail/types": "npm:0.1.8"
+    "@logtail/types": "npm:0.4.19"
     "@mause/financial-dash": "workspace:./packages/financial-dash"
     "@mechanicalhuman/bunyan-pretty": "npm:^3.0.1"
     "@sentry/node": "npm:^7.0.0"

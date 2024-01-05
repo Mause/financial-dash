@@ -7,7 +7,7 @@
     "@logtail/browser": "^0.1.10",
     "@logtail/bunyan": "^0.1.10",
     "@logtail/node": "^0.1.0",
-    "@logtail/types": "0.1.8",
+    "@logtail/types": "0.4.19",
     "@mause/financial-dash": "workspace:./packages/financial-dash",
     "@mechanicalhuman/bunyan-pretty": "^3.0.1",
     "@sentry/node": "^7.0.0",
