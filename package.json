@@ -40,7 +40,7 @@
     "react-scripts": "5.0.1",
     "react-supabase-fp": "^2.0.0",
     "swr": "^1.3.0",
-    "typescript": "^4.4.3",
+    "typescript": "^5.4.2",
     "vercel-jwt-auth": "^1.1.9",
     "web-vitals": "^2.1.4"
   },
