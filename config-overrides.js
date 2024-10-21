@@ -10,7 +10,7 @@ module.exports = function (config, env) {
         path.resolve("packages"),
         path.resolve("support"),
         path.resolve("api"),
-      ])
-    )(config, env)
+      ]),
+    )(config, env),
   );
 };
