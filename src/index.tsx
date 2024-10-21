@@ -27,7 +27,7 @@ if (dsn)
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL!,
-  process.env.REACT_APP_SUPABASE_KEY!
+  process.env.REACT_APP_SUPABASE_KEY!,
 );
 
 ReactDOM.render(
@@ -43,7 +43,7 @@ ReactDOM.render(
       </AuthProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want to start measuring performance in your app, pass a function
