@@ -14,12 +14,12 @@ class DummyResponse {
 function Authenticated(): (
   _target: unknown,
   _propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) => void {
   return function (
     _target: unknown,
     _propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const original = descriptor.value;
     descriptor.value = async (req: VercelRequest, res: VercelResponse) => {
