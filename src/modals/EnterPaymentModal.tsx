@@ -13,7 +13,7 @@ import log from "../log";
 
 function getKey(
   pageIndex: number,
-  previousPageData: components["schemas"]["UpTransactionResponse"] | null
+  previousPageData: components["schemas"]["UpTransactionResponse"] | null,
 ) {
   if (pageIndex === 0) {
     return "https://up.vc.mause.me/api/up?page[size]=100";
@@ -54,7 +54,7 @@ export function EnterPaymentModal(props: {
           transaction_reference: bankId!,
         });
         await updatePayment({ bankId }, (query) =>
-          query.eq("id", props.selectedPayment.id)
+          query.eq("id", props.selectedPayment.id),
         );
         setCreatingPayment(false);
       }}
@@ -90,7 +90,7 @@ export function EnterPaymentModal(props: {
                     {" — "}
                     {transaction.attributes.message}
                   </option>
-                ))
+                )),
               )}
             </Form.Select>
           </Form.Control>
