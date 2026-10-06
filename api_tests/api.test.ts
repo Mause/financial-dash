@@ -21,7 +21,7 @@ const axios = Axios.create({
         {
           aud: "authenticated",
         },
-        SECRET
+        SECRET,
       ),
   },
 });
@@ -33,7 +33,7 @@ testApi("../api/invoice/[invoice]", "GET /invoice/hello", (url) =>
     });
     const response = await axios.get(url() + "?invoice=ident");
     expect(response.data).toEqual({});
-  })
+  }),
 );
 
 testApi("../api/invoice/[invoice]", "PUT /invoice/hello", (url) =>
@@ -45,7 +45,7 @@ testApi("../api/invoice/[invoice]", "PUT /invoice/hello", (url) =>
       status: "PAID",
     });
     expect(response.data).toEqual({});
-  })
+  }),
 );
 
 testApi("../api/payment", "POST /payment", (url) =>
@@ -72,15 +72,15 @@ testApi("../api/payment", "POST /payment", (url) =>
       id: "payment_id",
       client_id: "client_id",
     });
-  })
+  }),
 );
 
 testApi("../api/payment", "POST /payment (error case)", (url) =>
   it("works", async () => {
     await expect(
-      async () => await axios.post(url(), { amount: 1500 })
+      async () => await axios.post(url(), { amount: 1500 }),
     ).rejects.toThrow();
-  })
+  }),
 );
 
 testApi("../api/payment", "POST /payment (failed downstream call)", (url) =>
@@ -96,19 +96,19 @@ testApi("../api/payment", "POST /payment (failed downstream call)", (url) =>
           invoice_id: "invoice_id",
           transaction_reference: "transaction_reference",
           amount: 1500,
-        })
+        }),
     ).rejects.toThrow();
 
     expect(captureException).toBeCalledWith(
-      new Error("Request failed with status code 500")
+      new Error("Request failed with status code 500"),
     );
-  })
+  }),
 );
 
 function testApi(
   apiFunction: string,
   description: string,
-  testFunction: (f: () => string) => void
+  testFunction: (f: () => string) => void,
 ) {
   describe(description, () => {
     let server: Server;
