@@ -64,7 +64,7 @@ function App(): JSX.Element {
     Vendor (
       id,
       name
-    )`
+    )`,
   );
   log.info({ results: isSuccess(result) ? result.value.length : -1 }, "result");
 
@@ -132,8 +132,8 @@ function App(): JSX.Element {
                 </Columns>
               </Container>
             </>
-          )
-        )
+          ),
+        ),
       )}
     </div>
   );
@@ -156,8 +156,8 @@ export function BillCard({
   const paymentsFilter = useFilter<Payment>((query) =>
     query.in(
       "id",
-      row.Payment.map((payment) => payment.id)
-    )
+      row.Payment.map((payment) => payment.id),
+    ),
   );
   const [deletePaymentsResult, deletePayments] = useDelete<Payment>("Payment");
   const [createPaymentModal, setCreatePaymentModal] = useState<boolean>(false);
@@ -255,8 +255,8 @@ function AppHeader() {
         const user = { email: u.email, id: u.id };
         log.info({ user }, "User logged in");
         Sentry.setUser(user);
-      }
-    )
+      },
+    ),
   );
 
   const logoutButton = (
@@ -304,7 +304,7 @@ function AppHeader() {
                 <div>
                   {user.email} — {user.role} — {logoutButton}
                 </div>
-              )
+              ),
             )(user),
           constant(<div>Signing in...</div>),
           (error) => (
@@ -314,8 +314,8 @@ function AppHeader() {
                 : error.message}
             </div>
           ),
-          () => logoutButton
-        )
+          () => logoutButton,
+        ),
       )}
     </header>
   );
