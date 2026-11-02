@@ -181,14 +181,14 @@ export const PutInvoiceStatusEnum = {
 } as const;
 
 export type PutInvoiceStatusEnum =
-  typeof PutInvoiceStatusEnum[keyof typeof PutInvoiceStatusEnum];
+  (typeof PutInvoiceStatusEnum)[keyof typeof PutInvoiceStatusEnum];
 
 /**
  * DefaultApi - axios parameter creator
  * @export
  */
 export const DefaultApiAxiosParamCreator = function (
-  configuration?: Configuration
+  configuration?: Configuration,
 ) {
   return {
     /**
@@ -197,7 +197,7 @@ export const DefaultApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     getClassTest: async (
-      options: AxiosRequestConfig = {}
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/api/class_test`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -249,18 +249,17 @@ export const DefaultApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async getClassTest(
-      options?: AxiosRequestConfig
+      options?: AxiosRequestConfig,
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<DummyResponse>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getClassTest(
-        options
-      );
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getClassTest(options);
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration
+        configuration,
       );
     },
   };
@@ -273,7 +272,7 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 export const DefaultApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance
+  axios?: AxiosInstance,
 ) {
   const localVarFp = DefaultApiFp(configuration);
   return {
@@ -315,7 +314,7 @@ export class DefaultApi extends BaseAPI {
  * @export
  */
 export const InvoiceApiAxiosParamCreator = function (
-  configuration?: Configuration
+  configuration?: Configuration,
 ) {
   return {
     /**
@@ -326,13 +325,13 @@ export const InvoiceApiAxiosParamCreator = function (
      */
     getInvoiceInvoice: async (
       invoice: string,
-      options: AxiosRequestConfig = {}
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'invoice' is not null or undefined
       assertParamExists("getInvoiceInvoice", "invoice", invoice);
       const localVarPath = `/api/invoice/{invoice}`.replace(
         `{${"invoice"}}`,
-        encodeURIComponent(String(invoice))
+        encodeURIComponent(String(invoice)),
       );
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -375,7 +374,7 @@ export const InvoiceApiAxiosParamCreator = function (
      */
     postInvoice: async (
       postInvoice: PostInvoice,
-      options: AxiosRequestConfig = {}
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'postInvoice' is not null or undefined
       assertParamExists("postInvoice", "postInvoice", postInvoice);
@@ -412,7 +411,7 @@ export const InvoiceApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         postInvoice,
         localVarRequestOptions,
-        configuration
+        configuration,
       );
 
       return {
@@ -430,7 +429,7 @@ export const InvoiceApiAxiosParamCreator = function (
     putInvoiceInvoice: async (
       invoice: string,
       putInvoice: PutInvoice,
-      options: AxiosRequestConfig = {}
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'invoice' is not null or undefined
       assertParamExists("putInvoiceInvoice", "invoice", invoice);
@@ -438,7 +437,7 @@ export const InvoiceApiAxiosParamCreator = function (
       assertParamExists("putInvoiceInvoice", "putInvoice", putInvoice);
       const localVarPath = `/api/invoice/{invoice}`.replace(
         `{${"invoice"}}`,
-        encodeURIComponent(String(invoice))
+        encodeURIComponent(String(invoice)),
       );
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -472,7 +471,7 @@ export const InvoiceApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         putInvoice,
         localVarRequestOptions,
-        configuration
+        configuration,
       );
 
       return {
@@ -498,7 +497,7 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
      */
     async getInvoiceInvoice(
       invoice: string,
-      options?: AxiosRequestConfig
+      options?: AxiosRequestConfig,
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutInvoice>
     > {
@@ -508,7 +507,7 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration
+        configuration,
       );
     },
     /**
@@ -519,22 +518,22 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
      */
     async postInvoice(
       postInvoice: PostInvoice,
-      options?: AxiosRequestConfig
+      options?: AxiosRequestConfig,
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string
+        basePath?: string,
       ) => AxiosPromise<InvoiceResponse>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.postInvoice(
         postInvoice,
-        options
+        options,
       );
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration
+        configuration,
       );
     },
     /**
@@ -547,7 +546,7 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
     async putInvoiceInvoice(
       invoice: string,
       putInvoice: PutInvoice,
-      options?: AxiosRequestConfig
+      options?: AxiosRequestConfig,
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutInvoice>
     > {
@@ -555,13 +554,13 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
         await localVarAxiosParamCreator.putInvoiceInvoice(
           invoice,
           putInvoice,
-          options
+          options,
         );
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration
+        configuration,
       );
     },
   };
@@ -574,7 +573,7 @@ export const InvoiceApiFp = function (configuration?: Configuration) {
 export const InvoiceApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance
+  axios?: AxiosInstance,
 ) {
   const localVarFp = InvoiceApiFp(configuration);
   return {
@@ -586,7 +585,7 @@ export const InvoiceApiFactory = function (
      */
     getInvoiceInvoice(
       invoice: string,
-      options?: any
+      options?: any,
     ): AxiosPromise<PutInvoice> {
       return localVarFp
         .getInvoiceInvoice(invoice, options)
@@ -600,7 +599,7 @@ export const InvoiceApiFactory = function (
      */
     postInvoice(
       postInvoice: PostInvoice,
-      options?: any
+      options?: any,
     ): AxiosPromise<InvoiceResponse> {
       return localVarFp
         .postInvoice(postInvoice, options)
@@ -616,7 +615,7 @@ export const InvoiceApiFactory = function (
     putInvoiceInvoice(
       invoice: string,
       putInvoice: PutInvoice,
-      options?: any
+      options?: any,
     ): AxiosPromise<PutInvoice> {
       return localVarFp
         .putInvoiceInvoice(invoice, putInvoice, options)
@@ -669,7 +668,7 @@ export class InvoiceApi extends BaseAPI {
   public putInvoiceInvoice(
     invoice: string,
     putInvoice: PutInvoice,
-    options?: AxiosRequestConfig
+    options?: AxiosRequestConfig,
   ) {
     return InvoiceApiFp(this.configuration)
       .putInvoiceInvoice(invoice, putInvoice, options)
@@ -682,7 +681,7 @@ export class InvoiceApi extends BaseAPI {
  * @export
  */
 export const PaymentApiAxiosParamCreator = function (
-  configuration?: Configuration
+  configuration?: Configuration,
 ) {
   return {
     /**
@@ -693,7 +692,7 @@ export const PaymentApiAxiosParamCreator = function (
      */
     postPayment: async (
       postPayment: PostPayment,
-      options: AxiosRequestConfig = {}
+      options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'postPayment' is not null or undefined
       assertParamExists("postPayment", "postPayment", postPayment);
@@ -730,7 +729,7 @@ export const PaymentApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         postPayment,
         localVarRequestOptions,
-        configuration
+        configuration,
       );
 
       return {
@@ -756,22 +755,22 @@ export const PaymentApiFp = function (configuration?: Configuration) {
      */
     async postPayment(
       postPayment: PostPayment,
-      options?: AxiosRequestConfig
+      options?: AxiosRequestConfig,
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string
+        basePath?: string,
       ) => AxiosPromise<PaymentResponse>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.postPayment(
         postPayment,
-        options
+        options,
       );
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration
+        configuration,
       );
     },
   };
@@ -784,7 +783,7 @@ export const PaymentApiFp = function (configuration?: Configuration) {
 export const PaymentApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance
+  axios?: AxiosInstance,
 ) {
   const localVarFp = PaymentApiFp(configuration);
   return {
@@ -796,7 +795,7 @@ export const PaymentApiFactory = function (
      */
     postPayment(
       postPayment: PostPayment,
-      options?: any
+      options?: any,
     ): AxiosPromise<PaymentResponse> {
       return localVarFp
         .postPayment(postPayment, options)
