@@ -3356,14 +3356,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@logtail/browser@npm:^0.1.10":
-  version: 0.1.10
-  resolution: "@logtail/browser@npm:0.1.10"
+"@logtail/browser@npm:^0.6.0":
+  version: 0.6.1
+  resolution: "@logtail/browser@npm:0.6.1"
   dependencies:
-    "@logtail/core": "npm:^0.1.10"
-    "@logtail/tools": "npm:^0.1.8"
-    cross-fetch: "npm:^3.0.4"
-  checksum: 1ea0263c209f461685ddad936a362dce9ea4a108c63e80d76eb39500bb89bfe2ed9355bab2477e57d61d7071d4debdb948db0db0e747daad77fd18fc8683cae9
+    "@logtail/core": "npm:^0.6.1"
+    "@logtail/types": "npm:^0.6.0"
+  checksum: 9e1fe7b041371f1b59733eb88720b88427003f0ab23badd18d3455b00efef86f9f89fef215ff49595fbfbb7ff792e6f5837f345109545f4409042cc21dce2599
   languageName: node
   linkType: hard
 
@@ -3386,6 +3385,17 @@ __metadata:
     "@logtail/tools": "npm:^0.1.8"
     "@logtail/types": "npm:^0.1.8"
   checksum: 85ff82246df3ae6048e7f53560038ad4f0285d546226de9115d1a5b01ad729b46d7e564c3779fc4d0da68bdc3088a64b4d926c291d2c7ead419639534b0c02ae
+  languageName: node
+  linkType: hard
+
+"@logtail/core@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "@logtail/core@npm:0.6.1"
+  dependencies:
+    "@logtail/tools": "npm:^0.6.0"
+    "@logtail/types": "npm:^0.6.0"
+    serialize-error: "npm:8.1.0"
+  checksum: b547fb0faf3fb65a866631b9a6d0f59f4d0dba2daebf5b6ea6b121ca35a9788ce538effc643b2d0b36b517ec565470fc8c17fd657847ec940fff99ab3ecbd719
   languageName: node
   linkType: hard
 
@@ -3413,12 +3423,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@logtail/tools@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@logtail/tools@npm:0.6.0"
+  dependencies:
+    "@logtail/types": "npm:^0.6.0"
+  checksum: 432057849a3f50e53bd56d9847420bac8c6ea2bf6340b6b51ca52c307bbac6c742d15e76a54cecc3da3a4ed6436b64eb6b915147d40e331abf0edd6c94108bfe
+  languageName: node
+  linkType: hard
+
 "@logtail/types@npm:0.1.8, @logtail/types@npm:^0.1.8":
   version: 0.1.8
   resolution: "@logtail/types@npm:0.1.8"
   dependencies:
     js: "npm:^0.1.0"
   checksum: 1dff40105dce7200ff6556219e72e1cb20b168dd5838ee53b6bd32c4b9df2e83430de456c3b670ad4c2b175475f10631d2c8f5b48000ee5a6c08ef19e11711cd
+  languageName: node
+  linkType: hard
+
+"@logtail/types@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@logtail/types@npm:0.6.0"
+  checksum: cbdc92daebf7e2dd37345fab81c4460f0e80eeeab12dcfa7eeac4849271f125ef2c730608eb6ded18c6b1bcecd58c8697b01bc52c5693995ae7f3387f130f46a
   languageName: node
   linkType: hard
 
@@ -9349,7 +9375,7 @@ __metadata:
   resolution: "financial-dash@workspace:."
   dependencies:
     "@devexperts/remote-data-ts": "npm:^2.0.5"
-    "@logtail/browser": "npm:^0.1.10"
+    "@logtail/browser": "npm:^0.6.0"
     "@logtail/bunyan": "npm:^0.1.10"
     "@logtail/node": "npm:^0.1.0"
     "@logtail/types": "npm:0.1.8"
@@ -15927,6 +15953,15 @@ __metadata:
     range-parser: "npm:~1.2.1"
     statuses: "npm:~1.5.0"
   checksum: 712e27d5d4f38d6097a649bbe8846a30a6f9d1995e78e1c133a7a351ec26508b0d8fb707dadb6e003f3753d3f9310667e04633522883b81300abd9978b28afd2
+  languageName: node
+  linkType: hard
+
+"serialize-error@npm:8.1.0":
+  version: 8.1.0
+  resolution: "serialize-error@npm:8.1.0"
+  dependencies:
+    type-fest: "npm:^0.20.2"
+  checksum: 8cfd89f43ca93e283c5f1d16178a536bdfac9bc6029f4a9df988610cc399bc4f2478d1f10ce40b9dff66b863a5158a19b438fbec929045c96d92174f6bca1e88
   languageName: node
   linkType: hard
 
