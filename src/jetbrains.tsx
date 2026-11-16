@@ -8,7 +8,7 @@ import { formatISO, parseISO } from "date-fns";
 
 function getKey(
   pageIndex: number,
-  previousPageData: components["schemas"]["UpTransactionResponse"] | null
+  previousPageData: components["schemas"]["UpTransactionResponse"] | null,
 ) {
   if (pageIndex === 0) {
     return "https://up.vc.mause.me/api/up?page[size]=100&includeNegative=true";
@@ -57,7 +57,7 @@ export function Jetbrains(): JSX.Element {
                     !filter ||
                     transaction.attributes.description
                       .toLowerCase()
-                      .includes("jetbrains")
+                      .includes("jetbrains"),
                 )
                 .map((transaction) => (
                   <option key={transaction.id} value={transaction.id}>
@@ -70,7 +70,7 @@ export function Jetbrains(): JSX.Element {
                     {" — "}
                     {transaction.attributes.message}
                   </option>
-                ))
+                )),
             )}
           </Form.Select>
         </Form.Control>

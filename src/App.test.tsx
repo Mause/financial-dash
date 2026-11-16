@@ -36,7 +36,7 @@ test("renders learn react link", async () => {
     render(
       <Provider value={supa as unknown as SupabaseClient}>
         <App />
-      </Provider>
+      </Provider>,
     );
     await expected.all();
   });
@@ -110,7 +110,7 @@ test("Bill", async () => {
           refresh={NOOP}
           setShowModal={NOOP}
         />
-      </Provider>
+      </Provider>,
     );
   });
   expect(el!.container).toMatchSnapshot();
@@ -164,7 +164,7 @@ test("EnterPaymentModal", async () => {
           setShowModal={NOOP}
           selectedPayment={payment}
         />
-      </SWRConfig>
+      </SWRConfig>,
     );
   });
   expect(el!.container).toMatchSnapshot();
