@@ -35,7 +35,7 @@ export default authenticate(async function (req, res) {
           await invoiceninja.get<
             paths[typeof path]["get"]["responses"][200]["content"]["application/json"]
           >(path.replace("{id}", invoice_id))
-        ).data
+        ).data,
       );
   } else if (req.method === "PUT") {
     const path = "/api/v1/invoices/{id}";
@@ -52,7 +52,7 @@ export default authenticate(async function (req, res) {
               paths[typeof path]["put"]["responses"][200]["content"]["application/json"]
             >
           >(path.replace("{id}", invoice_id), clientRequest)
-        ).data
+        ).data,
       );
   } else {
     return res.status(405).json(`${req.method} not supported`);

@@ -7,7 +7,7 @@ const authenticate = factory(process.env.JWT_SECRET!);
 
 type VercelApiHandler = (
   req: VercelRequest,
-  res: VercelResponse
+  res: VercelResponse,
 ) => Promise<unknown>;
 type Trans = (handler: VercelApiHandler) => VercelApiHandler;
 
